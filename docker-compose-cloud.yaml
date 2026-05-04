@@ -5,7 +5,7 @@ name: cloud
 services:
 
 #########################
-# Nextcloud | CLoud
+# Nextcloud | Cloud
 #########################
   nextcloud:
     image: lscr.io/linuxserver/nextcloud:latest
