@@ -1,0 +1,140 @@
+# ||--------------------------------------------------------------------------------||
+# ||                               Monitoring                                       ||
+# ||--------------------------------------------------------------------------------||
+name: monitoring
+services:
+
+#########################
+# PORTAINER | 
+#########################
+  portainer:
+    container_name: portainer
+    image: portainer/portainer-ce:sts
+    hostname: portainer
+    env_file:
+      - ../.env
+    environment:
+      - PGID=${PGID}
+      - PUID=${PUID}
+      - TZ=${TZ}
+      - UMASK=${UMASK}
+    labels:
+      - io.portainer.accesscontrol.public    
+    networks:
+      - tailscale_net 
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${CONFIG_BASE_DIR}/portainer:/data
+    ports:
+      - 9443:9443
+      - 9000:9000
+      - 8000:8000  # Remove if you do not intend to use Edge Agents
+    command: -H unix:///var/run/docker.sock --admin-password ${PORTAINER_PASSWORD}  
+    restart: unless-stopped
+
+#########################
+# UPTIMEKUMA | Monitoring server
+#########################
+  uptime-kuma:
+    image: louislam/uptime-kuma:latest
+    container_name: uptime-kuma
+    volumes:
+      - ${CONFIG_BASE_DIR}/uptime-kuma:/data
+    networks:
+      - tailscale_net
+    restart: unless-stopped
+
+#########################
+# NETDATA | Monitoring server
+#########################
+  netdata:
+    image: netdata/netdata:latest
+    container_name: netdata
+    ports:
+      - "19999:19999"
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - tailscale_net
+    restart: unless-stopped
+
+#########################
+# LOKI | Logs (optionnel)
+#########################
+  loki:
+    image: grafana/loki:latest
+    container_name: loki
+    volumes:
+      - ${CONFIG_BASE_DIR}/loki/:/data
+    networks:
+      - tailscale_net
+    command: -config.file=/etc/loki/local-config.yaml
+    restart: unless-stopped
+
+#########################
+# PROMTAIL | 
+#########################
+  promtail:
+    image: grafana/promtail:latest
+    container_name: promtail
+    volumes:
+      - ./promtail:/config
+      - ${CONFIG_BASE_DIR}/promtail:/log
+    networks:
+      - tailscale_net
+    command: -config.file=/etc/promtail/config.yml
+    restart: unless-stopped
+
+#########################
+# FILEBROWSER | File manager
+#########################
+  filebrowser:
+    image: filebrowser/filebrowser
+    container_name: filebrowser
+    environment:
+      - PUID=1000 #"id $user" to find your uid & gid values
+      - PGID=1000
+    volumes:
+      - ${CONFIG_BASE_DIR}/filebrowser:/srv #change 'user' to the name of your account
+      - ${CONFIG_BASE_DIR}/filebrowser:/database #this will create the filebrowser.db file
+      - ${CONFIG_BASE_DIR}/filebrowser:/config #this will create the settings.json file
+    networks:
+      - tailscale_net      
+    ports:
+      - 8081:80 #default port is 8080, change as needed. Don't change the right hand side port (port 80)
+    restart: unless-stopped
+
+#########################
+# CODE-SERVER | Visual Studio Code editor
+#########################
+  code-server:
+    image: lscr.io/linuxserver/code-server:latest
+    container_name: code-server
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - PASSWORD=password #optional
+      - HASHED_PASSWORD= #optional
+      - SUDO_PASSWORD=password #optional
+      - SUDO_PASSWORD_HASH= #optional
+      - PROXY_DOMAIN=code-server.my.domain #optional
+      - DEFAULT_WORKSPACE=/config/workspace #optional
+      - PWA_APPNAME=code-server #optional
+    volumes:
+      - ${CONFIG_BASE_DIR}/code-server:/config
+    networks:
+      - tailscale_net      
+    ports:
+      - 8443:8443
+    restart: unless-stopped
+
+#########################
+# NETWORK | 
+#########################
+networks:
+  tailscale_net:
+    driver: bridge
+    external: true

@@ -1,0 +1,193 @@
+# ||--------------------------------------------------------------------------------||
+# ||                               Réseau et accès                                  ||
+# ||--------------------------------------------------------------------------------||
+name: security
+services:
+
+#########################
+# TAILSCALE | Accès distant sécurisé
+#########################
+  tailscale:
+    image: tailscale/tailscale:latest
+    container_name: tailscale
+    hostname: ${TAILSCALE_HOSTNAME}
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+      - SYS_MODULE
+    #privileged: true
+    environment:
+      - PGID=${PGID}
+      - PUID=${PUID}
+      - TAILSCALE_HOSTNAME=${TAILSCALE_HOSTNAME:?err}
+      - TAILSCALE_STATE_ARG=${TAILSCALE_STATE_ARG}
+      - TS_ACCEPT_DNS=${TS_ACCEPT_DNS} # Désactive le DNS de Tailscale (AdGuard gère ça)
+      - TS_AUTHKEY=${TS_AUTHKEY:?err}
+      - TS_DEST_IP=${TS_DEST_IP}
+      - TS_EXTRA_ARGS=${TS_EXTRA_ARGS} 
+      #- TS_HOSTNAME=home-server
+      - TS_KUBE_SECRET=${TS_KUBE_SECRET}
+      - TS_OUTBOUND_HTTP_PROXY_LISTEN=${TS_OUTBOUND_HTTP_PROXY_LISTEN}
+      - TS_ROUTES=${TS_ROUTES}
+      - TS_SOCKET=${TS_SOCKET}
+      - TS_SOCKS5_SERVER=${TS_SOCKS5_SERVER}
+      - TS_STATE_DIR=${TS_STATE_DIR}
+      - TS_TAILSCALED_EXTRA_ARGS=${TS_TAILSCALED_EXTRA_ARGS}
+      - TS_USERSPACE=${TS_USERSPACE}
+      - TZ=${TZ}
+      - UMASK=${UMASK}
+    volumes:
+      - ${CONFIG_BASE_DIR}/tailscale:/state
+      - /dev/net/tun:/dev/net/tun
+      - ${CONFIG_BASE_DIR}/tailscale:/tmp
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    networks:
+      - tailscale_net
+    restart: unless-stopped
+#  nginx:
+#    image: nginx
+#    container_name: nginx-tailscale
+#    depends_on:
+#      - tailscale
+#    network_mode: service:tailscale
+
+#########################
+# ADGUARDHOME | Home DNS
+#########################
+  adguardhome:
+    image: adguard/adguardhome:latest
+    container_name: adguardhome
+    ports:
+      - 53:53/tcp # plain dns over tcp
+      - 53:53/udp # plain dns over udp
+      - 82:82/tcp # http web interface
+      - 3000:3000/tcp # initial setup web interface
+    volumes:
+      - ${CONFIG_BASE_DIR}/adguardhome:/config # app configuration
+      - ${CONFIG_BASE_DIR}/adguardhome:/work # app working directory
+    networks:
+      - tailscale_net
+      - media_net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+#########################
+# NGINX | Reverse proxy + https
+#########################
+  nginx-proxy-manager:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: nginx-pm
+    environment:
+      - TZ=${TZ}
+    ports:
+      - '80:80' # public http port
+      - '81:81' # admin web port
+      - '443:443' # public https port
+    volumes:
+      - ${CONFIG_BASE_DIR}/nginx:/config
+      - ${CONFIG_BASE_DIR}/nginx:/data
+      - ${CONFIG_BASE_DIR}/letsencrypt:/etc/letsencrypt
+#    depends_on:
+#      - jellyfin
+#      - navidrome
+#      - sonarr
+#      - radarr
+#      - lidarr
+#      - bazarr
+#      - homarr
+#      - qbittorrent
+#      - prowlarr
+#      - seerr
+#      - immich
+    networks:
+      - media_net
+      - tailscale_net
+    restart: unless-stopped
+
+#########################
+# VAULTWARDEN | keychain
+#########################
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vaultwarden
+    environment:
+      - WEBSOCKET_ENABLED=true
+      - SIGNUPS_ALLOWED=false
+      - ADMIN_TOKEN=${VAULTWARDEN_ADMIN_TOKEN}
+    volumes:
+      - ${CONFIG_BASE_DIR}/vaultwarden:/data
+    networks:
+      - cloud_net
+      - tailscale_net
+    restart: unless-stopped
+
+#########################
+# Flaresolverr | solve Cloudflare
+#########################
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    environment:
+      - LOG_LEVEL=info
+      - LOG_HTML=false
+      - CAPTCHA_SOLVER=none
+    networks:
+      - media_net
+    restart: unless-stopped
+
+#########################
+# CROWDSEC | Security Layer
+#########################
+  crowdsec:
+    image: crowdsecurity/crowdsec:latest
+    container_name: crowdsec
+    volumes:
+      - ${CONFIG_BASE_DIR}/crowdsec:/data
+      - ${CONFIG_BASE_DIR}/crowdsec:/config
+    networks:
+      - tailscale_net
+    restart: unless-stopped
+
+#########################
+# WATCHTOWER | maj auto contener
+#########################
+  watchtower:
+    image: containrrr/watchtower:latest
+    container_name: watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_POLL_INTERVAL=86400  # 24h
+      - WATCHTOWER_EXCLUDE=portainer gluetun  # Ne pas mettre à jour ces conteneurs
+    networks:
+      - tailscale_net
+    restart: unless-stopped
+
+#########################
+# NETWORKS | 
+#########################
+networks:
+  media_net:  # Jellyfin, Navidrome, Servarr, Bazarr, Homarr
+    name: media_net
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.enable_icc: "true"
+      com.docker.network.bridge.enable_ip_masquerade: "true"
+      com.docker.network.bridge.host_binding_ipv4: "0.0.0.0"
+      com.docker.network.bridge.name: "media_net"
+      com.docker.network.driver.mtu: "1500"
+    ipam:
+      config:
+        - subnet: ${SUBNET}
+          gateway: ${GATEWAY_IP}
+          ip_range: ${IP_RANGE}
+  tailscale_net:   # Tailscale, AdGuard, Syncthing, Homarr, Nginx
+    driver: bridge
+  cloud_net:   # Nextcloud Syncthing Varguarden
+    driver: bridge  
