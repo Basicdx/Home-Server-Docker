@@ -43,6 +43,7 @@ services:
     
 networks:
   frontend_net:
+    driver: bridge
     external: true
   backend_net:
     driver: bridge
