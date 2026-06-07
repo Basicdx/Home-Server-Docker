@@ -1,0 +1,512 @@
+version: "3.8"
+
+# --- Réseaux ---
+networks:
+  proxy:               # Réseau pour les services exposés (reverse proxy)
+    name: proxy
+    driver: bridge
+  internal:            # Réseau isolé pour les services sensibles (torrent, Arr Stack)
+    name: internal
+    internal: true
+  tailscale:           # Réseau pour Tailscale
+    name: tailscale
+    driver: bridge
+
+# --- Volumes ---
+volumes:
+  caddy_data:
+  adguard_data:
+  tailscale_state:
+
+# --- Services ---
+services:
+  # ========== REVERSE PROXY (Caddy) ==========
+  caddy:
+    image: caddy:2.7-alpine
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - caddy_data:/data
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+    networks:
+      - proxy
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  # ========== DNS + BLOCAGE (AdGuard Home) ==========
+  adguard:
+    image: adguard/adguardhome:latest
+    container_name: adguard
+    restart: unless-stopped
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "3000:3000"  # Interface web
+    volumes:
+      - adguard_data:/opt/adguardhome/work
+      - ./adguard/conf:/opt/adguardhome/conf
+    networks:
+      - proxy
+    dns:
+      - 127.0.0.1
+    cap_add:
+      - NET_ADMIN
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  # ========== VPN (Tailscale) ==========
+  tailscale:
+    image: tailscale/tailscale:latest
+    container_name: tailscale
+    restart: unless-stopped
+    volumes:
+      - tailscale_state:/var/lib/tailscale
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    environment:
+      - TS_AUTHKEY=${TAILSCALE_AUTHKEY}  # À générer sur https://login.tailscale.com/admin/settings/keys
+      - TS_HOSTNAME=imac-homelab
+      - TS_STATE_DIR=/var/lib/tailscale
+    networks:
+      - tailscale
+      - proxy
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  # ========== MONITORING ==========
+  dockge:
+    image: louislam/dockge:latest
+    container_name: dockge
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./dockge:/app/data
+    networks:
+      - proxy
+    labels:
+      - "caddy=docker.tondomaine.duckdns.org"
+      - "caddy.reverse_proxy={{upstreams 8080}}"
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    restart: unless-stopped
+    volumes:
+      - ./homepage:/app/config
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - proxy
+    labels:
+      - "caddy=home.tondomaine.duckdns.org"
+      - "caddy.reverse_proxy={{upstreams 3000}}"
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  uptime-kuma:
+    image: louislam/uptime-kuma:latest
+    container_name: uptime-kuma
+    restart: unless-stopped
+    volumes:
+      - ./uptime-kuma:/app/data
+    networks:
+      - proxy
+    labels:
+      - "caddy=status.tondomaine.duckdns.org"
+      - "caddy.reverse_proxy={{upstreams 3001}}"
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  watchtower:
+    image: containrrr/watchtower:latest
+    container_name: watchtower
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_POLL_INTERVAL=3600  # Vérifie les mises à jour toutes les heures
+    networks:
+      - proxy
+    labels:
+      - "com.centurylinklabs.watchtower.enable=false"  # Évite de se mettre à jour lui-même
+
+  # ========== SÉCURITÉ ==========
+  crowdsec:
+    image: crowdsecurity/crowdsec:latest
+    container_name: crowdsec
+    restart: unless-stopped
+    volumes:
+      - ./crowdsec/data:/var/lib/crowdsec/data
+      - ./crowdsec/config:/etc/crowdsec
+    environment:
+      - COLLECTIONS=crowdsecurity/linux crowdsecurity/caddy crowdsecurity/docker
+    networks:
+      - proxy
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  # ========== MÉDIAS ==========
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: jellyfin
+    restart: unless-stopped
+    volumes:
+      - ./jellyfin/config:/config
+      - /Users/laurent/homelab/storage/media:/media  # Chemin vers ton disque externe
+    environment:
+      - PUID=501  # UID de ton user macOS (trouve-le avec `id -u`)
+      - PGID=20  # GID de ton user macOS (trouve-le avec `id -g`)
+      - TZ=Europe/Paris
+      - JELLYFIN_PublishedServerUrl=https://jellyfin.tondomaine.duckdns.org
+      - DISABLE_TRANSCODING=true  # Désactive le transcoding (CPU trop faible)
+    networks:
+      - proxy
+    labels:
+      - "caddy=jellyfin.tondomaine.duckdns.org"
+      - "caddy.reverse_proxy={{upstreams 8096}}"
+      - "com.centurylinklabs.watchtower.enable=true"
+    # Limite la RAM pour éviter les OOM
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+
+  navidrome:
+    image: deluan/navidrome:latest
+    container_name: navidrome
+    restart: unless-stopped
+    volumes:
+      - ./navidrome/config:/data
+      - /Users/laurent/homelab/storage/media/music:/music
+    environment:
+      - PUID=501
+      - PGID=20
+      - TZ=Europe/Paris
+    networks:
+      - proxy
+    labels:
+      - "caddy=music.tondomaine.duckdns.org"
+      - "caddy.reverse_proxy={{upstreams 4533}}"
+      - "com.centurylinklabs.watchtower.enable=true"
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+
+  immich:
+    image: ghcr.io/immich-app/server:latest
+    container_name: immich
+    restart: unless-stopped
+    volumes:
+      - ./immich/config:/usr/src/app/upload
+      - /Users/laurent/homelab/storage/media/photos:/usr/src/app/upload
+    environment:
+      - DB_HOSTNAME=immich-postgres
+      - REDIS_HOSTNAME=immich-redis
+      - PUID=501
+      - PGID=20
+      - TZ=Europe/Paris
+    networks:
+      - proxy
+      - internal
+    labels:
+      - "caddy=photos.tondomaine.duckdns.org"
+      - "caddy.reverse_proxy={{upstreams 2283}}"
+      - "com.centurylinklabs.watchtower.enable=true"
+    depends_on:
+      - immich-postgres
+      - immich-redis
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+
+  # Dépendances pour Immich
+  immich-postgres:
+    image: tensorchord/pgvecto-rs:pg14-0.1.11
+    container_name: immich-postgres
+    restart: unless-stopped
+    volumes:
+      - ./immich/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=immich
+      - POSTGRES_USER=immich
+      - POSTGRES_DB=immich
+    networks:
+      - internal
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+
+  immich-redis:
+    image: redis:7
+    container_name: immich-redis
+    restart: unless-stopped
+    volumes:
+      - ./immich/redis:/data
+    networks:
+      - internal
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+  # ========== CLOUD ==========
+  nextcloud:
+    image: nextcloud/all-in-one:latest
+    container_name: nextcloud
+    restart: unless-stopped
+    volumes:
+      - ./nextcloud:/mnt/docker-aio-config
+      - /Users/laurent/homelab/storage:/mnt/storage  # Stockage des fichiers
+    environment:
+      - NEXTCLOUD_DATADIR=/mnt/storage/nextcloud
+      - PUID=501
+      - PGID=20
+      - TZ=Europe/Paris
+    networks:
+      - proxy
+    labels:
+      - "caddy=cloud.tondomaine.duckdns.org"
+      - "caddy.reverse_proxy={{upstreams 80}}"
+      - "com.centurylinklabs.watchtower.enable=true"
+    deploy:
+      resources:
+        limits:
+          memory: 3G
+
+  syncthing:
+    image: lscr.io/linuxserver/syncthing:latest
+    container_name: syncthing
+    restart: unless-stopped
+    volumes:
+      - ./syncthing/config:/config
+      - /Users/laurent/homelab/storage:/data
+    environment:
+      - PUID=501
+      - PGID=20
+      - TZ=Europe/Paris
+    ports:
+      - "8384:8384"  # Interface web
+      - "22000:22000/tcp"  # Port de sync
+      - "22000:22000/udp"
+    networks:
+      - proxy
+      - tailscale  # Pour accès distant via Tailscale
+    labels:
+      - "caddy=syncthing.tondomaine.duckdns.org"
+      - "caddy.reverse_proxy={{upstreams 8384}}"
+      - "com.centurylinklabs.watchtower.enable=true"
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vaultwarden
+    restart: unless-stopped
+    volumes:
+      - ./vaultwarden:/data
+    environment:
+      - PUID=501
+      - PGID=20
+      - TZ=Europe/Paris
+    networks:
+      - proxy
+    labels:
+      - "caddy=vault.tondomaine.duckdns.org"
+      - "caddy.reverse_proxy={{upstreams 80}}"
+      - "com.centurylinklabs.watchtower.enable=true"
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+  # ========== DOWNLOADS + ARR STACK ==========
+  gluetun:
+    image: qmcgaw/gluetun:v3
+    container_name: gluetun
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    volumes:
+      - ./gluetun:/gluetun
+    environment:
+      - VPN_SERVICE_PROVIDER=mullvad  # ou nordvpn
+      - VPN_TYPE=wireguard
+      - WIREGUARD_PRIVATE_KEY=${GLUETUN_PRIVATE_KEY}  # À générer via Mullvad
+      - WIREGUARD_ADDRESS=10.64.0.2/24
+      - FIREWALL_VPN_INPUT_PORTS=8080  # Port pour qBittorrent
+    networks:
+      - internal
+    restart: unless-stopped
+
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    network_mode: "service:gluetun"  # Tout le trafic passe par Gluetun
+    volumes:
+      - ./qbittorrent/config:/config
+      - /Users/laurent/homelab/storage/downloads:/downloads
+    environment:
+      - PUID=501
+      - PGID=20
+      - TZ=Europe/Paris
+      - WEBUI_PORT=8080
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+
+  qbittorrent-port-forwarder:
+    image: ghcr.io/autobrr/qbittorrent-port-forwarder:latest
+    container_name: qbittorrent-port-forwarder
+    restart: unless-stopped
+    environment:
+      - QBITTORRENT_HOST=gluetun  # car qBittorrent est en network_mode: service:gluetun
+      - QBITTORRENT_PORT=8080
+      - QBITTORRENT_USERNAME=admin
+      - QBITTORRENT_PASSWORD=${QBITTORRENT_PASSWORD}
+      - PORT_FORWARDER_INTERVAL=60
+    networks:
+      - internal
+    depends_on:
+      - gluetun
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+
+  # Arr Stack
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    volumes:
+      - ./arr-stack/prowlarr/config:/config
+    environment:
+      - PUID=501
+      - PGID=20
+      - TZ=Europe/Paris
+    networks:
+      - internal
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    volumes:
+      - ./arr-stack/sonarr/config:/config
+      - /Users/laurent/homelab/storage/media:/media
+      - /Users/laurent/homelab/storage/downloads:/downloads
+    environment:
+      - PUID=501
+      - PGID=20
+      - TZ=Europe/Paris
+    networks:
+      - internal
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    volumes:
+      - ./arr-stack/radarr/config:/config
+      - /Users/laurent/homelab/storage/media:/media
+      - /Users/laurent/homelab/storage/downloads:/downloads
+    environment:
+      - PUID=501
+      - PGID=20
+      - TZ=Europe/Paris
+    networks:
+      - internal
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+
+  lidarr:
+    image: lscr.io/linuxserver/lidarr:latest
+    container_name: lidarr
+    volumes:
+      - ./arr-stack/lidarr/config:/config
+      - /Users/laurent/homelab/storage/media/music:/music
+      - /Users/laurent/homelab/storage/downloads:/downloads
+    environment:
+      - PUID=501
+      - PGID=20
+      - TZ=Europe/Paris
+    networks:
+      - internal
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    volumes:
+      - ./arr-stack/bazarr/config:/config
+      - /Users/laurent/homelab/storage/media:/media
+    environment:
+      - PUID=501
+      - PGID=20
+      - TZ=Europe/Paris
+    networks:
+      - internal
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    environment:
+      - LOG_LEVEL=info
+    networks:
+      - internal
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+
+  unpackerr:
+    image: golift/unpackerr:latest
+    container_name: unpackerr
+    volumes:
+      - /Users/laurent/homelab/storage/downloads:/downloads
+    environment:
+      - UN_SONARR_0_URL=http://sonarr:8989
+      - UN_SONARR_0_API_KEY=${SONARR_API_KEY}
+      - UN_RADARR_0_URL=http://radarr:7878
+      - UN_RADARR_0_API_KEY=${RADARR_API_KEY}
+      - UN_LIDARR_0_URL=http://lidarr:8686
+      - UN_LIDARR_0_API_KEY=${LIDARR_API_KEY}
+    networks:
+      - internal
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 256M
