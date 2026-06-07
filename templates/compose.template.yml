@@ -3,8 +3,8 @@ services:
 # APP | Use
 #########################
   app:
-    image: xxx
-    container_name: xxx
+    image: IMAGE:TAG
+    container_name: NAME
     # network-mode: service:
     env_file:
       - .env
@@ -16,10 +16,10 @@ services:
       - ./config:/config
       - ./data:/data
 
-    networks:
-      - xxx
     ports:
-      - xxx:xxx  
+      - "HOST_PORT:CONTAINER_PORT"  
+    networks:
+      - xxx    
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
