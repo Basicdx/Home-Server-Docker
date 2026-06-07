@@ -5,33 +5,45 @@ services:
   app:
     image: IMAGE:TAG
     container_name: NAME
-    # network-mode: service:
+    restart: unless-stopped    
+    # network-mode: service:NAME
     env_file:
-      - .env
+      - {BASE_DIR}/.env
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
+      - NAME_PASSWORD=${PASSWORD}
+      - NAME_API_KEY=${SERVICE_API_KEY}
+      - NAME_TOKEN=${NAME_TOKEN}
+    ports:
+      - "HOST_PORT:CONTAINER_PORT" #HTTP
+      - "HOST_PORT:CONTAINER_PORT" #HTTPS
+      - "HOST_PORT:CONTAINER_PORT" #WEBUI      
     volumes:
       - ./config:/config
       - ./data:/data
-
-    ports:
-      - "HOST_PORT:CONTAINER_PORT"  
+      - ${MEDIA_DIR}:/media:ro
+      - ${DOWNLOAD_DIR}:/downloads
     networks:
-      - xxx    
+      - network_name    
     security_opt:
       - no-new-privileges:true
-    restart: unless-stopped
-  
-    # depends_on:
-    #   - 
+    cap_add:
+      - NET_ADMIN      
     # deploy:
     #   resources:
     #     limits:
     #       memory:
-    #       cpus: 
-
+    #       cpus:   
+    # depends_on:
+    #   - 
+    
+    
 networks:
-  xxx_net:
+  frontend_net:
+    external: true
+  backend_net:
+    external: true
+  download_net:
     external: true
