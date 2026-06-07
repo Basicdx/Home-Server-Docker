@@ -42,12 +42,15 @@ services:
     # healthcheck:
     
 networks:
+  # Exposed Services
   frontend_net:
     driver: bridge
     external: true
+  # Database  
   backend_net:
     driver: bridge
     external: true
+  # Torrent
   download_net:
     driver: bridge
     external: true
