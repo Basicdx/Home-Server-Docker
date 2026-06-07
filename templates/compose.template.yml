@@ -14,8 +14,8 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
-      - NAME_PASSWORD=${PASSWORD}
-      - NAME_API_KEY=${SERVICE_API_KEY}
+      - NAME_PASSWORD=${NAME_PASSWORD}
+      - NAME_API_KEY=${NAME_API_KEY}
       - NAME_TOKEN=${NAME_TOKEN}
     ports:
       - "HOST_PORT:CONTAINER_PORT" #HTTP
