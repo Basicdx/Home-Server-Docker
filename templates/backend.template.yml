@@ -1,0 +1,26 @@
+services:
+
+  db:
+    image: postgres:17
+    container_name: db
+
+    env_file:
+      - ../../.env
+
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+
+    volumes:
+      - ./db:/var/lib/postgresql/data
+
+    networks:
+      - backend_net
+
+    security_opt:
+      - no-new-privileges:true
+
+    restart: unless-stopped
+
+networks:
+  backend_net:
+    external: true
