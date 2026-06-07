@@ -2,17 +2,22 @@
 
 ## 🧱 MONITORING
 - Dockge → Docker management
-- Homepage → dashboard (or Homarr, Dash)
+- Homepage → dashboard (or Homarr, Dashy)
 - Uptime Kuma → monitoring
+- Watchtower → automatic maj
+- Grafana
+- Prometheus
+- Renovate??? → Maj docker image via PR Github
+- MergeFS??? → Merge disks
 
 ---
 
 ## 🔐 SECURITY & REVERSE PROXY
 - ?Cloudflare → DNS-only, no proxy
-- Traefic → reverse proxy + TLS Termination (or Caddy auto-HTTPS, or Nginx) 
-- Tailscale → remote access (or Wireguard)
+- Traefic v3 → reverse proxy + TLS Termination (or Caddy auto-HTTPS, or Nginx) 
+- Tailscale → VPN remote access (or Wireguard) (NordVPN, Mullvad)
 - AdGuard Home → DNS filtering (or Pihole)
-- CrowdSec → block malware IP
+- CrowdSec → block malware IP (replace Fail2ban)
 - Authelia → 2FA / SSO for services
 
 ---
