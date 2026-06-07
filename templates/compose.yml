@@ -6,29 +6,32 @@ services:
     image: 
     container_name:
     # network-mode: service:
+    env_file:
+      - .env
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - ${CONFIG_ROOT}/app:/app/config
-      - ${DATA_ROOT}/app:/app/data
+      - ./config:/config
+      - ./data:/data
 
-    # depends_on:
-    #   - 
     networks:
       - 
     ports:
-      - 
+      -       
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+  
+    # depends_on:
+    #   - 
     # deploy:
     #   resources:
     #     limits:
     #       memory:
     #       cpus: 
-    security_opt:
-      - no-new-privileges:true
-    restart: unless-stopped
 
 networks:
-  ${networks_net}:
+  frontend_net:
     external: true
