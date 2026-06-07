@@ -1,31 +1,50 @@
-# CORE
-  - Caddy reverse proxy
-  - Adguard DNS
-  - Tailscale VPN
-  - Dockge
-  - Homepage
-  - Uptime-kumauma
+# 📦 Services Overview
 
-vaultwarden + env inject
+## 🧱 CORE
+- Dockge → Docker management
+- Homepage → dashboard
+- Uptime Kuma → monitoring
+- Tailscale → remote access
+- AdGuard Home → DNS filtering
+- Caddy → reverse proxy
 
-# MEDIA
-  - Jellyfin
-  - Navidrome
-  - Immich
+---
 
-# CLOUD
-  - Nextcloud
-  - Vaulwarden
+## 🎬 MEDIA
 
-# DOWNLOADS
-  - Qbitorrent
-  - Gluetun
+- Jellyfin → video streaming
+- Navidrome → music server
+- Immich → photo management
 
-# SERVARR
-  - Prowlarr
+---
+
+## ☁️ CLOUD
+
+- Nextcloud → personal cloud
+- Vaultwarden → password manager
+
+---
+
+## ⬇️ DOWNLOADS
+- Qbitorrent
+- Gluetun
+- Arr Stack
+
+---
+
+## SERVARR
+  - Prowlarr → indexer manager
   - Radarr
   - Sonarr
   - Bazarr
 
-# SECURITY
-  - Crowndsec
+---
+
+## 🔐 SECURITY
+- CrowdSec → intrusion protection
+
+---
+
+## 🧠 Notes
+
+All services are deployed as independent Docker Compose stacks.
