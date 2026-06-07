@@ -13,9 +13,9 @@
 - One service per compose.yml
 - Always restart: unless-stopped
 - Always define:
-  - TZ=Europe/Paris
-  - PUID=1000
-  - PGID=1000 (if needed)
+  - TZ=${TZ}
+  - PUID=${PUID}
+  - PGID=${PGID} (if needed)
 - Never expose unnecessary ports
 - Use networks:
   - frontend_net (user-facing services)
@@ -38,10 +38,11 @@
 - Use reverse proxy (Caddy) for public access
 - Vaultwarden is critical service → always isolated
 - No container should run as root unless necessary
-- Add errors (?err) in sensitives environment variables
+- Add errors (?err) in sensitives environment variables (if needed)
+- healthcheck: (if needed)
 - Always include:
   security_opt:
-    - no-new-privileges:true
+    - no-new-privileges:true 
 
 ---
 
