@@ -39,7 +39,7 @@ home-server-docker/
 - **media_net** -> (optionnel)
 
 # WORKFLOW
-
+```text
 Internet
    │
    ▼
@@ -69,3 +69,4 @@ Traefik v3 (Reverse Proxy + TLS Termination)
    │
    ├── WireGuard/Tailscale (VPN pour accès distant)
    └── Pi-hole/AdGuard Home (DNS + blocage pubs)
+```
