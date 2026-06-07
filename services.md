@@ -40,17 +40,18 @@
 
 ## ⬇️ DOWNLOADS
 - Qbitorrent → downloads
-- Gluetun → VPN routing
+- Gluetun → VPN client
 - Arr Stack → automation
 
 ---
 
 ## SERVARR
-  - Prowlarr → indexer manager
-  - Radarr → 
-  - Sonarr → 
-  - Bazarr → subtitles manager
-  - Lidarr → 
+- FlareSolverr → Bypasses Cloudflare protection for Indexers
+- Prowlarr → Indexer centralized management
+- Lidarr → Music
+- Radarr → Movies
+- Sonarr → TV Shows
+- Bazarr → Subtitles 
 ---
 
 ## 🧠 Notes
