@@ -12,20 +12,20 @@ décisions importantes
 home-server-docker/
 ├── backups/
 ├── compose/
-    ├── app
+    ├── service_name
         ├── data
         ├── config
         ├── compose.yml
-        ├── .env
-    ├── ...
+        └── .env
+    └── ...
 ├── docs/
         ├── architecture.md
         ├── decisions.md
-        ├── services.md
+        └── services.md
 ├── templates/
 └── .continue/
         ├── config.json
-        ├── rules.md
+        └── rules.md
 ```
 
 
