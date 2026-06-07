@@ -38,6 +38,7 @@
 - Use reverse proxy (Caddy) for public access
 - Vaultwarden is critical service → always isolated
 - No container should run as root unless necessary
+- Add errors (?err) in sensitives environment variables
 - Always include:
   security_opt:
     - no-new-privileges:true
@@ -64,5 +65,5 @@
 ## Hardware constraints
 - Target machine: iMac 2010
 - Avoid heavy AI / GPU workloads
-- Immich, Jellyfin must be optimized for low CPU usage
+- Containers like Immich, Jellyfin must be optimized for low CPU usage
 - Frigate only with hardware acceleration (future)
