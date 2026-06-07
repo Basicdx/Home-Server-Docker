@@ -4,7 +4,7 @@
 - Dockge → Docker management
 - Homepage → dashboard (or Homarr, Dashy)
 - Uptime Kuma → monitoring
-- Watchtower → automatic maj
+- 🚢 Watchtower → Automatic Docker Container maj
 - Grafana
 - Prometheus
 - Renovate??? → Maj docker image via PR Github
@@ -13,8 +13,8 @@
 ---
 
 ## 🔐 SECURITY & REVERSE PROXY
-- ?Cloudflare → DNS-only, no proxy
-- Traefic v3 → reverse proxy + TLS Termination (or Caddy auto-HTTPS, or Nginx) 
+- ?Cloudflare → DNS-only, no proxy (or Duckdns free)
+- 🌐 Traefic v3 → reverse proxy + TLS Termination (or Caddy auto-HTTPS, or Nginx) 
 - Tailscale → VPN remote access (or Wireguard) (NordVPN, Mullvad)
 - AdGuard Home → DNS filtering (or Pihole)
 - CrowdSec → block malware IP (replace Fail2ban)
@@ -24,7 +24,7 @@
 
 ## 🎬 MEDIA
 
-- Jellyfin → video streaming
+- 📡 Jellyfin → video streaming
 - Navidrome → music server
 - Immich → photo management
 
@@ -39,7 +39,8 @@
 ---
 
 ## ⬇️ DOWNLOADS
-- Qbitorrent → downloads
+- ⬇️ Qbitorrent → downloads
+- 🔄 qBittorrent Port Forwarder → 
 - Gluetun → VPN client
 - Arr Stack → automation
 
@@ -47,11 +48,12 @@
 
 ## SERVARR
 - FlareSolverr → Bypasses Cloudflare protection for Indexers
-- Prowlarr → Indexer centralized management
+- 🔍 Prowlarr → Indexer centralized management
 - Lidarr → Music
-- Radarr → Movies
-- Sonarr → TV Shows
-- Bazarr → Subtitles 
+- 🎬 Radarr → Movies
+- 📺 Sonarr → TV Shows
+- Bazarr → Subtitles
+- 📦 Unpackerr → Unpacking files
 ---
 
 ## 🧠 Notes
