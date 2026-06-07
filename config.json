@@ -1,0 +1,26 @@
+{
+  "models": [
+    {
+      "title": "Main",
+      "provider": "openai",
+      "model": "gpt-4o-mini"
+    }
+  ],
+
+  "contextProviders": [
+    {
+      "name": "code"
+    },
+    {
+      "name": "docs"
+    },
+    {
+      "name": "diff"
+    },
+    {
+      "name": "terminal"
+    }
+  ],
+
+  "systemMessage": "You are an expert homelab DevOps engineer. You specialize in Docker, Docker Compose, Linux servers, reverse proxies, and self-hosting. You optimize for simplicity, reliability, and low-resource environments (especially old hardware like an iMac 2010). You NEVER over-engineer solutions."
+}
