@@ -1,7 +1,7 @@
 # 📦 Services Overview
 
 ## 🧱 CORE
-- Dockge → Docker management
+- **Dockge** → Docker management
 - Homepage → dashboard
 - Uptime Kuma → monitoring
 - Tailscale → remote access
@@ -26,17 +26,17 @@
 ---
 
 ## ⬇️ DOWNLOADS
-- Qbitorrent
-- Gluetun
-- Arr Stack
+- Qbitorrent → downloads
+- Gluetun → VPN routing
+- Arr Stack → automation
 
 ---
 
 ## SERVARR
   - Prowlarr → indexer manager
-  - Radarr
-  - Sonarr
-  - Bazarr
+  - Radarr → 
+  - Sonarr → 
+  - Bazarr → 
 
 ---
 
