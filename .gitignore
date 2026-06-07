@@ -1,0 +1,6 @@
+**/config/
+**/data/
+**/cache/
+**/logs/
+*.env
+*.pyc

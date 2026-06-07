@@ -1,0 +1,30 @@
+services:
+########################
+# APP | Use
+#########################
+  app:
+    image: 
+    container_name:
+    # network-mode: service:
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${CONFIG_ROOT}/app:/app/config
+      - ${DATA_ROOT}/app:/app/data
+
+    # depends_on:
+    #   - 
+
+    networks:
+      - frontend_net
+    security_opt:
+      - no-new-privileges:true
+
+    # deploy:
+    #   resources:
+    #     limits:
+    #       memory:
+    #       cpus: 
+    restart: unless-stopped
