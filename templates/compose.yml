@@ -16,15 +16,19 @@ services:
 
     # depends_on:
     #   - 
-
     networks:
-      - frontend_net
-    security_opt:
-      - no-new-privileges:true
-
+      - 
+    ports:
+      - 
     # deploy:
     #   resources:
     #     limits:
     #       memory:
     #       cpus: 
+    security_opt:
+      - no-new-privileges:true
     restart: unless-stopped
+
+networks:
+  ${networks_net}:
+    external: true

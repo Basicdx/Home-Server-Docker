@@ -1,0 +1,24 @@
+services:
+########################
+# CADDY | Reverse Proxy
+#########################
+  caddy:
+    image: caddy:latest
+    container_name: caddy
+
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./data:/data
+      - ./config:/config
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - frontend_net
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+
+networks:
+  frontend_net:
+    external: true

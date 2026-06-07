@@ -5,46 +5,6 @@ name: monitoring
 services:
 
 #########################
-# PORTAINER | 
-#########################
-  portainer:
-    container_name: portainer
-    image: portainer/portainer-ce:sts
-    hostname: portainer
-    env_file:
-      - ../.env
-    environment:
-      - PGID=${PGID}
-      - PUID=${PUID}
-      - TZ=${TZ}
-      - UMASK=${UMASK}
-    labels:
-      - io.portainer.accesscontrol.public    
-    networks:
-      - tailscale_net 
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ${CONFIG_BASE_DIR}/portainer:/data
-    ports:
-      - 9443:9443
-      - 9000:9000
-      - 8000:8000  # Remove if you do not intend to use Edge Agents
-    command: -H unix:///var/run/docker.sock --admin-password ${PORTAINER_PASSWORD}  
-    restart: unless-stopped
-
-#########################
-# UPTIMEKUMA | Monitoring server
-#########################
-  uptime-kuma:
-    image: louislam/uptime-kuma:latest
-    container_name: uptime-kuma
-    volumes:
-      - ${CONFIG_BASE_DIR}/uptime-kuma:/data
-    networks:
-      - tailscale_net
-    restart: unless-stopped
-
-#########################
 # NETDATA | Monitoring server
 #########################
   netdata:

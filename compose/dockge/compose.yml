@@ -6,15 +6,21 @@ services:
     image: louislam/dockge:1
     container_name: dockge
 
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./data:/app/data
-      # dossiers de stacks
-      - /home/$USER/Homelab/compose:/opt/stacks
     environment:
       - DOCKGE_STACKS_DIR=/opt/stacks
-    
+    volumes:
+      - ./data:/app/data
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /home/$USER/Homelab/compose:/opt/stacks
+    networks:
+      - frontend_net
     ports:
       - "5001:5001"
-
+    security_opt:
+      - no-new-privileges:true    
     restart: unless-stopped
+  
+networks:
+  frontend_net:
+    driver: bridge
+    external: true

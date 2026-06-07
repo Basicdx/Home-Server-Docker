@@ -1,0 +1,51 @@
+services:
+########################
+# TAILSCALE | Secure Distant Access
+#########################
+  tailscale:
+    image: tailscale/tailscale:latest
+    container_name: tailscale
+    hostname: ${TAILSCALE_HOSTNAME}
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+      - SYS_MODULE
+    #privileged: true
+    env_file:
+      - $USER/Homelab/.env
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      # - TAILSCALE_HOSTNAME=${TAILSCALE_HOSTNAME:?err}
+      # - TAILSCALE_STATE_ARG=${TAILSCALE_STATE_ARG}
+      # - TS_ACCEPT_DNS=${TS_ACCEPT_DNS} # Désactive le DNS de Tailscale (AdGuard gère ça)
+      # - TS_AUTHKEY=${TS_AUTHKEY:?err}
+      # - TS_DEST_IP=${TS_DEST_IP}
+      # - TS_EXTRA_ARGS=${TS_EXTRA_ARGS} 
+      # #- TS_HOSTNAME=home-server
+      # - TS_KUBE_SECRET=${TS_KUBE_SECRET}
+      # - TS_OUTBOUND_HTTP_PROXY_LISTEN=${TS_OUTBOUND_HTTP_PROXY_LISTEN}
+      # - TS_ROUTES=${TS_ROUTES}
+      # - TS_SOCKET=${TS_SOCKET}
+      # - TS_SOCKS5_SERVER=${TS_SOCKS5_SERVER}
+      # - TS_STATE_DIR=${TS_STATE_DIR}
+      # - TS_TAILSCALED_EXTRA_ARGS=${TS_TAILSCALED_EXTRA_ARGS}
+      # - TS_USERSPACE=${TS_USERSPACE}
+      # - UMASK=${UMASK}      
+    volumes:
+      - ./data:/var/lib/tailscale
+      - /dev/net/tun:/dev/net/tun
+      # - ${CONFIG_BASE_DIR}/tailscale:/state
+      # - ${CONFIG_BASE_DIR}/tailscale:/tmp   
+    # devices:
+    #   - /dev/net/tun:/dev/net/tun         
+    networks:
+      - frontend_net
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+
+networks:
+  frontend_net:
+    external: true
