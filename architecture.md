@@ -5,7 +5,7 @@ choix structure
 règles compose
 décisions importantes
 
-## Project Structure
+## 📁 STRUCTURE
 ```text
 home-server-docker/
 ├── backups/
@@ -27,16 +27,18 @@ home-server-docker/
 ```
 
 
-# NETWORKS
-- **frontend_net** -> User-facing applications
+# 🌐 NETWORKS
+```text
+- frontend_net -> User-facing applications
         ( jellyfin, homepage, vaultwarden, immich, nextcloud )
-- **backend_net** -> Internal services
+- backend_net -> Internal services
         ( postgreSQL, redis, crowdsec, internal services )
-- **download_net** -> Isolated torrent / arr
+- download_net -> Isolated torrent / arr
         ( qbitorrent, gluten, arr stack )
-- **media_net** -> (optionnel)
+- media_net -> (optionnel)
+```
 
-# WORKFLOW
+# 🧱 WORKFLOW
 ```text
 Internet
    │
