@@ -30,7 +30,6 @@ home-server-docker/
 
 
 # NETWORKS
-```text
     - **frontend_net** -> User-facing applications
         ( jellyfin, homepage, vaultwarden, immich, nextcloud )
     - **backend_net** -> Internal services
@@ -38,4 +37,3 @@ home-server-docker/
     - **download_net** -> Isolated torrent / arr
         ( qbitorrent, gluten, arr stack )
     - **media_net** -> (optionnel)
-```text
