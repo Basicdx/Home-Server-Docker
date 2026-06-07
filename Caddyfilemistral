@@ -1,0 +1,37 @@
+# Caddyfile pour ton domaine DuckDNS (ex: tondomaine.duckdns.org)
+tondomaine.duckdns.org {
+    # Redirige HTTP vers HTTPS
+    @http {
+        protocol http
+    }
+    redir @http https://{host}{uri}
+
+    # Active le reverse proxy pour chaque service
+    handle_path /docker* {
+        reverse_proxy dockge:8080
+    }
+    handle_path /home* {
+        reverse_proxy homepage:3000
+    }
+    handle_path /status* {
+        reverse_proxy uptime-kuma:3001
+    }
+    handle_path /jellyfin* {
+        reverse_proxy jellyfin:8096
+    }
+    handle_path /music* {
+        reverse_proxy navidrome:4533
+    }
+    handle_path /photos* {
+        reverse_proxy immich:2283
+    }
+    handle_path /cloud* {
+        reverse_proxy nextcloud:80
+    }
+    handle_path /syncthing* {
+        reverse_proxy syncthing:8384
+    }
+    handle_path /vault* {
+        reverse_proxy vaultwarden:80
+    }
+}
