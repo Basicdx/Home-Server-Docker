@@ -12,7 +12,7 @@ décisions importantes
 home-server-docker/
 ├── backups/
 ├── compose/
-    ├── adguardhome
+    ├── app
         ├── data
         ├── config
         ├── compose.yml
@@ -30,7 +30,12 @@ home-server-docker/
 
 
 # NETWORKS
-frontend_net   -> UI / apps exposed
-backend_net    -> DB / internal services
-download_net   -> torrent / arr
-media_net      -> (optionnel)
+```text
+    - **frontend_net** -> UI / apps exposed
+        ( jellyfin, homepage, vaultwarden, immich, nextcloud )
+    - **backend_net** -> DB / internal services
+        ( postgreSQL, redis, crowdsec, internal services )
+    - **download_net** -> torrent / arr
+        ( qbitorrent, gluten, arr stack )
+    - **media_net** -> (optionnel)
+```text
