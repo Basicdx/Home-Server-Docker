@@ -5,6 +5,8 @@ services:
   adguardhome:
     image:  adguard/adguardhome:latest
     container_name: adguardhome
+    restart: unless-stopped
+    
     volumes:
       - ./work:/opt/adguardhome/work
       - ./conf:/opt/adguardhome/conf
@@ -22,7 +24,6 @@ services:
       retries: 3
     security_opt:
       - no-new-privileges:true
-    restart: unless-stopped
 
 networks:
   frontend_net:
