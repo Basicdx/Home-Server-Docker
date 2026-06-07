@@ -46,3 +46,19 @@ Core components:
 ## 📁 Structure
 
 Each service follows:
+  compose/service_name/
+    ├── compose.yml
+    ├── config/
+    └── data/
+
+---
+
+## ⚠️ Hardware constraints
+
+Target system:
+
+- iMac 2010
+- 16GB RAM
+- SSD system disk
+
+No heavy workloads unless optimized.
