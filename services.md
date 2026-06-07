@@ -2,9 +2,9 @@
 
 ## 🧱 MONITORING
 - Dockge → Docker management
-- Homepage → dashboard (or Homarr, Dashy)
-- Uptime Kuma → monitoring
-- 🚢 Watchtower → Automatic Docker Container maj
+- Homepage → Dashboard (or Homarr, Dashy)
+- Uptime Kuma → Monitoring
+- 🚢 Watchtower → Maj Docker Container
 - Grafana
 - Prometheus
 - Renovate??? → Maj docker image via PR Github
@@ -14,7 +14,7 @@
 
 ## 🔐 SECURITY & REVERSE PROXY
 - ?Cloudflare → DNS-only, no proxy (or Duckdns free)
-- 🌐 Traefic v3 → reverse proxy + TLS Termination (or Caddy auto-HTTPS, or Nginx) 
+- 🌐 Caddy → reverse proxy + TLS Termination + auto-HTTPS (or Traefic, Nginx) 
 - Tailscale → VPN remote access (or Wireguard) (NordVPN, Mullvad)
 - AdGuard Home → DNS filtering (or Pihole)
 - CrowdSec → block malware IP (replace Fail2ban)
@@ -39,9 +39,9 @@
 ---
 
 ## ⬇️ DOWNLOADS
-- ⬇️ Qbitorrent → downloads
+- ⬇️ Qbitorrent → torrent
 - 🔄 qBittorrent Port Forwarder → 
-- Gluetun → VPN client
+- Gluetun → VPN client for torrent
 - Arr Stack → automation
 
 ---
