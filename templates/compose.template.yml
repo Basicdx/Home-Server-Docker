@@ -45,6 +45,8 @@ networks:
   frontend_net:
     external: true
   backend_net:
+    driver: bridge
     external: true
   download_net:
+    driver: bridge
     external: true
