@@ -30,8 +30,11 @@ services:
       - network_name    
     security_opt:
       - no-new-privileges:true
-    # cap_add:
-    #   - NET_ADMIN      
+   # cap_drop:
+   #    - ALL  # Deactivate ALL default capabilities
+   #  cap_add:
+   #    - NET_ADMIN  # Manage network interface
+   #    - NET_RAW    # Manage RAW packages (necessary for Tailscale)    
     # deploy:
     #   resources:
     #     limits:
