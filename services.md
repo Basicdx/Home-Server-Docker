@@ -1,13 +1,19 @@
 # 📦 Services Overview
 
-## 🧱 CORE
-- ?Cloudflare → DNS-only, no proxy
-- Traefic → reverse proxy + TLS Termination (or Caddy) 
+## 🧱 MONITORING
 - Dockge → Docker management
 - Homepage → dashboard (or Homarr, Dash)
 - Uptime Kuma → monitoring
+
+---
+
+## 🔐 SECURITY & REVERSE PROXY
+- ?Cloudflare → DNS-only, no proxy
+- Traefic → reverse proxy + TLS Termination (or Caddy auto-HTTPS, or Nginx) 
 - Tailscale → remote access (or Wireguard)
 - AdGuard Home → DNS filtering (or Pihole)
+- CrowdSec → block malware IP
+- Authelia → 2FA / SSO for services
 
 ---
 
@@ -39,13 +45,7 @@
   - Radarr → 
   - Sonarr → 
   - Bazarr → subtitles manager
-
----
-
-## 🔐 SECURITY
-- CrowdSec → intrusion protection
-- Authelia → 2FA / SSO for services 
-
+  - Lidarr → 
 ---
 
 ## 🧠 Notes
