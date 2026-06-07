@@ -38,7 +38,7 @@
 - Use reverse proxy (Caddy) for public access
 - Vaultwarden is critical service → always isolated
 - No container should run as root unless necessary
-- Limit capabilities (like NET_ADMIN, NET_RAW) to containers who absolutly need it (like Tailscale, Glueten, AdGuard). And add just before:
+- Limit capabilities (like NET_ADMIN, NET_RAW) to containers who absolutly need it (VPN or DNS like Tailscale, Glueten, AdGuard). And add just before:
   cap_drop:
   - ALL
 - Add errors (?err) in sensitives environment variables (if needed)
