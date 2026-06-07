@@ -2,6 +2,11 @@
 
 # Architecture
 
+réseaux Docker
+choix structure
+règles compose
+décisions importantes
+
 ## Project Structure
 ```text
 home-server-docker/
