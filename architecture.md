@@ -31,11 +31,11 @@ home-server-docker/
 
 # NETWORKS
 ```text
-    - **frontend_net** -> UI / apps exposed
+    - **frontend_net** -> User-facing applications
         ( jellyfin, homepage, vaultwarden, immich, nextcloud )
-    - **backend_net** -> DB / internal services
+    - **backend_net** -> Internal services
         ( postgreSQL, redis, crowdsec, internal services )
-    - **download_net** -> torrent / arr
+    - **download_net** -> Isolated torrent / arr
         ( qbitorrent, gluten, arr stack )
     - **media_net** -> (optionnel)
 ```text
