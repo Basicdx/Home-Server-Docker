@@ -3,8 +3,8 @@ services:
 # APP | Use
 #########################
   app:
-    image: 
-    container_name:
+    image: xxx
+    container_name: xxx
     # network-mode: service:
     env_file:
       - .env
@@ -17,9 +17,9 @@ services:
       - ./data:/data
 
     networks:
-      - 
+      - xxx
     ports:
-      -       
+      - xxx:xxx  
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -33,5 +33,5 @@ services:
     #       cpus: 
 
 networks:
-  frontend_net:
+  xxx_net:
     external: true
