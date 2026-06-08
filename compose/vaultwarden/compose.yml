@@ -5,7 +5,9 @@ services:
   vaultwarden:
     image: vaultwarden/server:latest
     container_name: vaultwarden
-
+    
+    env_file:
+      - ${BASE_DIR}/.env
     environment:
       - TZ=${TZ}
       - WEBSOCKET_ENABLED=true

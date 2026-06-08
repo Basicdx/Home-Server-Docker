@@ -12,7 +12,7 @@ services:
       - SYS_MODULE
     #privileged: true
     env_file:
-      - $USER/Homelab/.env
+      - ${BASE_DIR}/.env
     environment:
       - PUID=${PUID}
       - PGID=${PGID}

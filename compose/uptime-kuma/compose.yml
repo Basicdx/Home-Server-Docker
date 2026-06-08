@@ -6,6 +6,8 @@ services:
     image: louislam/uptime-kuma:1
     container_name: uptime-kuma
 
+    env_file:
+      - ${BASE_DIR}/.env
     environment:
       - TZ=${TZ}
     volumes:

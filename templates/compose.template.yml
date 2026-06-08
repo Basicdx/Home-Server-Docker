@@ -24,6 +24,7 @@ services:
       - ./data:/data
       - ${MEDIA_DIR}:/media:ro
       - ${DOWNLOAD_DIR}:/downloads
+      
     networks:
       - network_name    
     security_opt:
