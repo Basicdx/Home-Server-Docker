@@ -73,3 +73,11 @@
 - Avoid heavy AI / GPU workloads
 - Containers like Immich, Jellyfin must be optimized for low CPU usage
 - Frigate only with hardware acceleration (future)
+
+## Repository Access
+
+You can use the `gh` CLI to:
+
+- Search for issues: `gh issue list --repo basicdx/home-server-docker`
+- View pull requests: `gh pr list --repo basicdx/home-server-docker`
+- Clone repositories: `gh repo clone basicdx/home-server-docker`
