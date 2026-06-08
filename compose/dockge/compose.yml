@@ -13,13 +13,13 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Paris
-      - DOCKGE_STACKS_DIR=/opt/stacks
+      - DOCKGE_STACKS_DIR=/home/basic/Homelab/compose
     cap_drop:
       - ALL
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./data:/app/data
-      - /opt/stacks:/opt/stacks
+      - ./compose:/opt/stacks
     networks:
       - frontend_net
     security_opt:
