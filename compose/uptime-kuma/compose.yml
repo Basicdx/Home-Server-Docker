@@ -7,14 +7,12 @@ services:
     container_name: uptime-kuma
 
     env_file:
-      - ${BASE_DIR}/.env
+      - ../.env
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
 
-    cap_drop:
-      - ALL
     volumes:
       - ./data:/app/data
     networks:
