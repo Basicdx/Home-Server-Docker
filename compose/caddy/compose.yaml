@@ -7,18 +7,24 @@ services:
     container_name: caddy
     restart: unless-stopped
   
-    ports:
-      - "80:80"
-      - "443:443"
     volumes:
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./conf:/etc/caddy
+      - ./site:/srv
       - ./data:/data
       - ./config:/config
     networks:
       - frontend_net
+    ports:
+      - "80:80"
+      - "443:443"
     security_opt:
       - no-new-privileges:true
 
+volumes:
+  caddy_data:
+  caddy_config:
+  
 networks:
   frontend_net:
     external: true

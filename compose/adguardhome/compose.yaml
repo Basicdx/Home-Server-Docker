@@ -11,15 +11,11 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
-
     cap_drop:
       - ALL
     cap_add:
       - NET_ADMIN
       - NET_RAW
-
-    env_file:
-      - ../.env    
     volumes:
       - ${BASE_DIR}/adguardhome:/config # app configuration
       - ${BASE_DIR}/adguardhome:/work # app working directory
