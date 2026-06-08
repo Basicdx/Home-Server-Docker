@@ -1,0 +1,46 @@
+Monorepo Home Server.
+
+Règles :
+- Docker Compose v2 uniquement
+- Pas de stack monolithique
+- Un dossier par application
+- Volumes persistants sur /data
+- Tous les services doivent avoir :
+  security_opt:
+    - no-new-privileges:true
+- Réseau frontend/backend séparés
+- Générer README.md à chaque nouvelle app
+
+Tu travailles sur un Home Server Debian.
+
+Architecture :
+
+- Un dossier par application
+- Docker Compose uniquement
+- Gestion via Dockge
+- Pas de docker run
+- Pas de stack géante
+
+Sécurité :
+
+- no-new-privileges:true
+- utilisateur non-root quand possible
+- volumes bind explicites
+- réseaux isolés
+
+Documentation :
+
+- Maintenir README.md
+- Maintenir docs/architecture.md
+- Maintenir docs/services.md
+- Maintenir docs/decisions.md
+
+Quand une modification impacte l'architecture,
+mettre à jour la documentation concernée.
+
+Avant toute modification :
+
+Lire :
+- docs/architecture.md
+- docs/services.md
+- docs/decisions.md
