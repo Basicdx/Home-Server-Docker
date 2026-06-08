@@ -36,10 +36,10 @@ services:
     volumes:
       - ./data:/var/lib/tailscale
       - /dev/net/tun:/dev/net/tun
-      # - ${CONFIG_BASE_DIR}/tailscale:/state
-      # - ${CONFIG_BASE_DIR}/tailscale:/tmp   
-    # devices:
-    #   - /dev/net/tun:/dev/net/tun         
+      - ${BASE_DIR}/tailscale:/state
+      - ${BASE_DIR}/tailscale:/tmp   
+    devices:
+      - /dev/net/tun:/dev/net/tun         
     networks:
       - frontend_net
     security_opt:

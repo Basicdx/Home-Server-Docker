@@ -19,10 +19,10 @@ services:
       - NET_RAW
 
     env_file:
-      - ${BASE_DIR}/.env    
+      - ../.env    
     volumes:
-      - ./work:/opt/adguardhome/work
-      - ./conf:/opt/adguardhome/conf
+      - ${BASE_DIR}/adguardhome:/config # app configuration
+      - ${BASE_DIR}/adguardhome:/work # app working directory
     networks:
       - frontend_net
     ports:
