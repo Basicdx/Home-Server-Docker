@@ -9,16 +9,19 @@ services:
     env_file:
       - ${BASE_DIR}/.env
     environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
       - TZ=${TZ}
       - WEBSOCKET_ENABLED=true
       - SIGNUPS_ALLOWED=false
       - ADMIN_TOKEN=${VAULTWARDEN_ADMIN_TOKEN}
+
+    cap_drop:
+      - ALL
     volumes:
       - ./data:/data
     networks:
       - frontend_net
-    ports:
-      - "8080:80"    
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped

@@ -6,7 +6,18 @@ services:
     image:  adguard/adguardhome:latest
     container_name: adguardhome
     restart: unless-stopped
-    
+
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+
     env_file:
       - ${BASE_DIR}/.env    
     volumes:

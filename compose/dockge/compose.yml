@@ -7,15 +7,19 @@ services:
     container_name: dockge
 
     environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
       - DOCKGE_STACKS_DIR=/opt/stacks
+
+    cap_drop:
+      - ALL
     volumes:
       - ./data:/app/data
       - /var/run/docker.sock:/var/run/docker.sock
       - ${BASE_DIR}/compose:/opt/stacks
     networks:
       - frontend_net
-    ports:
-      - "5001:5001"
     security_opt:
       - no-new-privileges:true    
     restart: unless-stopped

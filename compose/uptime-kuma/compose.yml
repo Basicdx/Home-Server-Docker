@@ -9,13 +9,16 @@ services:
     env_file:
       - ${BASE_DIR}/.env
     environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
       - TZ=${TZ}
+
+    cap_drop:
+      - ALL
     volumes:
       - ./data:/app/data
     networks:
       - frontend_net
-    ports:
-      - "3001:3001"
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
