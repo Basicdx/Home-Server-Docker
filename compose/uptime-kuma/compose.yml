@@ -12,11 +12,12 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
-
     volumes:
       - ./data:/app/data
     networks:
       - frontend_net
+    ports:
+      - "3001:3001"    
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped

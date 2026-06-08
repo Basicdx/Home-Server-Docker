@@ -5,24 +5,26 @@ services:
   dockge:
     image: louislam/dockge:1
     container_name: dockge
-    env_file:
-      - '/home/basic/Homelab/compose/compose.env'
+    restart: unless-stopped
+    ports:
+      - "5001:5001"    
+
     environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Paris
       - DOCKGE_STACKS_DIR=/opt/stacks
     cap_drop:
       - ALL
     volumes:
-      - ./data:/app/data
       - /var/run/docker.sock:/var/run/docker.sock
-      - ../compose:/opt/stacks
+      - ./data:/app/data
+      - /opt/stacks:/opt/stacks
     networks:
       - frontend_net
     security_opt:
       - no-new-privileges:true
-    restart: unless-stopped
+
 networks:
   frontend_net:
     driver: bridge
