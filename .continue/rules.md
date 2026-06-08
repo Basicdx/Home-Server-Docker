@@ -21,6 +21,8 @@
   - frontend_net (user-facing services)
   - backend_net (databases/internal)
   - download_net (torrent/arr stack)
+- Store sensitive variables (API, Key, Token, Password) in Repo/compose/secrets via secret command
+- Conteneurs that access sensitives files via environment and don't need to edit can be in :ro (read-only)
 
 ---
 
@@ -69,7 +71,7 @@
 ---
 
 ## Hardware constraints
-- Target machine: iMac 2010
+- Target machine: iMac 2010 (16Go Ram DDR3, intel i3-550, SSD Sata 1To, AMD Radeon 5730 Evergreen)
 - Avoid heavy AI / GPU workloads
 - Containers like Immich, Jellyfin must be optimized for low CPU usage
 - Frigate only with hardware acceleration (future)
