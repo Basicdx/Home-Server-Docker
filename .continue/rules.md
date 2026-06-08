@@ -21,6 +21,8 @@
   - frontend_net (user-facing services)
   - backend_net (databases/internal)
   - download_net (torrent/arr stack)
+- Store sensitive variables (API, Key, Token, Password) in Repo/compose/secrets via secret command
+- Conteneurs that access sensitives files via environment and don't need to edit can be in :ro (read-only)
 
 ---
 
