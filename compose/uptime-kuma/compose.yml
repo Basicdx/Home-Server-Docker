@@ -7,7 +7,7 @@ services:
     container_name: uptime-kuma
 
     env_file:
-      - ../.env
+      - ${BASE_DIR}/.env
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
