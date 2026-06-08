@@ -69,7 +69,7 @@
 ---
 
 ## Hardware constraints
-- Target machine: iMac 2010
+- Target machine: iMac 2010 (16Go Ram DDR3, intel i3-550, SSD Sata 1To, AMD Radeon 5730)
 - Avoid heavy AI / GPU workloads
 - Containers like Immich, Jellyfin must be optimized for low CPU usage
 - Frigate only with hardware acceleration (future)
