@@ -31,8 +31,8 @@ home-server-docker/
 ├── backups/
 ├── compose/
     ├── service_name
-        ├── data
-        ├── config
+        ├── data/
+        ├── config/
         ├── compose.yml
         └── .env
     └── ...
