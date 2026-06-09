@@ -23,9 +23,9 @@ The goal is to keep everything:
 ---
 
 # Documentation
-- [docs/architecture.md]=docs/architecture.md
-- [docs/decisions.md]:docs/decision.md
-- [docs/services.md]docs/services.md
+- [docs/architecture.md](docs/architecture.md)
+- [docs/decisions.md](docs/decision.md)
+- [docs/services.md](docs/services.md)
 
 ---
 
