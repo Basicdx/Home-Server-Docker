@@ -1,6 +1,7 @@
 ##########################
 # CORE | Dashboard
 ##########################
+name: core
 services:
   # DOCKGE | Dashboard
   dockge:
@@ -9,14 +10,16 @@ services:
     restart: unless-stopped
 
     environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
       - TZ=${TZ}
       - DOCKGE_STACKS_DIR=/stacks
     cap_drop:
       - ALL
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ${APP_DATA_DIR}/dockge:/app/data
-      - ${STACKS_DIR}:/stacks
+      - ./data:/app/data
+      - .:/stacks
     networks:
       - frontend
     ports:
@@ -25,6 +28,26 @@ services:
     security_opt:
       - no-new-privileges:true
 
+  # HOMEPAGE | Dashboard    
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    restart: unless-stopped
+
+    environment:
+      - TZ=${TZ}
+    cap_drop:
+      - ALL    
+    volumes:
+      - ${APP_DATA_DIR}/homepage/config:/app/config
+      - ${APP_DATA_DIR}/homepage/data:/app/data
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - "3000:3000"
+    networks:
+      - frontend
+    security_opt:
+      - no-new-privileges:true
 
 networks:
   frontend:

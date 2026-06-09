@@ -1,26 +1,15 @@
 # Architecture
-règles compose
-décisions importantes
 
 ## 📁 STRUCTURE
 ```text
 home-server-docker/
 ├── compose/
-│   ├── core.yml
-│   ├── media.yml
-│   ├── downloads.yml
-│   ├── security.yml
-│   ├── .env
-│   ├── .secrets
-│
-├── app_data/
 │   ├── service_name/
-│   │   ├── config
-│   │   ├── cache
-│   │   ├── data
-│   │   ├── db
-│   │   ├── state
-│   ├── ...
+│   │      ├── config
+│   │      ├── data
+│   │      ├── compose.yml
+│   │      ├── .env
+│   └      └── .secrets
 │
 ├── backups/
 ├── docs/
