@@ -8,6 +8,7 @@ The goal is to keep everything:
 - reproducible
 - maintainable
 - fully Docker-based
+- relative path to be transportable
 
 ---
 
