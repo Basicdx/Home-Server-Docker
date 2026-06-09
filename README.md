@@ -12,17 +12,8 @@ The goal is to keep everything:
 
 ---
 
-## 🧠 Philosophy
+## Documentation
 
-- YAML Stacks
-- Git stores configuration only (no data)
-- Docker is the runtime
-- Dockge is used for management
-- Simplicity over complexity (no Kubernetes, no Swarm)
-
----
-
-# Documentation
 - [docs/architecture.md](docs/architecture.md)
 - [docs/decisions.md](docs/decision.md)
 - [docs/services.md](docs/services.md)

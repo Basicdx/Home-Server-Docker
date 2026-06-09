@@ -1,6 +1,7 @@
 # Homelab Rules
 
 ## Global philosophy
+
 - Keep the homelab SIMPLE
 - One folder per container (.yml, .env, .secret)
 - Avoid over-engineering (no Kubernetes, no Swarm)
@@ -9,6 +10,7 @@
 ---
 
 ## Docker standards
+
 - Always use docker compose (not docker run)
 - One service per compose.yml
 - Always restart: unless-stopped
@@ -27,6 +29,7 @@
 ---
 
 ## Volume rules
+
 - Application config stays in:
   /config or /data inside Repo folder
 - Media/data goes outside repo:
@@ -36,6 +39,7 @@
 ---
 
 ## Security rules
+
 - Prefer internal networks over exposed ports
 - Use reverse proxy (Caddy) for public access
 - Vaultwarden is critical service → always isolated
@@ -47,13 +51,16 @@
 - run "healthcheck:" (if needed)
 - Always include:
   security_opt:
-    - no-new-privileges:true
-  network: 
+  - no-new-privileges:true
+
+  network:
     driver: bridge
     external: true
+
 ---
 
 ## Naming conventions
+
 - One folder per service:
   data/service_name/ & config/service_name
 - Compose file always named:
@@ -62,6 +69,7 @@
 ---
 
 ## Architecture principles
+
 - Minimal complexity
 - Local-first
 - Git = infrastructure backup only
@@ -71,6 +79,7 @@
 ---
 
 ## Hardware constraints
+
 - Target machine: iMac 2010 (16Go Ram DDR3, intel i3-550, SSD Sata 1To, AMD Radeon 5730 Evergreen)
 - Avoid heavy AI / GPU workloads
 - Containers like Immich, Jellyfin must be optimized for low CPU usage
