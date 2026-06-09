@@ -1,0 +1,32 @@
+services:
+#########################
+# CODE-SERVER | Visual Studio Code editor
+#########################
+  code-server:
+    image: lscr.io/linuxserver/code-server:latest
+    container_name: code-server
+    restart: unless-stopped
+    ports:
+      - 8443:8443
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - PASSWORD=password #optional
+      - HASHED_PASSWORD= #optional
+      - SUDO_PASSWORD=password #optional
+      - SUDO_PASSWORD_HASH= #optional
+      - PROXY_DOMAIN=code-server.my.domain #optional
+      - DEFAULT_WORKSPACE=/config/workspace #optional
+      - PWA_APPNAME=code-server #optional
+    volumes:
+      - ${DATA}/code-server:/config
+    networks:
+      - frontend      
+    security_opt:s
+      - no-new-privileges:true
+
+networks:
+  frontend:
+    driver: bridge
+    external: true

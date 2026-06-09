@@ -8,8 +8,6 @@ services:
     restart: unless-stopped    
     # network-mode: service:NAME
     
-    env_file:
-      - ../.env
     environment:
       - PUID=${PUID}
       - PGID=${PGID}

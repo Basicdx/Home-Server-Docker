@@ -1,4 +1,7 @@
 services:
+##########################
+## HOMEPAGE | Dashboard
+##########################
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
@@ -9,6 +12,7 @@ services:
       - PGID=${PGID:?err}
     volumes:
       - ${DATA:?err}/homepage/config:/app/config
+      - ${DATA:?err}/homepage/data:/app/data
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       - frontend
