@@ -8,22 +8,33 @@ décisions importantes
 ## 📁 STRUCTURE
 ```text
 home-server-docker/
-├── backups/
 ├── compose/
-    ├── service_name
-        ├── data
-        ├── config
-        ├── compose.yml
-        └── .env
-    └── ...
+│   ├── core.yml
+│   ├── media.yml
+│   ├── downloads.yml
+│   ├── security.yml
+│
+├── app_data/
+│   ├── jellyfin/
+│   ├── immich/
+│   ├── vaultwarden/
+│   ├── adguardhome/
+│   ├── qbittorrent/
+│   ├── homepage/
+│   ├── dockge/
+│   ├── tailscale/
+│
+├── storage/
+│   ├── media/
+│   ├── downloads/
+│   ├── photos/
+│
+├── backups/
 ├── docs/
-        ├── architecture.md
-        ├── decisions.md
-        └── services.md
-├── templates/
-└── .continue/
-        ├── config.json
-        └── rules.md
+│   ├── architecture.md
+│   ├── decisions.md
+│   └── services.md
+└── templates/
 ```
 
 
