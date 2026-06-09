@@ -1,7 +1,18 @@
-**/config/
+# Données applicatives
 **/data/
+**/config/
 **/cache/
+**/tmp/
+
+# Secrets
+**/.env
+
+# Logs
 **/logs/
+
+# Backups
+backups/
+# AI
 ./.continue
 ./.vscode
 ./.clinerules

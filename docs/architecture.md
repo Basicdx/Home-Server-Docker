@@ -20,10 +20,7 @@ home-server-docker/
         ├── architecture.md
         ├── decisions.md
         └── services.md
-├── templates/
-└── .continue/
-        ├── config.json
-        └── rules.md
+└── templates/
 ```
 
 

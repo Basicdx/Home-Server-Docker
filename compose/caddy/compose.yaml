@@ -7,10 +7,10 @@ services:
     container_name: caddy
     restart: unless-stopped
   
+    env_file:
+      - .env
     volumes:
-      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
-      - ./conf:/etc/caddy
-      - ./site:/srv
+      - ./Caddyfile:/etc/caddy/Caddyfile
       - ./data:/data
       - ./config:/config
     networks:
@@ -20,11 +20,13 @@ services:
       - "443:443"
     security_opt:
       - no-new-privileges:true
+    # labels:
+    #   - "com.centurylinklabs.watchtower.enable=true"    
 
 volumes:
   caddy_data:
   caddy_config:
-  
+
 networks:
   frontend_net:
     external: true

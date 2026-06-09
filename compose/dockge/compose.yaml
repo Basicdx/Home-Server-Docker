@@ -8,25 +8,22 @@ services:
     restart: unless-stopped
 
     environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
+      - TZ=${TZ:?err}
       - DOCKGE_STACKS_DIR=/stacks
     cap_drop:
       - ALL
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/run/docker.sock:/var/run/docker.sock
       - ./data:/app/data
       - ${BASE_DIR}:/stacks
     networks:
-      - frontend_net
+      - frontend
     ports:
       - "5001:5001"    
-    
     security_opt:
       - no-new-privileges:true
 
 networks:
-  frontend_net:
+  frontend:
     driver: bridge
     external: true
