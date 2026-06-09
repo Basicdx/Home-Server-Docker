@@ -1,8 +1,5 @@
 # Données applicatives
 **/data/
-**/config/
-**/cache/
-**/tmp/
 
 # Secrets
 **/.env
@@ -15,6 +12,6 @@
 backups/
 
 # AI
-./.continue/
-./.vscode/
-./.clinerules
+**/.continue/
+**/.vscode/
+**/.clinerules
