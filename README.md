@@ -22,9 +22,12 @@ The goal is to keep everything:
 
 ---
 
-# Architecture
+# Documentation
+- [docs/architecture.md]=docs/architecture.md
+- [docs/decisions.md]:docs/decision.md
+- [docs/services.md]docs/services.md
 
-réseaux Docker, choix structure, règles compose, décisions importantes
+---
 
 ## ⚠️ Hardware constraints
 
