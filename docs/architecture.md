@@ -5,12 +5,13 @@
 home-server-docker/
 ├── compose/
 │   ├── service_name/
-│   │      ├── config
-│   │      ├── data
 │   │      ├── compose.yml
 │   │      ├── .env
 │   └      └── .secrets
-│
+├── data/
+│   ├── service_name/
+│   │      ├── config
+│   │      ├── data
 ├── backups/
 ├── docs/
 │   ├── architecture.md
