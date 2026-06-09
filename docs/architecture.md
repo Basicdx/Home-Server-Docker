@@ -1,7 +1,4 @@
 # Architecture
-
-réseaux Docker
-choix structure
 règles compose
 décisions importantes
 
@@ -17,19 +14,11 @@ home-server-docker/
 │   ├── .secrets
 │
 ├── app_data/
-│   ├── jellyfin/
-│   ├── immich/
-│   ├── vaultwarden/
-│   ├── adguardhome/
-│   ├── qbittorrent/
-│   ├── homepage/
-│   ├── dockge/
-│   ├── tailscale/
-│
-├── storage/
-│   ├── media/
-│   ├── downloads/
-│   ├── photos/
+│   ├── service_name/
+│   │   ├── config
+│   │   ├── data
+│   │   ├── 
+│   ├── ...
 │
 ├── backups/
 ├── docs/
@@ -37,10 +26,14 @@ home-server-docker/
 │   ├── decisions.md
 │   └── services.md
 └── templates/
+
+mnt/data/
+├── media/
+├── downloads/
+├── photos/
 ```
 
-
-# 🌐 NETWORKS
+## 🌐 NETWORKS
 ```text
 - frontend_net -> User-facing applications
         ( jellyfin, homepage, vaultwarden, immich, nextcloud )
@@ -51,7 +44,7 @@ home-server-docker/
 - media_net -> (optionnel)
 ```
 
-# 🧱 WORKFLOW
+## 🧱 WORKFLOW
 ```text
 Internet
    │
