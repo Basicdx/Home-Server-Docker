@@ -1,12 +1,9 @@
 # 🧾 Architecture Decisions Log
 
-## 🔹 Decision: One service per Docker Compose
+## 🔹 Decision: one stack per domain service
 
 Reason:
-- easier debugging
-- easier updates
-- better isolation
-- compatible with Dockge
+- easier to install
 
 ---
 

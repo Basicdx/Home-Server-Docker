@@ -1,30 +1,41 @@
 # Architecture
-
-réseaux Docker
-choix structure
 règles compose
 décisions importantes
 
 ## 📁 STRUCTURE
 ```text
 home-server-docker/
-├── backups/
 ├── compose/
-    ├── service_name
-        ├── data
-        ├── config
-        ├── compose.yml
-        └── .env
-    └── ...
+│   ├── core.yml
+│   ├── media.yml
+│   ├── downloads.yml
+│   ├── security.yml
+│   ├── .env
+│   ├── .secrets
+│
+├── app_data/
+│   ├── service_name/
+│   │   ├── config
+│   │   ├── cache
+│   │   ├── data
+│   │   ├── db
+│   │   ├── state
+│   ├── ...
+│
+├── backups/
 ├── docs/
-        ├── architecture.md
-        ├── decisions.md
-        └── services.md
+│   ├── architecture.md
+│   ├── decisions.md
+│   └── services.md
 └── templates/
+
+mnt/data/
+├── media/
+├── downloads/
+├── photos/
 ```
 
-
-# 🌐 NETWORKS
+## 🌐 NETWORKS
 ```text
 - frontend_net -> User-facing applications
         ( jellyfin, homepage, vaultwarden, immich, nextcloud )
@@ -35,7 +46,7 @@ home-server-docker/
 - media_net -> (optionnel)
 ```
 
-# 🧱 WORKFLOW
+## 🧱 WORKFLOW
 ```text
 Internet
    │
@@ -43,7 +54,7 @@ Internet
 Cloudflare DNS (DNS-only, pas de proxy)
    │
    ▼
-Traefik v3 (Reverse Proxy + TLS Termination)
+Caddie (Reverse Proxy + TLS Termination)
    │
    ├── CrowdSec (Bouncer pour bloquer les IPs malveillantes)
    │
@@ -64,6 +75,6 @@ Traefik v3 (Reverse Proxy + TLS Termination)
            ├── Bazarr (sous-titres)
            └── Syncthing (sync fichiers)
    │
-   ├── WireGuard/Tailscale (VPN pour accès distant)
-   └── Pi-hole/AdGuard Home (DNS + blocage pubs)
+   ├── Tailscale/WireGuard (VPN pour accès distant)
+   └── AdGuard Home/Pi-hole (DNS + blocage pubs)
 ```

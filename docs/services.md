@@ -55,7 +55,3 @@
 - Bazarr → Subtitles
 - 📦 Unpackerr → Unpacking files
 ---
-
-## 🧠 Notes
-
-All services are deployed as independent Docker Compose stacks.
