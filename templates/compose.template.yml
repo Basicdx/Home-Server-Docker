@@ -9,7 +9,7 @@ services:
     # network-mode: service:NAME
     
     env_file:
-      - ${BASE_DIR}/.env
+      - ../.env
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
