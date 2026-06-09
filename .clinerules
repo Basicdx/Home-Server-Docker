@@ -14,7 +14,6 @@ Tu travailles sur un Home Server Debian.
 
 Architecture :
 
-- Un dossier par application
 - Docker Compose uniquement
 - Gestion via Dockge
 - Pas de docker run
@@ -35,6 +34,8 @@ Documentation :
 - Maintenir docs/decisions.md
 
 Quand une modification impacte l'architecture,
+mettre à jour la documentation concernée.
+Quand un nouveau service est ajouté,
 mettre à jour la documentation concernée.
 
 Avant toute modification :
