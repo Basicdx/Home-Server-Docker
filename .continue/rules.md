@@ -2,7 +2,7 @@
 
 ## Global philosophy
 - Keep the homelab SIMPLE
-- choose to stack "YAML" per logic per domain
+- One folder per container (.yml, .env, .secret)
 - Avoid over-engineering (no Kubernetes, no Swarm)
 - Everything must remain understandable in 6 months
 

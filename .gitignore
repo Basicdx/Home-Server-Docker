@@ -6,12 +6,14 @@
 
 # Secrets
 **/.env
+**/secrets/
 
 # Logs
 **/logs/
 
 # Backups
 backups/
+
 # AI
 ./.continue
 ./.vscode

@@ -7,16 +7,24 @@ home-server-docker/
 │   ├── service_name/
 │   │      ├── compose.yml
 │   │      ├── .env
-│   └      └── .secrets
+│   │      └── .secrets/
+│   └         └── secret_key
 ├── data/
 │   ├── service_name/
 │   │      ├── config
 │   │      ├── data
-├── backups/
+│   └      └── cache
 ├── docs/
 │   ├── architecture.md
 │   ├── decisions.md
 │   └── services.md
+├── scripts/
+│   ├── backup.sh
+│   ├── restore.sh
+│   ├── update-all.sh
+│   ├── stop-all.sh
+│   └── healthcheck.sh
+├── backups/
 └── templates/
 
 mnt/data/
@@ -27,13 +35,14 @@ mnt/data/
 
 ## 🌐 NETWORKS
 ```text
-- frontend_net -> User-facing applications
+- frontend -> User-facing applications
         ( jellyfin, homepage, vaultwarden, immich, nextcloud )
-- backend_net -> Internal services
+- backend -> Internal services
         ( postgreSQL, redis, crowdsec, internal services )
-- download_net -> Isolated torrent / arr
+- download -> Isolated torrent / arr
         ( qbitorrent, gluten, arr stack )
-- media_net -> (optionnel)
+- media -> (optionnel)
+- ai -> manage AI 
 ```
 
 ## 🧱 WORKFLOW

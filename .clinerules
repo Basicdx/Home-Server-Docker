@@ -3,6 +3,7 @@ Monorepo Home Server.
 Règles :
 - Docker Compose v2 uniquement
 - Pas de stack monolithique
+- un dossier par compose (.yml, .env, .secret)
 - Volumes persistants sur /data
 - Tous les services doivent avoir :
   security_opt:

@@ -1,55 +1,13 @@
-##########################
-# CORE | Dashboard
-##########################
-name: core
-services:
-  # DOCKGE | Dashboard
-  dockge:
-    image: louislam/dockge:1
-    container_name: dockge
-    restart: unless-stopped
+include:
+  - ./traefik/compose.yml
+  - ./crowdsec/compose.yml
+  - ./authentik/compose.yml
 
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-      - DOCKGE_STACKS_DIR=/stacks
-    cap_drop:
-      - ALL
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./data:/app/data
-      - .:/stacks
-    networks:
-      - frontend
-    ports:
-      - "5001:5001"    
-    
-    security_opt:
-      - no-new-privileges:true
+  - ./jellyfin/compose.yml
+  - ./immich/compose.yml
+  - ./nextcloud/compose.yml
 
-  # HOMEPAGE | Dashboard    
-  homepage:
-    image: ghcr.io/gethomepage/homepage:latest
-    container_name: homepage
-    restart: unless-stopped
+  - ./ollama/compose.yml
+  - ./open-webui/compose.yml
 
-    environment:
-      - TZ=${TZ}
-    cap_drop:
-      - ALL    
-    volumes:
-      - ${APP_DATA_DIR}/homepage/config:/app/config
-      - ${APP_DATA_DIR}/homepage/data:/app/data
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-    ports:
-      - "3000:3000"
-    networks:
-      - frontend
-    security_opt:
-      - no-new-privileges:true
-
-networks:
-  frontend:
-    driver: bridge
-    external: true
+  - ./watchtower/compose.yml
