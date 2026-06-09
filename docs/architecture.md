@@ -13,6 +13,8 @@ home-server-docker/
 │   ├── media.yml
 │   ├── downloads.yml
 │   ├── security.yml
+│   ├── .env
+│   ├── .secrets
 │
 ├── app_data/
 │   ├── jellyfin/
