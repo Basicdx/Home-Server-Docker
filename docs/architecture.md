@@ -57,7 +57,7 @@ Internet
 Cloudflare DNS (DNS-only, pas de proxy)
    │
    ▼
-Traefik v3 (Reverse Proxy + TLS Termination)
+Caddie (Reverse Proxy + TLS Termination)
    │
    ├── CrowdSec (Bouncer pour bloquer les IPs malveillantes)
    │
@@ -78,6 +78,6 @@ Traefik v3 (Reverse Proxy + TLS Termination)
            ├── Bazarr (sous-titres)
            └── Syncthing (sync fichiers)
    │
-   ├── WireGuard/Tailscale (VPN pour accès distant)
-   └── Pi-hole/AdGuard Home (DNS + blocage pubs)
+   ├── Tailscale/WireGuard (VPN pour accès distant)
+   └── AdGuard Home/Pi-hole (DNS + blocage pubs)
 ```
