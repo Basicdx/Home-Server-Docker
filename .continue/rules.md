@@ -2,7 +2,7 @@
 
 ## Global philosophy
 - Keep the homelab SIMPLE
-- Prefer one service = one Docker Compose stack
+- choose to stack "YAML" per logic per domain
 - Avoid over-engineering (no Kubernetes, no Swarm)
 - Everything must remain understandable in 6 months
 
@@ -18,17 +18,17 @@
   - PGID=${PGID} (if needed)
 - Never expose unnecessary ports
 - Use networks:
-  - frontend_net (user-facing services)
-  - backend_net (databases/internal)
-  - download_net (torrent/arr stack)
-- Store sensitive variables (API, Key, Token, Password) in Repo/compose/secrets via secret command
+  - frontend (user-facing services)
+  - backend (databases/internal)
+  - download (torrent/arr stack)
+- Store sensitive variables (API, Key, Token, Password) in Repo/secrets via secret command
 - Conteneurs that access sensitives files via environment and don't need to edit can be in :ro (read-only)
 
 ---
 
 ## Volume rules
 - Application config stays in:
-  ./config or ./data inside compose folder
+  /config or /data inside Repo folder
 - Media/data goes outside repo:
   /mnt/storage (HDD)
 - Never store large media inside Git repo
@@ -55,9 +55,9 @@
 
 ## Naming conventions
 - One folder per service:
-  compose/service_name/
+  data/service_name/ & config/service_name
 - Compose file always named:
-  compose.yml
+  {logic_domain}.yml
 
 ---
 
