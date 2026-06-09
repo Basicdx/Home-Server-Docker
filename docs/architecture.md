@@ -57,7 +57,7 @@ Caddie (Reverse Proxy + TLS Termination)
    │
    ├── CrowdSec (Bouncer pour bloquer les IPs malveillantes)
    │
-   └── Authelia (2FA / SSO pour tous les services exposés)
+   └── Authentik (2FA / SSO pour tous les services exposés)
        │
        ├── 🌐 Services Publics (protegés par Authelia)
        │   ├── Nextcloud (stockage + docs)

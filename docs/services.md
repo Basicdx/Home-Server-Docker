@@ -18,7 +18,7 @@
 - Tailscale → VPN remote access (or Wireguard) (NordVPN, Mullvad)
 - AdGuard Home → DNS filtering (or Pihole)
 - CrowdSec → block malware IP (replace Fail2ban)
-- Authelia → 2FA / SSO for services
+- Authentik → 2FA / SSO for services
 
 ---
 

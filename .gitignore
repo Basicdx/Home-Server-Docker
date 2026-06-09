@@ -12,6 +12,6 @@
 backups/
 
 # AI
-**/.continue/
-**/.vscode/
-**/.clinerules
+*.continue/
+*.vscode/
+*.clinerules

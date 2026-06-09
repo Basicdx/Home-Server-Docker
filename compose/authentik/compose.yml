@@ -8,9 +8,18 @@ services:
       - "5001:5001"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ${DATA}/dockge/data:/app/data
-      - ${HOME_DIR}/compose:/opt/stacks
+      - ${DATA_DIR:?err}/dockge/data:/app/data
+      - ${HOME_DIR:?err}/compose:/opt/stacks
     environment:
       - DOCKGE_STACKS_DIR=/opt/stacks
     security_opt:
       - no-new-privileges:true
+    networks:
+      - frontend
+        
+        
+networks:
+  frontend:
+    driver: bridge
+    external: true
+
