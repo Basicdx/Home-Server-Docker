@@ -47,9 +47,33 @@
             type: authentik
             url: https://authentik-prod-1.kube-prod-1.home.clcreative.de
             key: {{HOMEPAGE_VAR_AUTHENTIK_KEY}}
-
+    - Adguard:
+        href:
+        description:
+        icon: adguard.png
+        widget:
+            type: adguard
+            url: http://adguard.host.or.ip
+            username: admin
+            password: password
+    - Caddy:
+        href:
+        description:
+        icon: caddy.png
+        widget:
+            type: caddy
+            url: http://caddy.host.or.ip:adminport # default admin port is 2019
+  
 - Automation:
-
+     - Romm:
+        href:
+        description:
+        icon: romm.png
+        widget:
+            type: romm
+            url: http://romm.host.or.ip
+            fields: ["platforms", "totalRoms", "saves", "states"] # optional - default fields shown
+            
 - IoT and Smarthome:
     - Home Assistant:
         href: https://homeassistant-prod-1.srv-prod-7.home.clcreative.de
