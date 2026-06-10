@@ -3,7 +3,7 @@
 
 # Secrets
 **/.env
-**/secrets/
+**/.secrets
 
 # Logs
 **/logs/
