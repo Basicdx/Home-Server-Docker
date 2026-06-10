@@ -54,4 +54,13 @@
 - 📺 Sonarr → TV Shows
 - Bazarr → Subtitles
 - 📦 Unpackerr → Unpacking files
+
+---
+
+##  IA
+
+- Ollama / LMStudio
+- OpenWebUI
+- Hermes Agent / Openclaw
+
 ---

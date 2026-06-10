@@ -1,4 +1,4 @@
-Monorepo Home Server.
+# Monorepo Home Server.
 
 Règles :
 - Docker Compose v2 uniquement
@@ -11,7 +11,7 @@ Règles :
 - Réseau frontend/backend séparés
 - Générer README.md à chaque nouvelle app
 
-Tu travailles sur un Home Server Debian.
+- Tu travailles sur un Home Server Debian.
 
 Architecture :
 
@@ -34,10 +34,8 @@ Documentation :
 - Maintenir docs/services.md
 - Maintenir docs/decisions.md
 
-Quand une modification impacte l'architecture,
-mettre à jour la documentation concernée.
-Quand un nouveau service est ajouté,
-mettre à jour la documentation concernée.
+- Quand une modification impacte l'architecture, mettre à jour la documentation concernée.
+- Quand un nouveau service est ajouté, mettre à jour la documentation concernée.
 
 Avant toute modification :
 

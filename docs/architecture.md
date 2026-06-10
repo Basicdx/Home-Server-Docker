@@ -1,5 +1,13 @@
 # Architecture
 
+```text
+- Minimal complexity
+- Local-first
+- Git = infrastructure backup only
+- Docker = runtime
+- Data = outside repo
+```
+
 ## 📁 STRUCTURE
 ```text
 home-server-docker/
@@ -7,8 +15,7 @@ home-server-docker/
 │   ├── service_name/
 │   │      ├── compose.yml
 │   │      ├── .env
-│   │      └── .secrets/
-│   └         └── secret_key
+│   └      └── .secrets
 ├── data/
 │   ├── service_name/
 │   │      ├── config

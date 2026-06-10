@@ -3,7 +3,7 @@
 
 # Secrets
 **/.env
-**/secrets/
+**/.secrets
 
 # Logs
 **/logs/
@@ -13,5 +13,12 @@ backups/
 
 # AI
 **/.continue/
-*.vscode/
-*.clinerules
+**/.vscode/
+**/.clinerules
+
+# Clean
+**/.DS_Store
+.continue/
+.vscode/
+./.clinerules
+.clinerules
