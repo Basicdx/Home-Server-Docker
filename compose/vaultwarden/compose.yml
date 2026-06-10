@@ -20,6 +20,11 @@ services:
       - frontend
     security_opt:
       - no-new-privileges:true
+    deploy:
+      resources:
+        limits:
+          memory: 1024M
+          cpus: '0.5' 
 
 secrets:
   ADMIN_TOKEN:
