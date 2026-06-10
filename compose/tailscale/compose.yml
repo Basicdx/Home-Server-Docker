@@ -10,6 +10,8 @@ services:
     cap_add:
       - NET_ADMIN
       - NET_RAW
+    env_file:
+      - .env    
     environment:
       - TS_STATE_DIR=/var/lib/tailscale
       - TS_AUTHKEY=${TS_AUTHKEY:?err}
@@ -17,7 +19,7 @@ services:
       # - TS_ACCEPT_DNS=${TS_ACCEPT_DNS} # Désactive le DNS de Tailscale (AdGuard gère ça)
 
     volumes:
-      - ${DATA:?err}/tailscale:/var/lib/tailscale
+      - ${DATA:?err}/tailscale/config:/var/lib/tailscale
       - /dev/net/tun:/dev/net/tun
     restart: unless-stopped
     security_opt:

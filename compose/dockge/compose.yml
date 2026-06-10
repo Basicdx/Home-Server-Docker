@@ -6,7 +6,7 @@ services:
     image: louislam/dockge:latest
     container_name: dockge
     env_file:
-      - ../../.env
+      - .env
     ports:
       - 5001:5001
     environment:
@@ -15,8 +15,8 @@ services:
       - DOCKGE_STACKS_DIR=/opt/stacks
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ${DATA:?err}/dockge:/app/data
-      - ${HOMEDIR:?err}/compose:/opt/stacks
+      - ${DATA:?err}/dockge/data:/app/data
+      - ${STACKS:?err}:/opt/stacks
     networks:
       - frontend
     restart: unless-stopped
