@@ -12,9 +12,13 @@
 backups/
 
 # AI
-./.continue/
+**/.continue/
+**/.vscode/
+**/.clinerules
+
+# Clean
+**/.DS_Store
 .continue/
-./.vscode/
 .vscode/
 ./.clinerules
 .clinerules
