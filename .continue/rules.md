@@ -14,11 +14,13 @@
 
 - Always use docker compose V2 (not docker run)
 - One service (and dependancies) per compose.yml
-- Always restart: unless-stopped
 - Always define:
-  - TZ=${TZ}
-  - PUID=${PUID}
-  - PGID=${PGID} (if needed)
+````bash
+  TZ=${TZ}
+  PUID=${PUID}
+  PGID=${PGID} (if needed)
+  restart: unless-stopped
+````
 - Never expose unnecessary ports
 - Use networks:
   - frontend (user-facing services)
