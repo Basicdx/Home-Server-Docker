@@ -2,17 +2,61 @@
 # For configuration options and examples, please see:
 # https://gethomepage.dev/configs/services/
 
-- My First Group:
-    - My First Service:
-        href: http://localhost/
-        description: Homepage is awesome
+---
+- Networking:
 
-- My Second Group:
-    - My Second Service:
-        href: http://localhost/
-        description: Homepage is the best
+- Infrastructure and Data:
+        
+- Management:
+    - Dockge:
+        href: https://dockge-demo-1.srv-demo-1.home.clcreative.de
+        icon: si-docker-#2496ED
+        description: dockge-demo-1 on srv-demo-1
+        
+- Monitoring:
+    - UptimeKuma:
+        href: https://uptimekuma-prod-1.srv-prod-7.home.clcreative.de
+        description: uptimekuma-prod-1 on srv-prod-7
+        icon: uptime-kuma.png
+        widget:
+            type: uptimekuma
+            url: https://uptimekuma-prod-1.srv-prod-7.home.clcreative.de
+            slug: publicservices
+    - Prometheus:
+        href: https://prometheus-prod-1.srv-prod-1.home.clcreative.de
+        description: prometheus-prod-1 on srv-prod-1
+        icon: prometheus.png
+        server: srv-prod-1
+        container: prometheus-prod-1
+        widget:
+            type: prometheus
+            url: https://prometheus-prod-1.srv-prod-1.home.clcreative.de
+    - Grafana:
+        href: https://grafana-prod-1.srv-prod-1.home.clcreative.de
+        description: grafana-prod-1 on srv-prod-1
+        icon: grafana.png
+        server: srv-prod-1
+        container: grafana-prod-1
 
-- My Third Group:
-    - My Third Service:
-        href: http://localhost/
-        description: Homepage is 😎
+- Security and Identity:
+    - Authentik:
+        href: https://authentik-prod-1.kube-prod-1.home.clcreative.de
+        description: authentik-prod-1 on kube-prod-1
+        icon: authentik.png
+        widget:
+            type: authentik
+            url: https://authentik-prod-1.kube-prod-1.home.clcreative.de
+            key: {{HOMEPAGE_VAR_AUTHENTIK_KEY}}
+
+- Automation:
+
+- IoT and Smarthome:
+    - Home Assistant:
+        href: https://homeassistant-prod-1.srv-prod-7.home.clcreative.de
+        icon: home-assistant.png
+        description: homeassistant-prod-1 on srv-prod-7
+        widget:
+            type: homeassistant
+            url: https://homeassistant-prod-1.srv-prod-7.home.clcreative.de
+            key: {{HOMEPAGE_VAR_HOMEASSISTANT_KEY}}
+            custom:
