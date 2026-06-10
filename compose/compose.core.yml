@@ -5,7 +5,8 @@ include:
   - ./tailscale/compose.yml
   - ./homepage/compose.yml
   - ./caddy/compose.yml
-  - ./authentik/compose.yml
+  - ./adguard/compose.yml
+  # ./authentik/compose.yml
   # - ./crowdsec/compose.yml
 
   # Monitoring
@@ -18,13 +19,14 @@ include:
   # Cloud storage and backup services
   # - ./nextcloud/compose.yml
   # - ./syncthing/compose.yml
+  - ./vaultwarden/compose.yml
 
   # Media and productivity services
   # - ./jellyfin/compose.yml
   # - ./immich/compose.yml
 
   # AI and development services
-  # - ./ollama/compose.yml
-  # - ./open-webui/compose.yml
+  - ./ollama/compose.yml
+  - ./open-webui/compose.yml
 
   # - ./watchtower/compose.yml

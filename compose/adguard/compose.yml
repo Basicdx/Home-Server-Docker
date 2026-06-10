@@ -9,12 +9,12 @@ services:
     ports:
       - 53:53/tcp # plain dns over tcp
       - 53:53/udp # plain dns over udp
-      - 82:82/tcp # http web interface
+      # - 82:82/tcp # http web interface
       - 3001:3000/tcp # initial setup web interface
     env_file:
       - .env
     volumes:
-      - ${DATA:?err}/adguardhome/config:/config # app configuration
+      - ${DATA:?err}/adguardhome/config:/conf # app configuration
       - ${DATA:?err}/adguardhome/work:/work # app working directory
     networks:
       - frontend

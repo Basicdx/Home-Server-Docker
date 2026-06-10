@@ -1,7 +1,11 @@
+{
+    auto_https off
+}
+
 :80 {
-
-    handle / {
         reverse_proxy open-webui:8080
-    }
+}
 
+homepage.local {
+    reverse_proxy homepage:3000
 }
