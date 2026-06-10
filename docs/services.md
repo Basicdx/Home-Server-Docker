@@ -13,12 +13,14 @@
 ---
 
 ## 🔐 SECURITY & REVERSE PROXY
-- ?Cloudflare → DNS-only, no proxy (or Duckdns free)
-- 🌐 Caddy → reverse proxy + TLS Termination + auto-HTTPS (or Traefic, Nginx) 
 - Tailscale → VPN remote access (or Wireguard) (NordVPN, Mullvad)
 - AdGuard Home → DNS filtering (or Pihole)
+- 🌐 Caddy → reverse proxy + TLS Termination + auto-HTTPS (or Traefic, Nginx) 
+
+### NO OBLIGATORY
+- ?Cloudflare → DNS-only, no proxy (or Duckdns free)
 - CrowdSec → block malware IP (replace Fail2ban)
-- Authentik → 2FA / SSO for services
+- Authelia → 2FA / SSO for services (Authentik more heavy)
 
 ---
 
@@ -26,7 +28,7 @@
 
 - 📡 Jellyfin → video streaming
 - Navidrome → music server
-- Immich → photo management
+- Immich → photo management (PhotoPrism less heavy)
 
 ---
 
