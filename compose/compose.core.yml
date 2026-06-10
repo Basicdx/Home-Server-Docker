@@ -1,3 +1,4 @@
+name: cores
 include:
   # Core services
   - ./dockge/compose.yml
