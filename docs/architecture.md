@@ -1,5 +1,13 @@
 # Architecture
 
+```text
+- Minimal complexity
+- Local-first
+- Git = infrastructure backup only
+- Docker = runtime
+- Data = outside repo
+```
+
 ## 📁 STRUCTURE
 ```text
 home-server-docker/
