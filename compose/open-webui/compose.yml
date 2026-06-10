@@ -1,0 +1,22 @@
+services:
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui
+    restart: unless-stopped
+    env_file:
+      - .env    
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+    volumes:
+      - ${DATA}/open-webui/data:/app/backend/data
+    networks:
+      - ai
+      - frontend
+    security_opt:
+      - no-new-privileges:true
+
+networks:
+  ai:
+    external: true
+  frontend:
+    external: true

@@ -5,10 +5,11 @@ services:
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
+    restart: unless-stopped
     ports:
       - 3000:3000
     env_file:
-      - .env    
+      - .env
     environment:
       - PUID=${PUID:?err}
       - PGID=${PGID:?err}
@@ -20,7 +21,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       - frontend
-    restart: unless-stopped
     security_opt:
       - no-new-privileges:true
 networks:

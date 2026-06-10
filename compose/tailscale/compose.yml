@@ -1,7 +1,3 @@
-secrets:
-  TS_AUTHKEY:
-    file: .secrets
-
 services:
 #########################
 # TAILSCALE | Secure Remote Access
@@ -9,6 +5,8 @@ services:
   tailscale:
     image: tailscale/tailscale:latest
     container_name: tailscale
+    restart: unless-stopped
+
     hostname: poppi
     network_mode: host
     cap_add:
@@ -23,10 +21,13 @@ services:
       # - TS_AUTHKEY=${TS_AUTHKEY:?err}
       - TS_USERSPACE=false
       # - TS_ACCEPT_DNS=${TS_ACCEPT_DNS} # Désactive le DNS de Tailscale (AdGuard gère ça)
-      - TS_EXTRA_ARGS=${TS_EXTRA_ARGS}
+      # - TS_EXTRA_ARGS=${TS_EXTRA_ARGS}
     volumes:
-      - ${DATA:?err}/tailscale/config:/var/lib/tailscale
+      - ${DATA:?err}/tailscale/state:/var/lib/tailscale
       - /dev/net/tun:/dev/net/tun
-    restart: unless-stopped
     security_opt:
       - no-new-privileges:true
+
+secrets:
+  TS_AUTHKEY:
+    file: ./.secrets
