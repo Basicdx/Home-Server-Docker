@@ -1,13 +1,29 @@
 include:
-  - ./traefik/compose.yml
-  - ./crowdsec/compose.yml
+  # Core services
+  - ./dockge/compose.yml
+  - ./tailscale/compose.yml
+  - ./homepage/compose.yml
+  - ./caddy/compose.yml
   - ./authentik/compose.yml
+  # - ./crowdsec/compose.yml
 
-  - ./jellyfin/compose.yml
-  - ./immich/compose.yml
-  - ./nextcloud/compose.yml
+  # Monitoring
+  # - ./netdata/compose.yml
+  # - ./prometheus/compose.yml
+  # - ./grafana/compose.yml
+  # - ./loki/compose.yml
+  # - ./code-server/compose.yml
 
-  - ./ollama/compose.yml
-  - ./open-webui/compose.yml
+  # Cloud storage and backup services
+  # - ./nextcloud/compose.yml
+  # - ./syncthing/compose.yml
 
-  - ./watchtower/compose.yml
+  # Media and productivity services
+  # - ./jellyfin/compose.yml
+  # - ./immich/compose.yml
+
+  # AI and development services
+  # - ./ollama/compose.yml
+  # - ./open-webui/compose.yml
+
+  # - ./watchtower/compose.yml
