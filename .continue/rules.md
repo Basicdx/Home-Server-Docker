@@ -3,7 +3,8 @@
 ## Global philosophy
 
 - Keep the homelab SIMPLE
-- One folder per container (.yml, .env, .secret)
+- One folder per container
+- No monolitic stack
 - Avoid over-engineering (no Kubernetes, no Swarm)
 - Everything must remain understandable in 6 months
 
@@ -11,8 +12,8 @@
 
 ## Docker standards
 
-- Always use docker compose (not docker run)
-- One service per compose.yml
+- Always use docker compose V2 (not docker run)
+- One service (and dependancies) per compose.yml
 - Always restart: unless-stopped
 - Always define:
   - TZ=${TZ}
@@ -52,7 +53,6 @@
 - Always include:
   security_opt:
   - no-new-privileges:true
-
   network:
     driver: bridge
     external: true
@@ -61,10 +61,9 @@
 
 ## Naming conventions
 
-- One folder per service:
-  data/service_name/ & config/service_name
+- One folder per service
 - Compose file always named:
-  {logic_domain}.yml
+  compose.yml
 
 ---
 
@@ -92,3 +91,10 @@ You can use the `gh` CLI to:
 - Search for issues: `gh issue list --repo basicdx/home-server-docker`
 - View pull requests: `gh pr list --repo basicdx/home-server-docker`
 - Clone repositories: `gh repo clone basicdx/home-server-docker`
+
+## Documentation
+
+Read :
+- docs/architecture.md
+- docs/services.md
+- docs/decisions.md
