@@ -86,6 +86,23 @@
 - Containers like Immich, Jellyfin must be optimized for low CPU usage
 - Frigate only with hardware acceleration (future)
 
+---
+
+## Documentation
+
+Read :
+
+- [docs/architecture.md](docs/architecture.md)
+- [docs/decisions.md](docs/decision.md)
+- [docs/services.md](docs/services.md)
+
+Quand une modification impacte l'architecture,
+mettre à jour la documentation concernée.
+Quand un nouveau service est ajouté,
+mettre à jour la documentation concernée.
+
+---
+
 ## Repository Access
 
 You can use the `gh` CLI to:
@@ -94,9 +111,4 @@ You can use the `gh` CLI to:
 - View pull requests: `gh pr list --repo basicdx/home-server-docker`
 - Clone repositories: `gh repo clone basicdx/home-server-docker`
 
-## Documentation
-
-Read :
-- docs/architecture.md
-- docs/services.md
-- docs/decisions.md
+---
