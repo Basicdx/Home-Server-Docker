@@ -1,18 +1,34 @@
 ---
 # For configuration options and examples, please see:
 # https://gethomepage.dev/configs/bookmarks
-
+---
+- Repositories:
+  - Homelab:
+    - icon: si-github-#FFFFFF
+      href: https://github.com/Basicdx/Homelab
+      
 - Developer:
-    - Github:
-        - abbr: GH
-          href: https://github.com/
+  - Github:
+    - icon: si-github-#FFFFFF
+      href: https://github.com/Basicdx/
 
 - Social:
-    - Reddit:
-        - abbr: RE
-          href: https://reddit.com/
+  - Reddit:
+    - icon: RE
+      href: https://reddit.com/
 
 - Entertainment:
-    - YouTube:
-        - abbr: YT
-          href: https://youtube.com/
+  - YouTube:
+    - icon: YT
+      href: https://youtube.com/
+
+- Cloud Services:
+  - Cloudflare:
+    - icon: cloudflare.png
+      href: https://dash.cloudflare.com
+  - Netbird:
+    - icon: https://netbird.io/_next/static/media/netbird-icon.00225e97.svg
+      href: https://app.netbird.io
+
+- Cloud Platforms:
+
