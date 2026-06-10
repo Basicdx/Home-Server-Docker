@@ -11,22 +11,21 @@
 ## 📁 STRUCTURE
 ```text
 home-server-docker/
-├── compose/
+├── compose/        # Infrastructure
 │   ├── service_name/
 │   │      ├── compose.yml
 │   │      ├── .env
-│   │      └── .secrets/
-│   └         └── secret_key
-├── data/
+│   └      └── .secrets
+├── data/        # App data
 │   ├── service_name/
 │   │      ├── config
 │   │      ├── data
 │   └      └── cache
-├── docs/
+├── docs/        # Documentation
 │   ├── architecture.md
 │   ├── decisions.md
 │   └── services.md
-├── scripts/
+├── scripts/        # Automatisation
 │   ├── backup.sh
 │   ├── restore.sh
 │   ├── update-all.sh
