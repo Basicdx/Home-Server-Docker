@@ -60,9 +60,9 @@
 - run "healthcheck:" (if needed)
 - Always include:
   security_opt:
-  - no-new-privileges:true
-  network:
-    driver: bridge
+  - no-new-privileges:true  
+  network:  
+    driver: bridge  
     external: true
 
 ---
