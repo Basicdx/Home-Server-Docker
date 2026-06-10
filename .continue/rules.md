@@ -3,9 +3,11 @@
 ## Global philosophy
 
 - Keep the homelab SIMPLE
+- 🔹 Git stores configuration only (no data)
+  reason: security, portability, reproducibility
 - One folder per container
-- No monolitic stack
-- Avoid over-engineering (no Kubernetes, no Swarm)
+- 🔹 Avoid over-engineering (no Kubernetes, no Swarm)
+  reason: overkill for single-node homelab, increases complexity without benefit
 - Everything must remain understandable in 6 months
 
 ---
@@ -13,7 +15,8 @@
 ## Docker standards
 
 - Always use docker compose V2 (not docker run)
-- One service (and dependancies) per compose.yml
+- 🔹 One service (and dependancies) per compose.yml
+  reason: easier debugging, easier updates, better isolation, compatible with Dockge, No monolitic stack
 - Always define:
 ````bash
   TZ=${TZ}
@@ -35,16 +38,19 @@
 
 - Application config stays in:
   /config or /data inside Repo folder
-- Media/data goes outside repo:
+- Media/data goes outside repo: (External data storage)
   /mnt/storage (HDD)
+  🔹 reason: prevents repo bloat, enables easy backups, avoids Git performance issues
 - Never store large media inside Git repo
 
 ---
 
 ## Security rules
 
+- 🔹 Minimal network segmentation  
+  reason: enough isolation without complexity explosion
 - Prefer internal networks over exposed ports
-- Use reverse proxy (Caddy) for public access
+- Use reverse proxy for public access
 - Vaultwarden is critical service → always isolated
 - No container should run as root unless necessary
 - Limit capabilities (like NET_ADMIN, NET_RAW) to containers who absolutly need it (VPN or DNS like Tailscale, Glueten, AdGuard). And add just before:
@@ -79,7 +85,7 @@
 
 ---
 
-## Hardware constraints
+## ⚠️ Hardware constraints
 
 - Target machine: iMac 2010 (16Go Ram DDR3, intel i3-550, SSD Sata 1To, AMD Radeon 5730 Evergreen)
 - Avoid heavy AI / GPU workloads
@@ -95,6 +101,7 @@ Read :
 - [docs/architecture.md](docs/architecture.md)
 - [docs/decisions.md](docs/decision.md)
 - [docs/services.md](docs/services.md)
+- [templates/compose.template.yml](templates/compose.template.yml)
 
 Quand une modification impacte l'architecture,
 mettre à jour la documentation concernée.
