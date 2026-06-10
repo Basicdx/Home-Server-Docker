@@ -3,10 +3,10 @@
 ## Global philosophy
 
 - Keep the homelab SIMPLE
-- 🔹 Git stores configuration only (no data)
+- 🔹 Git stores configuration only (no data)  
   reason: security, portability, reproducibility
 - One folder per container
-- 🔹 Avoid over-engineering (no Kubernetes, no Swarm)
+- 🔹 Avoid over-engineering (no Kubernetes, no Swarm)  
   reason: overkill for single-node homelab, increases complexity without benefit
 - Everything must remain understandable in 6 months
 
@@ -15,7 +15,7 @@
 ## Docker standards
 
 - Always use docker compose V2 (not docker run)
-- 🔹 One service (and dependancies) per compose.yml
+- 🔹 One service (and dependancies) per compose.yml  
   reason: easier debugging, easier updates, better isolation, compatible with Dockge, No monolitic stack
 - Always define:
 ````bash
@@ -38,9 +38,9 @@
 
 - Application config stays in:
   /config or /data inside Repo folder
-- Media/data goes outside repo: (External data storage)
-  /mnt/storage (HDD)
-  🔹 reason: prevents repo bloat, enables easy backups, avoids Git performance issues
+- 🔹 Media/data goes outside repo: (External data storage)  
+  /mnt/storage (HDD)  
+  reason: prevents repo bloat, enables easy backups, avoids Git performance issues
 - Never store large media inside Git repo
 
 ---
