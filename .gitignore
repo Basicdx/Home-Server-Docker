@@ -1,5 +1,5 @@
 # Données applicatives
-# **/data/
+**/data/
 
 # Secrets
 **/.env
