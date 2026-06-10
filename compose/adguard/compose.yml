@@ -12,8 +12,8 @@ services:
       - 82:82/tcp # http web interface
       - 3000:3000/tcp # initial setup web interface
     volumes:
-      - ${CONFIG}/adguardhome:/config # app configuration
-      - ${CONFIG}/adguardhome:/work # app working directory
+      - ${DATA:?err}/adguardhome:/config # app configuration
+      - ${DATA:?err}/adguardhome:/work # app working directory
     networks:
       - frontend
     security_opt:

@@ -6,25 +6,19 @@ services:
     image: tailscale/tailscale:latest
     container_name: tailscale
     hostname: poppi
+    network_mode: host
     cap_add:
       - NET_ADMIN
       - NET_RAW
     environment:
       - TS_STATE_DIR=/var/lib/tailscale
       - TS_AUTHKEY=${TS_AUTHKEY:?err}
+      - TS_USERSPACE=false
+      # - TS_ACCEPT_DNS=${TS_ACCEPT_DNS} # Désactive le DNS de Tailscale (AdGuard gère ça)
+
     volumes:
       - ${DATA:?err}/tailscale:/var/lib/tailscale
       - /dev/net/tun:/dev/net/tun
-    networks:
-      - frontend
-
     restart: unless-stopped
     security_opt:
       - no-new-privileges:true
-        
-        
-networks:
-  frontend:
-    driver: bridge
-    external: true
-

@@ -1,7 +1,7 @@
 services:
-#########################
-# VAULTWARDEN | keychain
-#########################
+  #########################
+  # VAULTWARDEN | keychain
+  #########################
   vaultwarden:
     image: vaultwarden/server:latest
     container_name: vaultwarden
@@ -11,14 +11,12 @@ services:
       - SIGNUPS_ALLOWED=false
       - ADMIN_TOKEN=${VAULTWARDEN_ADMIN_TOKEN}
     volumes:
-      - ${DATAs}/vaultwarden:/data
+      - ${DATA}/vaultwarden:/data
     networks:
       - frontend
     security_opt:
       - no-new-privileges:true
-
 networks:
   frontend:
     driver: bridge
     external: true
-  

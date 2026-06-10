@@ -1,13 +1,17 @@
 services:
+  #########################
+  # DOCKGE | Manage Containers
+  #########################
   dockge:
     image: louislam/dockge:latest
     container_name: dockge
-
+    env_file:
+      - ../../.env
     ports:
-      - "5001:5001"
+      - 5001:5001
     environment:
       - PUID=${PUID:?err}
-      - PGID=${PGID:?err}    
+      - PGID=${PGID:?err}
       - DOCKGE_STACKS_DIR=/opt/stacks
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -15,14 +19,10 @@ services:
       - ${HOMEDIR:?err}/compose:/opt/stacks
     networks:
       - frontend
-
-    restart: unless-stopped    
+    restart: unless-stopped
     security_opt:
       - no-new-privileges:true
-        
-        
 networks:
   frontend:
     driver: bridge
     external: true
-
