@@ -24,6 +24,7 @@
   PGID=${PGID} (if needed)
   restart: unless-stopped
 ````
+- Important : Ajouter des deploy.resources.limits (mémoire et CPU) dans chaque compose.
 - Never expose unnecessary ports
 - Use networks:
   - frontend (user-facing services)
