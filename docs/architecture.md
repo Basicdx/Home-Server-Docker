@@ -56,15 +56,21 @@ mnt/data/
 ```text
 Internet
    │
+192.168.1.1
+   │
    ▼
-Cloudflare DNS (DNS-only, pas de proxy)
+AdguardHome (DNS resolver) home.home.arpa?
+   │
+192.168.1.xxx 
    │
    ▼
 Caddie (Reverse Proxy + TLS Termination)
    │
-   ├── CrowdSec (Bouncer pour bloquer les IPs malveillantes)
+Port xxx
    │
-   └── Authentik (2FA / SSO pour tous les services exposés)
+   ├── # CrowdSec (Bouncer pour bloquer les IPs malveillantes)
+   │
+   └── # Authentik (2FA / SSO pour tous les services exposés)
        │
        ├── 🌐 Services Publics (protegés par Authelia)
        │   ├── Nextcloud (stockage + docs)
