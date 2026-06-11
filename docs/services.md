@@ -4,8 +4,8 @@
 
 | Docker | Description | Alternative |
 | --- | --- | --- |
-| [`Dockge`](https://dockge.kuma.pet/) | Docker management | Portainer |
-| [`Homepage`](https://gethomepage.dev/) | Dashboard | Homarr, Dashy |
+| `Dockge` [web](https://dockge.kuma.pet/) / [git](https://github.com/louislam/dockge) | Docker management | Portainer |
+| `Homepage` [web](https://gethomepage.dev/) / [git](https://github.com/gethomepage/homepage) | Dashboard | Homarr, Dashy |
 
 - [Uptime Kuma](https://uptimekuma.org/) → Monitoring
 - 🚢 Watchtower → Maj Docker Container
