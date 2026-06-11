@@ -14,6 +14,7 @@ services:
       - ${DATA:?err}/caddy/data:/data
       - ${DATA:?err}/caddy/config:/config
       - ${DATA:?err}/caddy/site:/srv
+      - ${DATA:?err}/tailscale/certs:/var/lib/tailscale/certs:ro      
     networks:
       - frontend
     security_opt:

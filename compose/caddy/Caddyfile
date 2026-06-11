@@ -17,12 +17,19 @@
 #     reverse_proxy dockge:5001
 # }
 
-homepage.local {
+poppi.akita-diatonic.ts.net {
+    # Tailscale génère les certificats ici :
+    tls /var/lib/tailscale/certs/poppi.akita-diatonic.ts.net.crt \
+        /var/lib/tailscale/certs/poppi.akita-diatonic.ts.net.key
     reverse_proxy homepage:3000
 }
 
-# vault.tondomaine.com {
-    # reverse_proxy vaultwarden:80
+# vault.mondomaine.com {
+#     reverse_proxy vaultwarden:80 {
+#         header_up Host {host}
+#         header_up X-Forwarded-For {remote_host}
+#         header_up X-Forwarded-Proto {scheme}
+#     }
 # }
 
 # ============================================
@@ -38,7 +45,10 @@ homepage.local {
 #         header_up X-Forwarded-Proto {scheme}
 #     }
 #  
-# Immich (own login system)
-# photos.tondomaine.com {
-#     reverse_proxy immich-server:2283
+# photos.mondomaine.com {
+#     reverse_proxy immich-server:2283 {
+#         header_up Host {host}
+#         header_up X-Forwarded-For {remote_host}
+#         header_up X-Forwarded-Proto {scheme}
 #     }
+# }
