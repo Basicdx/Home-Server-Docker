@@ -4,10 +4,10 @@
 
 | Docker | Description | Alternative |
 | --- | --- | --- |
-| `Dockge` | Docker management | Portainer |
-| `Homepage` | Dashboard | Homarr, Dashy |
+| [`Dockge`](https://dockge.kuma.pet/) | Docker management | Portainer |
+| [`Homepage`](https://gethomepage.dev/) | Dashboard | Homarr, Dashy |
 
-- Uptime Kuma → Monitoring
+- [Uptime Kuma](https://uptimekuma.org/) → Monitoring
 - 🚢 Watchtower → Maj Docker Container
 - Grafana
 - Prometheus
@@ -20,9 +20,9 @@
 
 | Docker | Description | Alternative |
 | --- | --- | --- |
-| `Tailscale` | VPN remote access | Wireguard |
-| `Adguard Home` | DNS filtering | Pihole |
-| `Caddy` | reverse proxy + TLS Termination + auto-HTTPS | Traefic, Nginx |
+| [`Tailscale`](https://tailscale.com/) | VPN remote access | Wireguard |
+| [`Adguard Home`](https://adguard.com/) | DNS filtering | Pihole |
+| [`Caddy`](https://caddyserver.com/) | reverse proxy + TLS Termination + auto-HTTPS | Traefic, Nginx |
 
 ### NO OBLIGATORY (Already covered by Tailscale + Caddy)
 - ?Cloudflare → DNS-only, no proxy (or Duckdns free)
@@ -35,9 +35,9 @@
 
 | Docker | Description | Alternative |
 | --- | --- | --- |
-| `Jellyfin` | video streaming | Plex |
-| `Navidrome` | music player | |
-| `Immich` | photo manager | Photoprism |
+| [`Jellyfin`](https://jellyfin.org/) | video streaming | Plex |
+| [`Navidrome`](https://www.navidrome.org/) | music player | |
+| [`Immich`](https://immich.app/) | photo manager | Photoprism |
 
 ---
 
@@ -74,9 +74,9 @@
 
 | Docker | Description | Alternative |
 | --- | --- | --- |
-| `Ollama` | Local AI | LMStudio |
-| `Hermes Agent` | Local AI Agent | Openclaw |
-| `OpenWebUI` | Web interface | Openclaw |
+| [`Ollama`](https://ollama.com/) | Local AI | LMStudio |
+| [`Hermes Agent`](https://hermes-agent.nousresearch.com/) | Local AI Agent | Openclaw |
+| [`OpenWebUI`](https://docs.openwebui.com/) | Web interface | Openclaw |
 
 ---
 
