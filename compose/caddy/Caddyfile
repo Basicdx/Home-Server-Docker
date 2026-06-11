@@ -3,13 +3,31 @@
     auto_https off
 }
 
+# ============================================
+# LEVEL 1 : PRIVATE ACCES (Via Tailscale)
+# ============================================
+
 :80 {
         reverse_proxy open-webui:8080
 }
 
+# ⚠️ Attention : N'expose Dockge sur internet que si tu as mis 
+# un mot de passe dans sa configuration, ou si tu restreins l'accès.
+# dockge.tondomaine.com {
+#     reverse_proxy dockge:5001
+# }
+
 homepage.local {
     reverse_proxy homepage:3000
 }
+
+# vault.tondomaine.com {
+    # reverse_proxy vaultwarden:80
+# }
+
+# ============================================
+# LEVEL 2 : PUBLIC ACCESS (Family/Friends)
+# ============================================
 
 # jellyfin.tondomaine.com {
 #     # On précise l'en-tête Host pour que Jellyfin sache qu'il est derrière un proxy
@@ -19,14 +37,8 @@ homepage.local {
 #         header_up X-Forwarded-For {remote_host}
 #         header_up X-Forwarded-Proto {scheme}
 #     }
-# }
-# 
-# vault.tondomaine.com {
-#     reverse_proxy vaultwarden:80
-# }
-
-# ⚠️ Attention : N'expose Dockge sur internet que si tu as mis 
-# un mot de passe dans sa configuration, ou si tu restreins l'accès.
-# dockge.tondomaine.com {
-#     reverse_proxy dockge:5001
-# }
+#  
+# Immich (own login system)
+# photos.tondomaine.com {
+#     reverse_proxy immich-server:2283
+#     }
