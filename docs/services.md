@@ -20,7 +20,7 @@
 
 | Docker | Description | Alternative |
 | --- | --- | --- |
-| [`Tailscale`](https://tailscale.com/) | VPN remote access | Wireguard |
+| [`Tailscale`](https://tailscale.com/) | VPN remote access | Wireguard, OpenVPN |
 | [`Adguard Home`](https://adguard.com/) | DNS filtering | Pihole |
 | [`Caddy`](https://caddyserver.com/) | reverse proxy + TLS Termination + auto-HTTPS | Traefic, Nginx |
 
