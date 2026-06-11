@@ -54,17 +54,42 @@ mnt/data/
 
 ## 🧱 WORKFLOW
 ```text
+AdGuard = "Comment trouver une adresse ?"
+Tailscale = "Comment rejoindre cette adresse ?"
+Caddy = "Comment servir le site HTTPS ?"
+
+Server
+LAN IP       : 192.168.1.x
+Tailscale IP : 100.x.x.x
+Tailnet      : monserveur.ts.net
+
+Configuration:
+Routeur: DNS -> 192.168.x.x
+Tailscale: DNS server -> 100.x.x.x
+
 Internet
    │
-   ▼
-Cloudflare DNS (DNS-only, pas de proxy)
+https://home.mytailnet.ts.net
    │
    ▼
-Caddie (Reverse Proxy + TLS Termination)
+Tailscale/WireGuard (VPN pour accès distant)
    │
-   ├── CrowdSec (Bouncer pour bloquer les IPs malveillantes)
+home.mytailnet.ts.net = 100.x.x.x
    │
-   └── Authentik (2FA / SSO pour tous les services exposés)
+   ▼
+AdguardHome:53 (DNS resolver) home.home.arpa?
+   │
+100.x.x.x = 192.168.1.x
+   │
+   ▼
+Caddie:443 (Reverse Proxy + TLS Termination + HTTPS )
+   │
+home = :x
+http://192.168.1.x:x
+   │
+   ├── # CrowdSec (Bouncer pour bloquer les IPs malveillantes)
+   │
+   └── # Authentik (2FA / SSO pour tous les services exposés)
        │
        ├── 🌐 Services Publics (protegés par Authelia)
        │   ├── Nextcloud (stockage + docs)
@@ -81,6 +106,5 @@ Caddie (Reverse Proxy + TLS Termination)
            ├── Bazarr (sous-titres)
            └── Syncthing (sync fichiers)
    │
-   ├── Tailscale/WireGuard (VPN pour accès distant)
    └── AdGuard Home/Pi-hole (DNS + blocage pubs)
 ```
