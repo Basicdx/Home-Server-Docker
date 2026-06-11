@@ -1,23 +1,31 @@
 services:
   caddy:
-    image: caddy:latest
+    image: caddy:2.8.4
     container_name: caddy
     restart: unless-stopped
     ports:
       - "80:80"
       - "443:443"
+      - "443:443/udp"  
     env_file:
       - .env
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
-      - ${DATA}/caddy/data:/data
-      - ${DATA}/caddy/config:/config
+      - ${DATA:?err}/caddy/data:/data
+      - ${DATA:?err}/caddy/config:/config
+      - ${DATA:?err}/caddy/site:/srv
+      - ${DATA:?err}/tailscale/certs:/var/lib/tailscale/certs:ro      
     networks:
       - frontend
     security_opt:
       - no-new-privileges:true
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.5'      
 
 networks:
   frontend:
+    name: frontend
     driver: bridge
-    external: true

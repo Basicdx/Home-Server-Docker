@@ -1,0 +1,22 @@
+services:
+  uptime-kuma:
+    image: louislam/uptime-kuma:1.23.15 # Épinglé
+    container_name: uptime-kuma
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    volumes:
+      - ${DATA:?err}/uptime-kuma/data:/app/data
+    networks:
+      - frontend
+    security_opt:
+      - no-new-privileges:true      
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.5'
+
+networks:
+  frontend:
+    external: true

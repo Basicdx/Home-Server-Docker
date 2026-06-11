@@ -1,40 +1,68 @@
 # 📦 Services Overview
 
+##
+| App | Description | Alternative |
+| --- | --- | --- |
+| [`Proxmox`](https://www.proxmox.com/) | Virtual Machine | - |
+| [`TrueNAS`](https://github.com/truenas/) | ZFS storage | - |
+| [`Docker`](https://www.docker.com/) | Containers | Kurbernetes |
+
+
 ## 🧱 MONITORING
-- Dockge → Docker management
-- Homepage → Dashboard (or Homarr, Dashy)
-- Uptime Kuma → Monitoring
+
+| Docker | Description | Alternative |
+| --- | --- | --- |
+| `Dockge` [web](https://dockge.kuma.pet/) / [git](https://github.com/louislam/dockge) | Docker management | Portainer |
+| `Homepage` [web](https://gethomepage.dev/) / [git](https://github.com/gethomepage/homepage) | Dashboard | Homarr, Dashy |
+| [`Uptime Kuma`](https://uptimekuma.org/) | Service uptime & alerts | - |
+| [`Netdata`]() | Full-stack monitoring | [`Prometheus`](https://github.com/prometheus/prometheus) + [`Grafana`](https://github.com/grafana/grafana) |
+| [`Loki`](https://github.com/grafana/loki) | Logs | - |
+| [`Alloy`](https://github.com/grafana/alloy) |  | - |
+| [`OpenSpeedTest`]() | local bandwidth checks | - |
+
+- Uptime Robot → external checks
+
 - 🚢 Watchtower → Maj Docker Container
-- Grafana
-- Prometheus
 - Renovate??? → Maj docker image via PR Github
 - MergeFS??? → Merge disks
 
 ---
 
 ## 🔐 SECURITY & REVERSE PROXY
+
+| Docker | Description | Alternative |
+| --- | --- | --- |
+| [`Tailscale`](https://tailscale.com/) | VPN remote access | Wireguard, [OpenVPN](https://openvpn.net/client/) |
+| [`Adguard Home`](https://adguard.com/) | DNS filtering | Pihole |
+| [`Caddy`](https://caddyserver.com/) | reverse proxy + TLS Termination + auto-HTTPS | Traefik, Nginx |
+
+### NO OBLIGATORY (Already covered by Tailscale + Caddy)
 - ?Cloudflare → DNS-only, no proxy (or Duckdns free)
-- 🌐 Caddy → reverse proxy + TLS Termination + auto-HTTPS (or Traefic, Nginx) 
-- Tailscale → VPN remote access (or Wireguard) (NordVPN, Mullvad)
-- AdGuard Home → DNS filtering (or Pihole)
 - CrowdSec → block malware IP (replace Fail2ban)
-- Authentik → 2FA / SSO for services
+- Authelia → 2FA / SSO for services (Authentik more heavy)
 
 ---
 
 ## 🎬 MEDIA
 
-- 📡 Jellyfin → video streaming
-- Navidrome → music server
-- Immich → photo management
+| Docker | Description | Alternative |
+| --- | --- | --- |
+| [`Jellyfin`](https://jellyfin.org/) | video streaming | Plex |
+| [`Navidrome`](https://www.navidrome.org/) | music player | - |
+| [`Immich`](https://immich.app/) | photo manager | Photoprism |
+| [`Audiobookshelf`]() | book manager | - |
+
 
 ---
 
 ## ☁️ CLOUD
 
-- Nextcloud → personal cloud
-- Syncthing → files synchronisation
-- Vaultwarden → password manager
+| Docker | Description | Alternative |
+| --- | --- | --- |
+| [`Syncthing`]() | Files synchronisation | - |
+| [`Vaultwarden`]() | Password manager | Bitwarden |
+| [`Nextcloud`]() | Personal cloud (heavy ram) | Owncloud |
+
 
 ---
 
@@ -47,20 +75,49 @@
 ---
 
 ## SERVARR
-- FlareSolverr → Bypasses Cloudflare protection for Indexers
-- 🔍 Prowlarr → Indexer centralized management
-- Lidarr → Music
-- 🎬 Radarr → Movies
-- 📺 Sonarr → TV Shows
-- Bazarr → Subtitles
-- 📦 Unpackerr → Unpacking files
+| Docker | Description | Alternative |
+| --- | --- | --- |
+| `FlareSolveer` | Bypasses Cloudflare protection for Indexers | |
+| `🔍 Prowlarr` | Indexer | |
+| `Lidarr` | Music | |
+| `🎬 Radarr` | Movies | |
+| `📺 Sonarr` | TV Shows | |
+| `Bazarr` | Subtitles | |
+| 📦`Unpackeer` | Unpacking files | |
 
 ---
 
 ##  IA
 
-- Ollama / LMStudio
-- OpenWebUI
-- Hermes Agent / Openclaw
+| Docker | Description | Alternative |
+| --- | --- | --- |
+| [`Ollama`](https://ollama.com/) | Local AI | llama.cpp, Localai |
+| [`Hermes Agent`](https://hermes-agent.nousresearch.com/) | Local AI Agent | OpenClaw |
+| [`OpenWebUI`](https://docs.openwebui.com/) | Web interface |  |
+| [`LMStudio`](https://docs.openwebui.com/) | Desktop App | Jan |
 
 ---
+
+## AUTOMATISATION
+
+| Docker | Description | Alternative |
+| --- | --- | --- |
+| [`Node-RED`]() | Workflow auto | Home Assistant, N8N |
+| [`TrueNAS`]() | NAS | OpenMediaVault |
+| [`Duplicati`]() | Backups | Rclone |
+
+## TOOLS
+| Docker | Description | Alternative |
+| --- | --- | --- |
+[`Code Server`](https://github.com/coder/code-server) | WebUI VSCode |
+[`Excalidraw`](https://github.com/excalidraw/excalidraw) | WebUI Draw |
+[`PaperlessNGX`](https://github.com/paperless-ngx/paperless-ngx) | Documents manager |
+[`SearXNG`] | Web searcher |
+[`Scrutiny`] | Disk Health |
+
+
+## DATABASE
+Postgres
+MariaDB
+
+

@@ -6,7 +6,8 @@ services:
     image: IMAGE:TAG  # Image repo, prefer :lastest
     container_name: NAME
     restart: unless-stopped  # Anti-crash
-    # hostname: hostname  # Only for Tailscale?
+    
+    # hostname: ${HOSTNAME}  # Only for Tailscale?
     # network-mode: service:NAME  # Only for Tailscale?
     # cap_drop:
     #    - ALL  # Deactivate ALL default capabilities
@@ -15,7 +16,7 @@ services:
     #    - NET_RAW    # Manage RAW packages (necessary for Tailscale)  
 
     env_file:
-      - ../.env
+      - .env
     environment:
       - PUID=${PUID}  # User, default:1000
       - PGID=${PGID}  # Group, default:1000
@@ -34,13 +35,16 @@ services:
       - network_name    
     security_opt:
       - no-new-privileges:true  
+      
     # deploy:  # For ollama, jellyfin, immich, nextcloud
     #   resources:
     #     limits:
-    #       memory:
-    #       cpus:   
-    # depends_on:
-    #   - 
+    #       memory: 1024M
+    #       cpus: '0.5'
+    
+    # depends_on: # For dependencies
+    #   - service_name
+    
     # healthcheck:
     
 networks:

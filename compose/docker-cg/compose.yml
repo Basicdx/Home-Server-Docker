@@ -1,0 +1,24 @@
+services:
+  docker-gc:
+    image: spotify/docker-gc:latest
+    container_name: docker-gc
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /etc:/etc:ro
+    environment:
+      - REMOVE_IMAGES=0 # Supprime les images non taggées ou vieilles de + de 24h
+      - CLEAN_UP_VOLUMES=1      
+    networks:
+      - frontend
+    security_opt:
+      - no-new-privileges:true
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.5'            
+
+networks:
+  frontend:
+    external: true

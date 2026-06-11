@@ -3,8 +3,9 @@ services:
   # DOCKGE | Manage Containers
   #########################
   dockge:
-    image: louislam/dockge:latest
+    image: louislam/dockge:1.4.2
     container_name: dockge
+    restart: unless-stopped
     env_file:
       - .env
     ports:
@@ -12,17 +13,25 @@ services:
     environment:
       - PUID=${PUID:?err}
       - PGID=${PGID:?err}
-      - DOCKGE_STACKS_DIR=/opt/stacks
+      # - DOCKGE_STACKS_DIR=/opt/stacks
+      - DOCKGE_STACKS_DIR=app/compose
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ${DATA:?err}/dockge/data:/app/data
-      - ${STACKS:?err}:/opt/stacks
+      # Montage de ton dossier de stacks pour que Dockge les voie      
+      # - ${STACKS:?err}:/opt/stacks
+      - ${STACKS:?err}:app/compose
     networks:
       - frontend
-    restart: unless-stopped
     security_opt:
       - no-new-privileges:true
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.5'      
+
 networks:
   frontend:
+    name: frontend
     driver: bridge
-    external: true

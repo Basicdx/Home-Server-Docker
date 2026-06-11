@@ -24,6 +24,7 @@
   PGID=${PGID} (if needed)
   restart: unless-stopped
 ````
+- Important : Ajouter des deploy.resources.limits (mémoire et CPU) dans chaque compose.
 - Never expose unnecessary ports
 - Use networks:
   - frontend (user-facing services)
@@ -49,6 +50,7 @@
 
 - 🔹 Minimal network segmentation  
   reason: enough isolation without complexity explosion
+- Prefer "Zero Trust"
 - Prefer internal networks over exposed ports
 - Use reverse proxy for public access
 - Vaultwarden is critical service → always isolated

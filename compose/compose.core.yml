@@ -26,7 +26,7 @@ include:
   # - ./immich/compose.yml
 
   # AI and development services
-  - ./ollama/compose.yml
-  - ./open-webui/compose.yml
+  # - ./ollama/compose.yml
+  # - ./open-webui/compose.yml
 
   # - ./watchtower/compose.yml

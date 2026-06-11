@@ -1,25 +1,82 @@
 services:
-  dockge:
-    image: louislam/dockge:latest
-    container_name: dockge
+  immich-server:
+    image: ghcr.io/immich-app/immich-server:v1.111.0 # Épinglé
+    container_name: immich_server
     restart: unless-stopped
-
     ports:
-      - "5001:5001"
+      - "2283:2283"
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ${DATA_DIR:?err}/dockge/data:/app/data
-      - ${HOME_DIR:?err}/compose:/opt/stacks
-    environment:
-      - DOCKGE_STACKS_DIR=/opt/stacks
-    security_opt:
-      - no-new-privileges:true
+      - ${DATA:?err}/immich/upload:/usr/src/app/upload
+      - /etc/localtime:/etc/localtime:ro
+    env_file:
+      - .env
+    depends_on:
+      - redis
+      - database
     networks:
       - frontend
-        
-        
+    deploy:
+      resources:
+        limits:
+          memory: 1024M # 1 Go max
+          cpus: '1.5'
+
+  immich-microservices:
+    image: ghcr.io/immich-app/immich-server:v1.111.0
+    container_name: immich_microservices
+    restart: unless-stopped
+    command: ['start.sh', 'microservices']
+    volumes:
+      - ${DATA:?err}/immich/upload:/usr/src/app/upload
+      - /etc/localtime:/etc/localtime:ro
+    env_file:
+      - .env
+    depends_on:
+      - redis
+      - database
+    networks:
+      - frontend
+    deploy:
+      resources:
+        limits:
+          memory: 1024M
+          cpus: '1.5'
+
+  # 🚨 CONTENEUR MACHINE-LEARNING VOLONTAIREMENT RETIRÉ 🚨
+  # Sur un iMac 2010, la génération de miniatures et la reconnaissance faciale
+  # prendraient des semaines et bloqueraient le serveur.
+
+  redis:
+    image: redis:7.2-alpine # Alpin pour économiser la RAM
+    container_name: immich_redis
+    restart: unless-stopped
+    networks:
+      - frontend
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+
+  database:
+    image: tensorchord/pgvecto-rs:pg16-v0.2.0
+    container_name: immich_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?err}
+      POSTGRES_USER: ${DB_USERNAME:?err}
+      POSTGRES_DB: ${DB_DATABASE_NAME:?err}
+    volumes:
+      - $(DATA:?err)/immich/pgdata:/var/lib/postgresql/data
+    networks:
+      - frontend
+    security_opt:
+      - no-new-privileges:true        
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
 networks:
   frontend:
+    name: frontend
     driver: bridge
-    external: true
-
