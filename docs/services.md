@@ -74,7 +74,7 @@
 
 | Docker | Description | Alternative |
 | --- | --- | --- |
-| [`Ollama`](https://ollama.com/) | Local AI | llama.cpp |
+| [`Ollama`](https://ollama.com/) | Local AI | llama.cpp, Localai |
 | [`Hermes Agent`](https://hermes-agent.nousresearch.com/) | Local AI Agent | OpenClaw |
 | [`OpenWebUI`](https://docs.openwebui.com/) | Web interface |  |
 | [`LMStudio`](https://docs.openwebui.com/) | Desktop App | Jan |
