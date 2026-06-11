@@ -47,9 +47,12 @@
 
 ## ☁️ CLOUD
 
-- Syncthing → files synchronisation
-- Vaultwarden → password manager
-- (Nextcloud → personal cloud, trop gourmand en ram) alt Owncloud
+| Docker | Description | Alternative |
+| --- | --- | --- |
+| [`Syncthing`]() | Files synchronisation | - |
+| [`Vaultwarden`]() | Password manager | Bitwarden |
+| [`Nextcloud`]() | Personal cloud (heavy ram) | Owncloud |
+
 
 ---
 
@@ -89,4 +92,8 @@
 
 | Docker | Description | Alternative |
 | --- | --- | --- |
-| [`Node-RED`]() |  | Home Assistant |
+| [`Node-RED`]() | Workflow auto | Home Assistant, N8N |
+| [`TrueNAS`]() | NAS | OpenMediaVault |
+| [`Duplicati`]() | Backups | Rclone |
+
+
