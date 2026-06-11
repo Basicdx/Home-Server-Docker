@@ -7,10 +7,12 @@
 | `Dockge` [web](https://dockge.kuma.pet/) / [git](https://github.com/louislam/dockge) | Docker management | Portainer |
 | `Homepage` [web](https://gethomepage.dev/) / [git](https://github.com/gethomepage/homepage) | Dashboard | Homarr, Dashy |
 
-- [Uptime Kuma](https://uptimekuma.org/) → Monitoring
+- [Uptime Kuma](https://uptimekuma.org/) → Service uptime & alerts
+- Netdata → full-stack monitoring
+- Prometheus → Gather graphics
+- Grafana → Visualise gaphics
 - 🚢 Watchtower → Maj Docker Container
-- Grafana
-- Prometheus
+
 - Renovate??? → Maj docker image via PR Github
 - MergeFS??? → Merge disks
 
@@ -36,8 +38,10 @@
 | Docker | Description | Alternative |
 | --- | --- | --- |
 | [`Jellyfin`](https://jellyfin.org/) | video streaming | Plex |
-| [`Navidrome`](https://www.navidrome.org/) | music player | |
+| [`Navidrome`](https://www.navidrome.org/) | music player | - |
 | [`Immich`](https://immich.app/) | photo manager | Photoprism |
+| [`Audiobookshelf`]() | book manager | - |
+
 
 ---
 
@@ -45,7 +49,7 @@
 
 - Syncthing → files synchronisation
 - Vaultwarden → password manager
-- (Nextcloud → personal cloud, trop gourmand en ram)
+- (Nextcloud → personal cloud, trop gourmand en ram) alt Owncloud
 
 ---
 
