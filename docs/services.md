@@ -3,9 +3,9 @@
 ##
 | App | Description | Alternative |
 | --- | --- | --- |
-| `Proxmox`() | Virtual Machine | - |
-| `TrueNAS`() | ZFS storage | - |
-| `Docker`() | Containers | Kurbernetes |
+| [`Proxmox`](https://www.proxmox.com/) | Virtual Machine | - |
+| [`TrueNAS`](https://github.com/truenas/) | ZFS storage | - |
+| [`Docker`](https://www.docker.com/) | Containers | Kurbernetes |
 
 
 ## 🧱 MONITORING
@@ -21,9 +21,10 @@
 | [`Alloy`](https://github.com/grafana/alloy) |  | - |
 | [`Netdata`]() | Full-stack monitoring | - |
 
-- 🚢 Watchtower → Maj Docker Container
-- OpenSpeedTest
+- OpenSpeedTest → Speed test
 - Uptime Robot → external checks
+
+- 🚢 Watchtower → Maj Docker Container
 - Renovate??? → Maj docker image via PR Github
 - MergeFS??? → Merge disks
 
@@ -108,6 +109,12 @@
 | [`Duplicati`]() | Backups | Rclone |
 
 ## TOOLS
-SearXNG
+[`Excalidraw`](https://github.com/excalidraw/excalidraw)
+[`PaperlessNGX`](https://github.com/paperless-ngx/paperless-ngx)
+[`SearXNG`]
+
+## DATABASE
+Postgres
+MariaDB
 
 
