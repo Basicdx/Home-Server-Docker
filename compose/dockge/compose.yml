@@ -13,14 +13,11 @@ services:
     environment:
       - PUID=${PUID:?err}
       - PGID=${PGID:?err}
-      # - DOCKGE_STACKS_DIR=/opt/stacks
-      - DOCKGE_STACKS_DIR=app/compose
+      - DOCKGE_STACKS_DIR=${STACKS:?err}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ${DATA:?err}/dockge/data:/app/data
-      # Montage de ton dossier de stacks pour que Dockge les voie      
-      # - ${STACKS:?err}:/opt/stacks
-      - ${STACKS:?err}:app/compose
+      - ${STACKS:?err}:${STACKS:?err}:ro
     networks:
       - frontend
     security_opt:
@@ -29,9 +26,8 @@ services:
       resources:
         limits:
           memory: 256M
-          cpus: '0.5'      
-
+          cpus: "0.5"
 networks:
   frontend:
-    name: frontend
     driver: bridge
+    external: true

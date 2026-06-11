@@ -12,16 +12,15 @@ services:
       - NET_ADMIN
       - NET_RAW
       - SYS_MODULE 
-      
     env_file:
       - .env    
     secrets:
       - TS_AUTHKEY
     environment:
       # - TS_AUTHKEY=${TS_AUTHKEY:?err}
-      # - TS_STATE_DIR=/var/lib/tailscale
       - TS_USERSPACE=false
       - TS_EXTRA_ARGS=--accept-routes # Accept local network routes
+      # - TS_STATE_DIR=/var/lib/tailscale
       # - TS_ACCEPT_DNS=${TS_ACCEPT_DNS} # Désactive le DNS de Tailscale (AdGuard gère ça)
     volumes:
       - ${DATA:?err}/tailscale/state:/var/lib/tailscale
