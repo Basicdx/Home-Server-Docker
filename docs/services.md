@@ -58,21 +58,25 @@
 ---
 
 ## SERVARR
-- FlareSolverr → Bypasses Cloudflare protection for Indexers
-- 🔍 Prowlarr → Indexer centralized management
-- Lidarr → Music
-- 🎬 Radarr → Movies
-- 📺 Sonarr → TV Shows
-- Bazarr → Subtitles
-- 📦 Unpackerr → Unpacking files
+| Docker | Description | Alternative |
+| --- | --- | --- |
+| `FlareSolveer` | Bypasses Cloudflare protection for Indexers | |
+| `🔍 Prowlarr` | Indexer | |
+| `Lidarr` | Music | |
+| `🎬 Radarr` | Movies | |
+| `📺 Sonarr` | TV Shows | |
+| `Bazarr` | Subtitles | |
+| 📦`Unpackeer` | Unpacking files | |
 
 ---
 
 ##  IA
 
-- Ollama / LMStudio
-- OpenWebUI
-- Hermes Agent / Openclaw
+| Docker | Description | Alternative |
+| --- | --- | --- |
+| `Ollama` | Local AI | LMStudio |
+| `Hermes Agent` | Local AI Agent | Openclaw |
+| `OpenWebUI` | Web interface | Openclaw |
 
 ---
 
