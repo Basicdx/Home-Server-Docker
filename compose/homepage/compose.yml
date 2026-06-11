@@ -3,18 +3,18 @@ services:
   ## HOMEPAGE | Dashboard
   ##########################
   homepage:
-    image: ghcr.io/gethomepage/homepage:latest
+    image: ghcr.io/gethomepage/homepage:v0.9.6
     container_name: homepage
     restart: unless-stopped
     ports:
-      # - 3000:3000
+      - 3000:3000
     env_file:
       - .env
     environment:
       - PUID=${PUID:?err}
       - PGID=${PGID:?err}
       - TZ=${TZ:?err}
-      - HOMEPAGE_ALLOWED_HOSTS=localhost:3000,${HOSTNAME}:3000 # Authorize
+      - HOMEPAGE_ALLOWED_HOSTS=localhost:3000,127.0.0.1:3000,${HOSTNAME:?err}:3000 # Authorize
     volumes:
       - ${DATA:?err}/homepage/config:/app/config
       - ${DATA:?err}/homepage/data:/app/data
@@ -23,7 +23,13 @@ services:
       - frontend
     security_opt:
       - no-new-privileges:true
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.5'
+
 networks:
   frontend:
+    name: frontend
     driver: bridge
-    external: true

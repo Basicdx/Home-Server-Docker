@@ -1,4 +1,5 @@
 {
+    email ton@email.com    
     auto_https off
 }
 
@@ -9,3 +10,23 @@
 homepage.local {
     reverse_proxy homepage:3000
 }
+
+# jellyfin.tondomaine.com {
+#     # On précise l'en-tête Host pour que Jellyfin sache qu'il est derrière un proxy
+#     reverse_proxy jellyfin:8096 {
+#         header_up Host {host}
+#         header_up X-Real-IP {remote_host}
+#         header_up X-Forwarded-For {remote_host}
+#         header_up X-Forwarded-Proto {scheme}
+#     }
+# }
+# 
+# vault.tondomaine.com {
+#     reverse_proxy vaultwarden:80
+# }
+
+# ⚠️ Attention : N'expose Dockge sur internet que si tu as mis 
+# un mot de passe dans sa configuration, ou si tu restreins l'accès.
+# dockge.tondomaine.com {
+#     reverse_proxy dockge:5001
+# }

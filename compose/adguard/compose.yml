@@ -3,9 +3,11 @@ services:
 # ADGUARDHOME | Home DNS
 #########################
   adguardhome:
-    image: adguard/adguardhome:latest
+    image: adguard/adguardhome:v0.107.52
     container_name: adguardhome
     restart: unless-stopped
+    # ⚠️ Si tu es sous Linux et que le port 53 est pris par systemd-resolved, 
+    # lance cette commande avant : sudo systemctl disable --now systemd-resolved    
     ports:
       - 53:53/tcp # plain dns over tcp
       - 53:53/udp # plain dns over udp
@@ -14,7 +16,7 @@ services:
     env_file:
       - .env
     volumes:
-      - ${DATA:?err}/adguardhome/config:/conf # app configuration
+      - ${DATA:?err}/adguardhome/conf:/conf # app configuration
       - ${DATA:?err}/adguardhome/work:/work # app working directory
     networks:
       - frontend
@@ -28,7 +30,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 512M
+          memory: 256M
           cpus: '0.5'       
 
 networks:

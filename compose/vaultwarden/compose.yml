@@ -3,19 +3,22 @@ services:
   # VAULTWARDEN | keychain
   #########################
   vaultwarden:
-    image: vaultwarden/server:latest
+    image: vaultwarden/server:1.32.3
     container_name: vaultwarden
     restart: unless-stopped
+    ports:
+      - "8080:80"    
     env_file:
       - .env
     secrets:
       - ADMIN_TOKEN 
     environment:
+      - DOMAIN=https://vault.tondomaine.com     
       - WEBSOCKET_ENABLED=true
       - SIGNUPS_ALLOWED=false
       # - ADMIN_TOKEN=${ADMIN_TOKEN:?err}
     volumes:
-      - ${DATA}/vaultwarden/data:/data
+      - ${DATA:?err}/vaultwarden/data:/data
     networks:
       - frontend
     security_opt:
@@ -23,7 +26,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 1024M
+          memory: 256M
           cpus: '0.5' 
 
 secrets:
@@ -32,5 +35,5 @@ secrets:
 
 networks:
   frontend:
+    name: frontend
     driver: bridge
-    external: true

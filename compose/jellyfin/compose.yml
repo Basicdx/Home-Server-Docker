@@ -1,25 +1,31 @@
 services:
-  dockge:
-    image: louislam/dockge:latest
-    container_name: dockge
+  jellyfin:
+    image: jellyfin/jellyfin:10.10.3 # Version stable épinglée
+    container_name: jellyfin
     restart: unless-stopped
-
+    # Pas besoin d'exposer les ports si tu utilises Caddy en reverse proxy, 
+    # mais on les laisse pour l'accès local direct si besoin.
     ports:
-      - "5001:5001"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ${DATA_DIR:?err}/dockge/data:/app/data
-      - ${HOME_DIR:?err}/compose:/opt/stacks
+      - "8096:8096"
     environment:
-      - DOCKGE_STACKS_DIR=/opt/stacks
-    security_opt:
-      - no-new-privileges:true
+      - PUID=${PUID:?err}
+      - PGID=${PGID:?err}
+      - TZ=${TZ:?err}
+    volumes:
+      - ${DATA:?err}/jellyfin/config:/config
+      - ${DATA:?err}/jellyfin/cache:/cache
+      - ${MEDIA:?err}:/media:ro # Ton dossier de films/séries en lecture seule
     networks:
       - frontend
-        
-        
+    security_opt:
+      - no-new-privileges:true    
+    deploy:
+      resources:
+        limits:
+          memory: 1536M # 1.5 Go max. Suffisant pour le stream direct.
+          cpus: '2.0'
+
 networks:
   frontend:
+    name: frontend
     driver: bridge
-    external: true
-

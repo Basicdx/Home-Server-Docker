@@ -1,17 +1,19 @@
 services:
   caddy:
-    image: caddy:latest
+    image: caddy:2.8.4
     container_name: caddy
     restart: unless-stopped
     ports:
       - "80:80"
       - "443:443"
+      - "443:443/udp"  
     env_file:
       - .env
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
-      - ${DATA}/caddy/data:/data
-      - ${DATA}/caddy/config:/config
+      - ${DATA:?err}/caddy/data:/data
+      - ${DATA:?err}/caddy/config:/config
+      - ${DATA:?err}/caddy/site:/srv
     networks:
       - frontend
     security_opt:
@@ -19,7 +21,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 512M
+          memory: 256M
           cpus: '0.5'      
 
 networks:
