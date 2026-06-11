@@ -1,8 +1,12 @@
 # 📦 Services Overview
 
 ## 🧱 MONITORING
-- Dockge → Docker management
-- Homepage → Dashboard (or Homarr, Dashy)
+
+| Docker | Description | Alternative |
+| --- | --- | --- |
+| `Dockge` | Docker management | Portainer |
+| `Homepage` | Dashboard | Homarr, Dashy |
+
 - Uptime Kuma → Monitoring
 - 🚢 Watchtower → Maj Docker Container
 - Grafana
@@ -13,9 +17,12 @@
 ---
 
 ## 🔐 SECURITY & REVERSE PROXY
-- Tailscale → VPN remote access (or Wireguard) (NordVPN, Mullvad)
-- AdGuard Home → DNS filtering (or Pihole)
-- 🌐 Caddy → reverse proxy + TLS Termination + auto-HTTPS (or Traefic, Nginx) 
+
+| Docker | Description | Alternative |
+| --- | --- | --- |
+| `Tailscale` | VPN remote access | Wireguard |
+| `Adguard Home` | DNS filtering | Pihole |
+| `Caddy` | reverse proxy + TLS Termination + auto-HTTPS | Traefic, Nginx |
 
 ### NO OBLIGATORY (Already covered by Tailscale + Caddy)
 - ?Cloudflare → DNS-only, no proxy (or Duckdns free)
@@ -26,9 +33,11 @@
 
 ## 🎬 MEDIA
 
-- 📡 Jellyfin → video streaming
-- Navidrome → music server
-- Immich → photo management (PhotoPrism less heavy)
+| Docker | Description | Alternative |
+| --- | --- | --- |
+| `Jellyfin` | video streaming | Plex |
+| `Navidrome` | music player | |
+| `Immich` | photo manager | Photoprism |
 
 ---
 
