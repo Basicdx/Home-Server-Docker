@@ -12,7 +12,12 @@ services:
     networks:
       - frontend
     security_opt:
-      - no-new-privileges:true      
+      - no-new-privileges:true
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.5'            
 
 networks:
   frontend:
