@@ -14,7 +14,7 @@ services:
       - PUID=${PUID:?err}
       - PGID=${PGID:?err}
       - TZ=${TZ:?err}
-      - HOMEPAGE_ALLOWED_HOSTS=localhost:3000,poppi:3000 # Authorize
+      - HOMEPAGE_ALLOWED_HOSTS=localhost:3000,${HOSTNAME}:3000 # Authorize
     volumes:
       - ${DATA:?err}/homepage/config:/app/config
       - ${DATA:?err}/homepage/data:/app/data
