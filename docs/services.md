@@ -74,12 +74,15 @@
 
 | Docker | Description | Alternative |
 | --- | --- | --- |
-| [`Ollama`](https://ollama.com/) | Local AI | LMStudio |
-| [`Hermes Agent`](https://hermes-agent.nousresearch.com/) | Local AI Agent | Openclaw |
-| [`OpenWebUI`](https://docs.openwebui.com/) | Web interface | Openclaw |
+| [`Ollama`](https://ollama.com/) | Local AI | llama.cpp |
+| [`Hermes Agent`](https://hermes-agent.nousresearch.com/) | Local AI Agent | OpenClaw |
+| [`OpenWebUI`](https://docs.openwebui.com/) | Web interface |  |
+| [`LMStudio`](https://docs.openwebui.com/) | Desktop App | Jan |
 
 ---
 
 ## AUTOMATISATION
 
-- Node-RED (or Home Assistant)
+| Docker | Description | Alternative |
+| --- | --- | --- |
+| [`Node-RED`]() |  | Home Assistant |
