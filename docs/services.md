@@ -14,13 +14,16 @@
 | --- | --- | --- |
 | `Dockge` [web](https://dockge.kuma.pet/) / [git](https://github.com/louislam/dockge) | Docker management | Portainer |
 | `Homepage` [web](https://gethomepage.dev/) / [git](https://github.com/gethomepage/homepage) | Dashboard | Homarr, Dashy |
+| [`Uptime Kuma`](https://uptimekuma.org/) | Service uptime & alerts | - |
+| [`Prometheus`](https://github.com/prometheus/prometheus) | Gather graphics | - |
+| [`Grafana`](https://github.com/grafana/grafana) | Visualise gaphics | - |
+| [`Loki`](https://github.com/grafana/loki) | Logs | - |
+| [`Alloy`](https://github.com/grafana/alloy) |  | - |
+| [`Netdata`]() | Full-stack monitoring | - |
 
-- [Uptime Kuma](https://uptimekuma.org/) → Service uptime & alerts
-- Netdata → full-stack monitoring
-- Prometheus → Gather graphics
-- Grafana → Visualise gaphics
 - 🚢 Watchtower → Maj Docker Container
-
+- OpenSpeedTest
+- Uptime Robot → external checks
 - Renovate??? → Maj docker image via PR Github
 - MergeFS??? → Merge disks
 
@@ -32,7 +35,7 @@
 | --- | --- | --- |
 | [`Tailscale`](https://tailscale.com/) | VPN remote access | Wireguard, [OpenVPN](https://openvpn.net/client/) |
 | [`Adguard Home`](https://adguard.com/) | DNS filtering | Pihole |
-| [`Caddy`](https://caddyserver.com/) | reverse proxy + TLS Termination + auto-HTTPS | Traefic, Nginx |
+| [`Caddy`](https://caddyserver.com/) | reverse proxy + TLS Termination + auto-HTTPS | Traefik, Nginx |
 
 ### NO OBLIGATORY (Already covered by Tailscale + Caddy)
 - ?Cloudflare → DNS-only, no proxy (or Duckdns free)
@@ -103,5 +106,8 @@
 | [`Node-RED`]() | Workflow auto | Home Assistant, N8N |
 | [`TrueNAS`]() | NAS | OpenMediaVault |
 | [`Duplicati`]() | Backups | Rclone |
+
+## TOOLS
+SearXNG
 
 
