@@ -54,17 +54,15 @@ mnt/data/
 
 ## 🧱 WORKFLOW
 ```text
-Internet
-   │
-192.168.1.1
+Internet (https://home.mytailnet.ts.net)
    │
    ▼
-AdguardHome (DNS resolver) home.home.arpa?
+Tailscale / AdguardHome (DNS resolver) home.home.arpa?
    │
-192.168.1.xxx 
+100.x.x.x / 192.168.1.x
    │
    ▼
-Caddie (Reverse Proxy + TLS Termination)
+Caddie (Reverse Proxy + TLS Termination + HTTPS )
    │
 Port xxx
    │
