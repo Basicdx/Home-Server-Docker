@@ -34,9 +34,9 @@
 
 ## ☁️ CLOUD
 
-- Nextcloud → personal cloud
 - Syncthing → files synchronisation
 - Vaultwarden → password manager
+- (Nextcloud → personal cloud, trop gourmand en ram)
 
 ---
 
@@ -66,3 +66,7 @@
 - Hermes Agent / Openclaw
 
 ---
+
+## AUTOMATISATION
+
+- Node-RED (or Home Assistant)
