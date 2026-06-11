@@ -109,9 +109,12 @@
 | [`Duplicati`]() | Backups | Rclone |
 
 ## TOOLS
-[`Excalidraw`](https://github.com/excalidraw/excalidraw)
-[`PaperlessNGX`](https://github.com/paperless-ngx/paperless-ngx)
-[`SearXNG`]
+| Docker | Description | Alternative |
+| --- | --- | --- |
+[`Code Server`](https://github.com/coder/code-server) | WebUI VSCode |
+[`Excalidraw`](https://github.com/excalidraw/excalidraw) | WebUI Draw |
+[`PaperlessNGX`](https://github.com/paperless-ngx/paperless-ngx) | Documents manager |
+[`SearXNG`] | Web searcher |
 
 ## DATABASE
 Postgres
