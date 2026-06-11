@@ -15,13 +15,11 @@
 | `Dockge` [web](https://dockge.kuma.pet/) / [git](https://github.com/louislam/dockge) | Docker management | Portainer |
 | `Homepage` [web](https://gethomepage.dev/) / [git](https://github.com/gethomepage/homepage) | Dashboard | Homarr, Dashy |
 | [`Uptime Kuma`](https://uptimekuma.org/) | Service uptime & alerts | - |
-| [`Prometheus`](https://github.com/prometheus/prometheus) | Gather graphics | - |
-| [`Grafana`](https://github.com/grafana/grafana) | Visualise gaphics | - |
+| [`Netdata`]() | Full-stack monitoring | [`Prometheus`](https://github.com/prometheus/prometheus) + [`Grafana`](https://github.com/grafana/grafana) |
 | [`Loki`](https://github.com/grafana/loki) | Logs | - |
 | [`Alloy`](https://github.com/grafana/alloy) |  | - |
-| [`Netdata`]() | Full-stack monitoring | - |
+| [`OpenSpeedTest`]() | local bandwidth checks | - |
 
-- OpenSpeedTest → Speed test
 - Uptime Robot → external checks
 
 - 🚢 Watchtower → Maj Docker Container
@@ -115,6 +113,8 @@
 [`Excalidraw`](https://github.com/excalidraw/excalidraw) | WebUI Draw |
 [`PaperlessNGX`](https://github.com/paperless-ngx/paperless-ngx) | Documents manager |
 [`SearXNG`] | Web searcher |
+[`Scrutiny`] | Disk Health |
+
 
 ## DATABASE
 Postgres
