@@ -17,7 +17,7 @@
 - AdGuard Home → DNS filtering (or Pihole)
 - 🌐 Caddy → reverse proxy + TLS Termination + auto-HTTPS (or Traefic, Nginx) 
 
-### NO OBLIGATORY
+### NO OBLIGATORY (Already covered by Tailscale + Caddy)
 - ?Cloudflare → DNS-only, no proxy (or Duckdns free)
 - CrowdSec → block malware IP (replace Fail2ban)
 - Authelia → 2FA / SSO for services (Authentik more heavy)
