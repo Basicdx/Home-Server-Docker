@@ -1,0 +1,54 @@
+{
+    email ton@email.com    
+    auto_https off
+}
+
+# ============================================
+# LEVEL 1 : PRIVATE ACCES (Via Tailscale)
+# ============================================
+
+:80 {
+        reverse_proxy open-webui:8080
+}
+
+# ⚠️ Attention : N'expose Dockge sur internet que si tu as mis 
+# un mot de passe dans sa configuration, ou si tu restreins l'accès.
+# dockge.tondomaine.com {
+#     reverse_proxy dockge:5001
+# }
+
+poppi.akita-diatonic.ts.net {
+    # Tailscale génère les certificats ici :
+    tls /var/lib/tailscale/certs/poppi.akita-diatonic.ts.net.crt \
+        /var/lib/tailscale/certs/poppi.akita-diatonic.ts.net.key
+    reverse_proxy homepage:3000
+}
+
+# vault.mondomaine.com {
+#     reverse_proxy vaultwarden:80 {
+#         header_up Host {host}
+#         header_up X-Forwarded-For {remote_host}
+#         header_up X-Forwarded-Proto {scheme}
+#     }
+# }
+
+# ============================================
+# LEVEL 2 : PUBLIC ACCESS (Family/Friends)
+# ============================================
+
+# jellyfin.tondomaine.com {
+#     # On précise l'en-tête Host pour que Jellyfin sache qu'il est derrière un proxy
+#     reverse_proxy jellyfin:8096 {
+#         header_up Host {host}
+#         header_up X-Real-IP {remote_host}
+#         header_up X-Forwarded-For {remote_host}
+#         header_up X-Forwarded-Proto {scheme}
+#     }
+#  
+# photos.mondomaine.com {
+#     reverse_proxy immich-server:2283 {
+#         header_up Host {host}
+#         header_up X-Forwarded-For {remote_host}
+#         header_up X-Forwarded-Proto {scheme}
+#     }
+# }

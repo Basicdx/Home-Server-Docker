@@ -14,10 +14,10 @@ services:
       - SYS_MODULE 
     env_file:
       - .env    
-    secrets:
-      - TS_AUTHKEY
+    # secrets:
+    #   - TS_AUTHKEY
     environment:
-      # - TS_AUTHKEY=${TS_AUTHKEY:?err}
+      - TS_AUTHKEY=${TS_AUTHKEY:?err}
       - TS_USERSPACE=false
       - TS_EXTRA_ARGS=--accept-routes # Accept local network routes
       # - TS_STATE_DIR=/var/lib/tailscale
@@ -35,9 +35,9 @@ services:
           memory: 128M # Tailscale is extremly lightweight
           cpus: '0.2'      
 
-secrets:
-  TS_AUTHKEY:
-    file: ./.secrets
+# secrets:
+#   TS_AUTHKEY:
+#     file: ./.secrets
 
 # network:
 #   frontend:

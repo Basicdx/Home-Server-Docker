@@ -7,14 +7,14 @@ services:
     container_name: homepage
     restart: unless-stopped
     ports:
-      - 3000:3000
+      - 3001:3001
     env_file:
       - .env
     environment:
       - PUID=${PUID:?err}
       - PGID=${PGID:?err}
       - TZ=${TZ:?err}
-      - HOMEPAGE_ALLOWED_HOSTS=localhost:3000,127.0.0.1:3000,${HOSTNAME:?err}:3000 # Authorize
+      - HOMEPAGE_ALLOWED_HOSTS=localhost:3001,127.0.0.1:3001,${HOSTNAME:?err}:3001 # Authorize
     volumes:
       - ${DATA:?err}/homepage/config:/app/config
       - ${DATA:?err}/homepage/data:/app/data

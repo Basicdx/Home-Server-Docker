@@ -6,24 +6,24 @@ services:
     image: adguard/adguardhome:v0.107.52
     container_name: adguardhome
     restart: unless-stopped
+    networks:
+      - frontend
     # ⚠️ Si tu es sous Linux et que le port 53 est pris par systemd-resolved, 
     # lance cette commande avant : sudo systemctl disable --now systemd-resolved    
     ports:
       - 53:53/tcp # plain dns over tcp
       - 53:53/udp # plain dns over udp
-      - 80:80/tcp # http web interface
+      - 82:82/tcp # http web interface
       - 3000:3000/tcp # initial setup web interface
     env_file:
       - .env
     volumes:
-      - ${DATA:?err}/adguardhome/conf:/conf # app configuration
-      - ${DATA:?err}/adguardhome/work:/work # app working directory
-    networks:
-      - frontend
+      - ${DATA:?err}/adguardhome/conf:/opt/adguardhome/conf # app configuration
+      - ${DATA:?err}/adguardhome/work:/opt/adguardhome/work # app working directory
     security_opt:
       - no-new-privileges:true
     healthcheck:
-      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000"]
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:82"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -32,9 +32,8 @@ services:
         limits:
           memory: 256M
           cpus: '0.5'       
-
+      
 networks:
   frontend:
     driver: bridge
     external: true
-      
