@@ -69,23 +69,27 @@ Tailscale: DNS server -> 100.x.x.x
 
 Internet
    │
+request
 https://home.mytailnet.ts.net
    │
    ▼
-Tailscale/WireGuard (VPN pour accès distant)
+Tailscale/WireGuard (VPN pour accès distant) Utilise AdGuard comme DNS
    │
+associate name to Tailscale IP
 home.mytailnet.ts.net = 100.x.x.x
    │
    ▼
 AdguardHome:53 (DNS resolver) home.home.arpa?
    │
-100.x.x.x = 192.168.1.x
+associate name to Local IP
+home.mytailnet.ts.net = 192.168.1.x
    │
    ▼
 Caddie:443 (Reverse Proxy + TLS Termination + HTTPS )
    │
-home = :x
-http://192.168.1.x:x
+associate name to port
+home.mytailnet.ts.net = homeport
+http://192.168.1.x:homeport
    │
    ├── # CrowdSec (Bouncer pour bloquer les IPs malveillantes)
    │
