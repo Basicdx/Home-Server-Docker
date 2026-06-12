@@ -67,9 +67,31 @@ services:
           memory: 1024M
           cpus: '1.5'
 
-  # 🚨 CONTENEUR MACHINE-LEARNING VOLONTAIREMENT RETIRÉ 🚨
-  # Sur un iMac 2010, la génération de miniatures et la reconnaissance faciale
-  # prendraient des semaines et bloqueraient le serveur.
+# 🚨 CONTENEUR MACHINE-LEARNING VOLONTAIREMENT RETIRÉ 🚨
+# Sur un iMac 2010, la génération de miniatures et la reconnaissance faciale
+# prendraient des semaines et bloqueraient le serveur.
+
+#   immich_machine_learning: #reconnaissance d'images
+#     image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}
+#     container_name: immich_machine_learning
+#     hostname: immich_machine_learning
+#     environment:
+#       - UPLOAD_LOCATION=${PHOTOS_DIR_LOCAL}
+#       - DB_DATA_LOCATION=${CONFIG_BASE_DIR}/immich
+#       - IMMICH_VERSION=${IMMICH_VERSION}
+#       - DB_PASSWORD=${IMMICH_DB_PASSWORD}
+#       - DB_USERNAME=${IMMICH_DB_USERNAME}
+#       - DB_DATABASE_NAME=${IMMICH_DB_DATABASE_NAME}
+#       - REDIS_HOSTNAME=immich-redis
+#       - DB_HOSTNAME=immich-database
+#     volumes:
+#       - ${CONFIG_BASE_DIR}/immich:/cache
+#     restart: unless-stopped
+#     deploy:
+#       resources:
+#         limits:
+#           memory: 2G
+#           cpus: 1
 
   redis:
     image: redis:7.2-alpine # Alpin pour économiser la RAM
@@ -116,6 +138,27 @@ services:
       - frontend
     security_opt:
       - no-new-privileges:true        
+    healthcheck:
+      test: pg_isready --dbname='${IMMICH_DB_DATABASE_NAME}' || exit 1; Chksum="$$(psql --dbname='${IMMICH_DB_DATABASE_NAME}' --username='${IMMICH_DB_USERNAME}' --tuples-only --no-align --command='SELECT SUM(checksum_failures) FROM pg_stat_database')"; echo "checksum failure count is $$Chksum"; [ "$$Chksum" = '0' ] || exit 1
+      interval: 5m
+      start_interval: 30s
+      start_period: 5m
+    command:
+      [
+        "postgres",
+        "-c",
+        "shared_preload_libraries=vectors.so",
+        "-c",
+        'search_path="$$user", public, vectors',
+        "-c",
+        "logging_collector=on",
+        "-c",
+        "max_wal_size=2GB",
+        "-c",
+        "shared_buffers=512MB",
+        "-c",
+        "wal_compression=on",
+      ]      
     deploy:
       resources:
         limits:

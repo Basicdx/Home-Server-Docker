@@ -1,4 +1,7 @@
 services:
+#########################
+# WATCHTOWER | maj auto contener
+#########################
   watchtower:
     image: containrrr/watchtower:latest
     container_name: watchtower
