@@ -3,11 +3,11 @@ services:
 # TAILSCALE | Secure Remote Access
 #########################
   tailscale:
-    image: tailscale/tailscale:latest
+    image: tailscale/tailscale:1.68.0
     container_name: tailscale
     restart: unless-stopped
     hostname: ${HOSTNAME:?err}
-    network_mode: host
+    # network_mode: host
     cap_add:
       - NET_ADMIN
       - NET_RAW
@@ -20,15 +20,29 @@ services:
       - TS_AUTHKEY=${TS_AUTHKEY:?err}
       - TS_USERSPACE=false
       - TS_EXTRA_ARGS=--accept-routes # Accept local network routes
+      - TS_ACCEPT_DNS=false # Désactive le DNS de Tailscale (AdGuard gère ça)
       # - TS_STATE_DIR=/var/lib/tailscale
-      # - TS_ACCEPT_DNS=${TS_ACCEPT_DNS} # Désactive le DNS de Tailscale (AdGuard gère ça)
+      # - TS_DEST_IP=${TS_DEST_IP}
+      # - TS_KUBE_SECRET=${TS_KUBE_SECRET}
+      # - TS_OUTBOUND_HTTP_PROXY_LISTEN=${TS_OUTBOUND_HTTP_PROXY_LISTEN}
+      # - TS_ROUTES=${TS_ROUTES}
+      # - TS_SOCKET=${TS_SOCKET}
+      # - TS_SOCKS5_SERVER=${TS_SOCKS5_SERVER}
+      # - TS_TAILSCALED_EXTRA_ARGS=${TS_TAILSCALED_EXTRA_ARGS}
     volumes:
+      - /dev/net/tun:/dev/net/tun
       - ${DATA:?err}/tailscale/state:/var/lib/tailscale
-      - /dev/net/tun:/dev/net/tun 
-    # networks:
-    #   - frontend
+      - ${DATA:?err}/tailscale/tmp:/tmp
+    networks:
+      - frontend
     security_opt:
       - no-new-privileges:true
+    healthcheck:
+      test: ["CMD-SHELL", "tailscale status | grep -q '100.99.99.99' || exit 1"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 30s      
     deploy:
       resources:
         limits:
@@ -39,7 +53,6 @@ services:
 #   TS_AUTHKEY:
 #     file: ./.secrets
 
-# network:
-#   frontend:
-#     name: frontend
-#     driver: bridge    
+networks:
+  frontend:
+    driver: bridge    

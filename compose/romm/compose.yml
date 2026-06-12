@@ -1,0 +1,31 @@
+services:
+#########################
+# ROMM | retro gaming
+#########################
+  romm:
+    image: rommapp/romm:latest
+    container_name: romm
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${CONFIG_BASE_DIR}/romm:/config
+      - ${ROM_DIR_LOCAL}:${ROM_DIR_RELATIVE}
+    networks:
+      - frontend
+    security_opt:
+      - no-new-privileges:true    
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.5'      
+
+networks:
+  frontend:
+    driver: bridge
+    external: true

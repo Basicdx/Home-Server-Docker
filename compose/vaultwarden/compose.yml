@@ -1,7 +1,7 @@
 services:
-  #########################
-  # VAULTWARDEN | keychain
-  #########################
+#########################
+# VAULTWARDEN | keychain
+#########################
   vaultwarden:
     image: vaultwarden/server:1.32.3
     container_name: vaultwarden
@@ -13,7 +13,7 @@ services:
     secrets:
       - ADMIN_TOKEN 
     environment:
-      - DOMAIN=https://vault.tondomaine.com     
+      - DOMAIN=https://vault.${HOSTNAME}   
       - WEBSOCKET_ENABLED=true
       - SIGNUPS_ALLOWED=false
       # - ADMIN_TOKEN=${ADMIN_TOKEN:?err}
@@ -23,6 +23,12 @@ services:
       - frontend
     security_opt:
       - no-new-privileges:true
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
     deploy:
       resources:
         limits:
@@ -35,5 +41,5 @@ secrets:
 
 networks:
   frontend:
-    name: frontend
     driver: bridge
+    external: true

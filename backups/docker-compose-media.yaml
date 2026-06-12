@@ -49,18 +49,18 @@ services:
     image: deluan/navidrome:latest
     container_name : navidrome
     environment:
-    - PGID=${PGID}
-    - PUID=${PUID}
-    - TZ=${TZ}
-    - UMASK=${UMASK}
+      - PGID=${PGID}
+      - PUID=${PUID}
+      - TZ=${TZ}
+      - UMASK=${UMASK}
     networks:
-    - media_net
+      - media_net
     volumes:
-     - ${CONFIG_BASE_DIR}/navidrome:/config
-     - ${CONFIG_BASE_DIR}/navidrome:/data
-     - ${MUSIC_DIR_LOCAL}:${MUSIC_DIR_RELATIVE}:ro #read-only
+      - ${CONFIG_BASE_DIR}/navidrome:/config
+      - ${CONFIG_BASE_DIR}/navidrome:/data
+      - ${MUSIC_DIR_LOCAL}:${MUSIC_DIR_RELATIVE}:ro #read-only
     ports:
-     - "4533:4533"
+      - "4533:4533"
     restart: unless-stopped
 
 #########################

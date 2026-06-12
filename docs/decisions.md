@@ -48,9 +48,10 @@ Reason:
 
 Networks:
 
-- frontend_net
-- backend_net
-- download_net
+- frontend
+- backend
+- download
+- ai
 
 Reason:
 

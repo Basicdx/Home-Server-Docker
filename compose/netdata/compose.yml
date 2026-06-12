@@ -3,7 +3,7 @@ services:
 # NETDATA | Monitoring server
 #########################
   netdata:
-    image: netdata/netdata:latest
+    image: netdata/netdata:1.44.3
     container_name: netdata
     ports:
       - "19999:19999"
@@ -14,6 +14,19 @@ services:
     networks:
       - frontend
     restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:19999"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s      
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.5'    
 
 networks:
   frontend:

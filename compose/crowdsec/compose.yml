@@ -1,0 +1,27 @@
+services:
+#########################
+# CROWDSEC | Security Layer
+#########################
+  crowdsec:
+    image: crowdsecurity/crowdsec:latest
+    container_name: crowdsec
+    restart: unless-stopped
+    env_file:
+      - .env    
+    volumes:
+      - ${CONFIG_BASE_DIR}/crowdsec:/data
+      - ${CONFIG_BASE_DIR}/crowdsec:/config
+    networks:
+      - frontend
+    security_opt:
+      - no-new-privileges:true
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.5'       
+
+networks:
+  frontend:
+    driver: bridge
+    external: true

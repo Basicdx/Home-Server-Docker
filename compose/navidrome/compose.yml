@@ -1,0 +1,39 @@
+services:
+#########################
+# NAVIDROME | music player
+#########################
+  navidrome:
+    image: deluan/navidrome:latest
+    container_name : navidrome
+    restart: unless-stopped
+    ports:
+      - "4533:4533"
+    environment:
+      - PGID=${PGID}
+      - PUID=${PUID}
+      - TZ=${TZ}
+      - UMASK=${UMASK}
+    networks:
+      - frontend
+    volumes:
+      - ${CONFIG_BASE_DIR}/navidrome:/config
+      - ${CONFIG_BASE_DIR}/navidrome:/data
+      - ${MUSIC_DIR_LOCAL}:${MUSIC_DIR_RELATIVE}:ro #read-only
+    security_opt:
+      - no-new-privileges:true    
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4533/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s      
+    deploy:
+      resources:
+        limits:
+          memory: 1536M
+          cpus: '2.0'      
+
+networks:
+  frontend:
+    driver: bridge
+    external: true

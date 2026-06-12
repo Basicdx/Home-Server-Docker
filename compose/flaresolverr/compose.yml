@@ -1,0 +1,28 @@
+services:
+#########################
+# Flaresolverr | solve Cloudflare
+#########################
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    restart: unless-stopped
+    env_file:
+      - .env    
+    environment:
+      - LOG_LEVEL=info
+      - LOG_HTML=false
+      - CAPTCHA_SOLVER=none
+    networks:
+      - download
+    security_opt:
+      - no-new-privileges:true
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.5'          
+
+networks:
+  download:
+    driver: bridge
+    external: true

@@ -10,7 +10,7 @@ include:
   # - ./crowdsec/compose.yml
 
   # Monitoring
-  # - ./netdata/compose.yml
+  - ./netdata/compose.yml
   # - ./prometheus/compose.yml
   # - ./grafana/compose.yml
   # - ./loki/compose.yml

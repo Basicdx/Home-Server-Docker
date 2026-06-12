@@ -12,15 +12,15 @@ services:
       - PUID=${PUID:?err}
       - PGID=${PGID:?err}
       - TZ=${TZ:?err}
-      - PASSWORD=password #optional
-      - HASHED_PASSWORD= #optional
-      - SUDO_PASSWORD=password #optional
-      - SUDO_PASSWORD_HASH= #optional
-      - PROXY_DOMAIN=code-server.my.domain #optional
-      - DEFAULT_WORKSPACE=/config/workspace #optional
+      # - PASSWORD=password #optional
+      # - HASHED_PASSWORD= #optional
+      # - SUDO_PASSWORD=password #optional
+      # - SUDO_PASSWORD_HASH= #optional
+      # - PROXY_DOMAIN=code-server.my.domain #optional
+      # - DEFAULT_WORKSPACE=/config/workspace #optional
       - PWA_APPNAME=code-server #optional
     volumes:
-      - ${DATA:?err}/code-server:/config
+      - ${DATA:?err}/code-server/config:/config
     networks:
       - frontend
     security_opt:

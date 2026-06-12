@@ -1,0 +1,19 @@
+networks:
+  frontend:
+    name: frontend
+    drive: bridge
+    external: true
+
+  backend:
+    name: frontend
+    drive: bridge
+
+  downloads:
+    name: frontend
+    drive: bridge
+    external: true
+
+  ai:
+    name: frontend
+    drive: bridge
+    external: true    

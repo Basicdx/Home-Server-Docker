@@ -1,12 +1,16 @@
 services:
+#########################
+# JELLYFIN | mediaplayer
+#########################
   jellyfin:
     image: jellyfin/jellyfin:10.10.3 # Version stable épinglée
     container_name: jellyfin
     restart: unless-stopped
-    # Pas besoin d'exposer les ports si tu utilises Caddy en reverse proxy, 
-    # mais on les laisse pour l'accès local direct si besoin.
     ports:
+      # - 1900:1900/udp #DLNA port
+      # - 7359:7359/udp #network discovery    
       - "8096:8096"
+      - 8920:8920 #https
     environment:
       - PUID=${PUID:?err}
       - PGID=${PGID:?err}
@@ -14,11 +18,21 @@ services:
     volumes:
       - ${DATA:?err}/jellyfin/config:/config
       - ${DATA:?err}/jellyfin/cache:/cache
-      - ${MEDIA:?err}:/media:ro # Ton dossier de films/séries en lecture seule
+      - ${MEDIA:?err}:/media:ro #read-only
+      # - ${MOVIES_DIR_LOCAL}:${MOVIES_DIR_RELATIVE}:ro #read-only
+      # - ${MUSIC_DIR_LOCAL}:${MUSIC_DIR_RELATIVE}:ro #read-only
+      # - ${TV_DIR_LOCAL}:${TV_DIR_RELATIVE}:ro #read-only
+      # - ${BOOKS_DIR_LOCAL}:${BOOKS_DIR_RELATIVE}:ro #read-only
     networks:
       - frontend
     security_opt:
       - no-new-privileges:true    
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8096/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s      
     deploy:
       resources:
         limits:
@@ -27,5 +41,5 @@ services:
 
 networks:
   frontend:
-    name: frontend
     driver: bridge
+    external: true

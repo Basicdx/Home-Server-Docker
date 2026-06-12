@@ -34,7 +34,7 @@ services:
       - TZ=${TZ}
       - UMASK=${UMASK}
     volumes:
-      - ${CONFIG_BASE_DIR}/tailscale:/state
+      - ${CONFIG_BASE_DIR}/tailscale/state:/state
       - /dev/net/tun:/dev/net/tun
       - ${CONFIG_BASE_DIR}/tailscale:/tmp
     devices:

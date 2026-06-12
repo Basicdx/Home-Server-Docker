@@ -1,0 +1,28 @@
+services:
+#########################
+# PAPERLESS-NGX | Documents manager
+#########################
+  paperless-ngx:
+    image: lscr.io/linuxserver/paperless-ngx:latest
+    container_name: paperless-ngx
+    hostname: paperless-ngx
+    restart: unless-stopped
+    ports:
+      - 8001:8000
+    environment:
+      - PGID=${PGID}
+      - PUID=${PUID}
+      - TZ=${TZ}
+      - REDIS_URL=
+    networks:
+      - frontend
+    volumes:
+      - ${DATA}/paperless-ngx/config:/config
+      - ${DOCUMENTS}/paperless-ngx/data:/data
+    security_opt:
+      - no-new-privileges:true     
+
+networks:
+  frontend:
+    driver: bridge
+    external: true

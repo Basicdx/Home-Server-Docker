@@ -1,16 +1,56 @@
 {
+    email ton@email.com
+    acme_dns cloudflare API_KEY
     auto_https disable_redirects
 }
 
-home.poppi {
+# ===== SERVICES INTERNES (accessibles uniquement via Tailscale/VPN) =====
+# AdGuard (DNS + Interface Web)
+
+dns.poppi {
     tls internal
-    reverse_proxy homepage:3000
+    header {
+        # Sécurité de base
+        X-Frame-Options "DENY"
+        X-Content-Type-Options "nosniff"
+        X-XSS-Protection "1; mode=block"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=()"
+        # CSP (Content Security Policy) - À adapter selon tes besoins
+        Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'none'; object-src 'none'"
+    }    
+    reverse_proxy 100.99.99.99:82
 }
 
 dockge.poppi {
     tls internal
     reverse_proxy dockge:5001
 }
+
+home.poppi {
+    tls internal
+    auto_https
+# Headers de sécurité
+    header {
+        X-Frame-Options "DENY"
+        X-Content-Type-Options "nosniff"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        Permissions-Policy "geolocation=(), microphone=(), camera=()"
+        Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'"
+        # HSTS (à activer uniquement si tu es sûr de toujours utiliser HTTPS)
+        # Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+    }    
+    reverse_proxy homepage:3000
+}
+
+# MONITORING
+
+uptime.poppi {
+    tls internal
+    reverse_proxy uptime-kuma:3001
+}
+
+# MEDIA
 
 jellyfin.poppi {
     tls internal
@@ -22,12 +62,37 @@ immich.poppi {
     reverse_proxy immich:2283
 }
 
+# AI
+
 ai.poppi {
     tls internal
     reverse_proxy open-webui:8080
 }
 
-dns.poppi {
+
+# ===== VAULTWARDEN =====
+
+vault.poppi {
     tls internal
-    reverse_proxy 100.99.99.99:82
+    header {
+        X-Frame-Options "DENY"
+        X-Content-Type-Options "nosniff"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        Permissions-Policy "geolocation=(), microphone=(), camera=()"
+        Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' wss://vault.poppi; frame-src 'none'; object-src 'none'"
+    }
+
+    reverse_proxy vaultwarden:80 {
+        # Active les WebSockets (nécessaire pour Vaultwarden)
+        transport http {
+            websocket
+        }
+    }
+}
+
+===== PERSONNAL ERRORS (optionnel) =====
+
+(handle_errors) {
+    respond 404 "Not Found" 404
+    respond 500 "Internal Server Error" 500
 }

@@ -1,12 +1,12 @@
 # 📦 Services Overview
 
 ##
+
 | App | Description | Alternative |
 | --- | --- | --- |
 | [`Proxmox`](https://www.proxmox.com/) | Virtual Machine | - |
 | [`TrueNAS`](https://github.com/truenas/) | ZFS storage | - |
 | [`Docker`](https://www.docker.com/) | Containers | Kurbernetes |
-
 
 ## 🧱 MONITORING
 

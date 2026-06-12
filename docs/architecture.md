@@ -9,6 +9,7 @@
 ```
 
 ## 📁 STRUCTURE
+
 ```text
 home-server-docker/
 ├── compose/
@@ -41,6 +42,7 @@ mnt/data/
 ```
 
 ## 🌐 NETWORKS
+
 ```text
 - frontend -> User-facing applications
         ( jellyfin, homepage, vaultwarden, immich, nextcloud )
@@ -48,16 +50,24 @@ mnt/data/
         ( postgreSQL, redis, crowdsec, internal services )
 - download -> Isolated torrent / arr
         ( qbitorrent, gluten, arr stack )
-- media -> (optionnel)
 - ai -> manage AI 
 ```
 
 ## 🧱 WORKFLOW
+
 ```text
 AdGuard = "Comment trouver une adresse ?"
 Tailscale = "Comment rejoindre cette adresse ?"
 Caddy = "Comment servir le site HTTPS ?"
 
+graph TD
+  A[Internet] -->|HTTPS| B[Tailscale]
+  B --> C[AdGuard:53]
+  C --> D[Caddy:443]
+  D --> E[Homepage:3001]
+  D --> F[Vaultwarden:80]
+  D --> G[Jellyfin:8096]
+  
 Server
 LAN IP       : 192.168.1.x
 Tailscale IP : 100.x.x.x
