@@ -7,15 +7,13 @@ services:
     container_name: tailscale
     restart: unless-stopped
     hostname: ${HOSTNAME:?err}
-    # network_mode: host
+    network_mode: host
     cap_add:
       - NET_ADMIN
       - NET_RAW
       - SYS_MODULE 
     env_file:
       - .env    
-    # secrets:
-    #   - TS_AUTHKEY
     environment:
       - TS_AUTHKEY=${TS_AUTHKEY:?err}
       - TS_USERSPACE=false
@@ -33,8 +31,6 @@ services:
       - /dev/net/tun:/dev/net/tun
       - ${DATA:?err}/tailscale/state:/var/lib/tailscale
       - ${DATA:?err}/tailscale/tmp:/tmp
-    networks:
-      - frontend
     security_opt:
       - no-new-privileges:true
     healthcheck:
@@ -49,10 +45,19 @@ services:
           memory: 128M # Tailscale is extremly lightweight
           cpus: '0.2'      
 
+    # device:
+    #   - /dev/net/tun:/dev/net/tun
+    
+    # secrets:
+    #   - TS_AUTHKEY
+
+    # networks:
+    #   - frontend
+
 # secrets:
 #   TS_AUTHKEY:
 #     file: ./.secrets
 
-networks:
-  frontend:
-    driver: bridge    
+# networks:
+#   frontend:
+#     driver: bridge    
