@@ -145,8 +145,6 @@ filtering:
   rewrites:
     - domain: '*.poppi.akita-diatonic.ts.net'
       answer: 100.99.99.99
-    - domain: '*.poppi.arpa'
-      answer: 100.99.99.99
     - domain: '*.poppi'
       answer: 100.99.99.99
     - domain: dockge.poppi.arpa

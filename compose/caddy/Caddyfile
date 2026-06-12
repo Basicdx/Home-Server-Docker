@@ -1,6 +1,4 @@
 {
-    email ton@email.com
-    acme_dns cloudflare API_KEY
     auto_https disable_redirects
 }
 
@@ -29,7 +27,7 @@ dockge.poppi {
 
 home.poppi {
     tls internal
-    auto_https
+    # auto_https
 # Headers de sécurité
     header {
         X-Frame-Options "DENY"
@@ -82,17 +80,10 @@ vault.poppi {
         Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' wss://vault.poppi; frame-src 'none'; object-src 'none'"
     }
 
-    reverse_proxy vaultwarden:80 {
-        # Active les WebSockets (nécessaire pour Vaultwarden)
-        transport http {
-            websocket
-        }
-    }
-}
-
-===== PERSONNAL ERRORS (optionnel) =====
-
-(handle_errors) {
-    respond 404 "Not Found" 404
-    respond 500 "Internal Server Error" 500
+#     reverse_proxy vaultwarden:80 {
+#         # Active les WebSockets (nécessaire pour Vaultwarden)
+#         transport http {
+#             websocket
+#         }
+#     }
 }

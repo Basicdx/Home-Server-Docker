@@ -10,11 +10,11 @@ services:
       - frontend
     # ⚠️ Si tu es sous Linux et que le port 53 est pris par systemd-resolved, 
     # lance cette commande avant : sudo systemctl disable --now systemd-resolved    
-    ports:
-      - 53:53/tcp # plain dns over tcp
-      - 53:53/udp # plain dns over udp
-      - 82:82/tcp # http web interface
-      - 3000:3000/tcp # initial setup web interface
+    # ports:
+      # - 53:53/tcp # plain dns over tcp
+      # - 53:53/udp # plain dns over udp
+      # - 82:82/tcp # http web interface
+      # - 3000:3000/tcp # initial setup web interface
     env_file:
       - .env
     volumes:
