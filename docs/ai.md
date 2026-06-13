@@ -1,3 +1,4 @@
+```text
 Le modèle (Llama, Qwen, DeepSeek, Gemma, etc.)
 L'interface (l'endroit où tu discutes)
 Les agents (ce qui permet à l'IA d'agir sur ton PC)
@@ -21,25 +22,16 @@ Open WebUI
 │   ├── GitHub
 │   └── Home Assistant
 │
+├── Hermes Agent
+│   ├── Mémoire
+│   ├── Skills
+│   ├── Telegram
+│   └── Accès SSH au serveur
+.
 └── Agents
     ├── OpenHands
     ├── Coding Agent
     ├── Homelab Agent
     └── Personal Assistant
 
-
-ou sinon
-
-Ollama
-├── Qwen 3 14B
-├── Qwen 3 32B (quantifié)
-└── DeepSeek R1 Distill
-
-Hermes Agent
-├── Mémoire
-├── Skills
-├── Telegram
-└── Accès SSH au serveur
-
-Open WebUI
-└── Interface graphique
+```
