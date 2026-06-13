@@ -207,15 +207,7 @@ filtering:
   blocking_mode: default
   parental_block_host: family-block.dns.adguard.com
   safebrowsing_block_host: standard-block.dns.adguard.com
-  rewrites:
-    - domain: '*.poppi.akita-diatonic.ts.net'
-      answer: 100.99.99.99
-    - domain: '*.poppi'
-      answer: 100.99.99.99
-    - domain: dockge.poppi.arpa
-      answer: 100.99.99.99
-    - domain: '*.akita-diatonic.ts.net'
-      answer: 100.99.99.99
+  rewrites: []
   safebrowsing_cache_size: 1048576
   safesearch_cache_size: 1048576
   parental_cache_size: 1048576
@@ -225,7 +217,7 @@ filtering:
   filtering_enabled: true
   parental_enabled: false
   safebrowsing_enabled: true
-  protection_enabled: true
+  protection_enabled: false
 clients:
   runtime_sources:
     whois: true

@@ -1,24 +1,12 @@
-
+{
+    auto_https disable_redirects
+}
 
 # ===== SERVICES INTERNES (accessibles uniquement via Tailscale/VPN) =====
 # AdGuard (DNS + Interface Web)
 
-dns.poppi {
-    tls internal
-    header {
-        # Sécurité de base
-        X-Frame-Options "DENY"
-        X-Content-Type-Options "nosniff"
-        X-XSS-Protection "1; mode=block"
-        Referrer-Policy "strict-origin-when-cross-origin"
-        Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=()"
-        # CSP (Content Security Policy) - À adapter selon tes besoins
-        Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src 'none'; object-src 'none'"
-    }    
-    reverse_proxy 100.99.99.99:82
-}
 
-dockge.poppi {
+dockge.poppi.python-shade.ts.net {
     tls internal
-    reverse_proxy dockge:5001
+    reverse_proxy http://poppi.python-shade.ts.net:5001
 }
