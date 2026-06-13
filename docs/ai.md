@@ -12,6 +12,12 @@ Open WebUI
 │   ├── Gemma 3
 │   └── Llama 4
 │
+├── Hermes Agent
+│   ├── Mémoire
+│   ├── Skills
+│   ├── Telegram
+│   └── Accès SSH au serveur
+.
 ├── Memory
 │   ├── Open WebUI Memory
 │   └── RAG Documents
@@ -22,12 +28,6 @@ Open WebUI
 │   ├── GitHub
 │   └── Home Assistant
 │
-├── Hermes Agent
-│   ├── Mémoire
-│   ├── Skills
-│   ├── Telegram
-│   └── Accès SSH au serveur
-.
 └── Agents
     ├── OpenHands
     ├── Coding Agent
