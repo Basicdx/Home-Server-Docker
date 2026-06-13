@@ -1,12 +1,85 @@
 {
-    auto_https disable_redirects
+    # Caddy génère sa propre CA interne.
+    # Commande à lancer UNE FOIS après le premier démarrage :
+    #   docker exec caddy cat /data/caddy/pki/authorities/local/root.crt > caddy-root-ca.crt
+    # Puis importer caddy-root-ca.crt comme CA de confiance sur chaque appareil.
 }
 
 # ===== SERVICES INTERNES (accessibles uniquement via Tailscale/VPN) =====
 # AdGuard (DNS + Interface Web)
 
+# ============================================================
+# INFRASTRUCTURE
+# ============================================================
 
-dockge.poppi.python-shade.ts.net {
+dockge.home {
     tls internal
-    reverse_proxy http://poppi.python-shade.ts.net:5001
+    reverse_proxy dockge:5001
+}
+
+# ============================================================
+# DASHBOARD
+# ============================================================
+
+home.home {
+    tls internal
+    reverse_proxy homepage:3001
+}
+
+# ============================================================
+# DNS ADMIN
+# ============================================================
+
+dns.home {
+    tls internal
+    reverse_proxy adguardhome:82
+}
+
+# ============================================================
+# MONITORING
+# ============================================================
+
+uptime.home {
+    tls internal
+    reverse_proxy uptime-kuma:3001
+}
+
+netdata.home {
+    tls internal
+    reverse_proxy netdata:19999
+}
+
+vault.home {
+    tls internal
+    header {
+        X-Frame-Options "DENY"
+        X-Content-Type-Options "nosniff"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        Permissions-Policy "geolocation=(), microphone=(), camera=()"
+        Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' wss://vault.home; frame-src 'none'; object-src 'none'"
+    }
+    reverse_proxy vaultwarden:80
+}
+
+# ============================================================
+# MEDIA
+# ============================================================
+
+jellyfin.home {
+    tls internal
+    reverse_proxy jellyfin:8096
+}
+
+immich.home {
+    tls internal
+    reverse_proxy immich-server:2283
+}
+
+# ============================================================
+# AI
+# ============================================================
+
+ai.home {
+    tls internal
+    reverse_proxy open-webui:8080
 }

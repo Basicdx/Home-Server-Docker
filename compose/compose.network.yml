@@ -1,19 +1,24 @@
+# docker network create frontend
+# docker network create backend
+# docker network create downloads
+# docker network create ai
+
 networks:
   frontend:
     name: frontend
-    drive: bridge
+    driver: bridge
     external: true
 
   backend:
-    name: frontend
-    drive: bridge
+    name: backend
+    driver: bridge
 
   downloads:
-    name: frontend
-    drive: bridge
+    name: downloads
+    driver: bridge
     external: true
 
   ai:
-    name: frontend
-    drive: bridge
+    name: ai
+    driver: bridge
     external: true    
