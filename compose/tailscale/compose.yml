@@ -51,13 +51,6 @@ services:
     # secrets:
     #   - TS_AUTHKEY
 
-    # networks:
-    #   - frontend
-
 # secrets:
 #   TS_AUTHKEY:
-#     file: ./.secrets
-
-# networks:
-#   frontend:
-#     driver: bridge    
+#     file: ./.secrets 
