@@ -13,10 +13,10 @@ services:
     secrets:
       - ADMIN_TOKEN 
     environment:
-      - DOMAIN=https://vault.${HOSTNAME}   
+      - DOMAIN=https://vaultwarden.akita-diatonic.ts.net   
       - WEBSOCKET_ENABLED=true
       - SIGNUPS_ALLOWED=false
-      # - ADMIN_TOKEN=${ADMIN_TOKEN:?err}
+      - ADMIN_TOKEN=${ADMIN_TOKEN:?err}
     volumes:
       - ${DATA:?err}/vaultwarden/data:/data
     networks:

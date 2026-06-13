@@ -17,7 +17,7 @@ services:
     environment:
       - TS_AUTHKEY=${TS_AUTHKEY:?err}
       - TS_USERSPACE=false
-      - TS_EXTRA_ARGS=--accept-routes # Accept local network routes
+      # - TS_EXTRA_ARGS=--accept-routes --dns=100.100.100.100,1.1.1.1# Accept local network routes
       - TS_ACCEPT_DNS=false # Désactive le DNS de Tailscale (AdGuard gère ça)
       # - TS_STATE_DIR=/var/lib/tailscale
       # - TS_DEST_IP=${TS_DEST_IP}

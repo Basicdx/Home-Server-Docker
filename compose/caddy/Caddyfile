@@ -1,6 +1,4 @@
-{
-    auto_https disable_redirects
-}
+
 
 # ===== SERVICES INTERNES (accessibles uniquement via Tailscale/VPN) =====
 # AdGuard (DNS + Interface Web)
@@ -23,67 +21,4 @@ dns.poppi {
 dockge.poppi {
     tls internal
     reverse_proxy dockge:5001
-}
-
-home.poppi {
-    tls internal
-    # auto_https
-# Headers de sécurité
-    header {
-        X-Frame-Options "DENY"
-        X-Content-Type-Options "nosniff"
-        Referrer-Policy "strict-origin-when-cross-origin"
-        Permissions-Policy "geolocation=(), microphone=(), camera=()"
-        Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'"
-        # HSTS (à activer uniquement si tu es sûr de toujours utiliser HTTPS)
-        # Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
-    }    
-    reverse_proxy homepage:3000
-}
-
-# MONITORING
-
-uptime.poppi {
-    tls internal
-    reverse_proxy uptime-kuma:3001
-}
-
-# MEDIA
-
-jellyfin.poppi {
-    tls internal
-    reverse_proxy jellyfin:8096
-}
-
-immich.poppi {
-    tls internal
-    reverse_proxy immich:2283
-}
-
-# AI
-
-ai.poppi {
-    tls internal
-    reverse_proxy open-webui:8080
-}
-
-
-# ===== VAULTWARDEN =====
-
-vault.poppi {
-    tls internal
-    header {
-        X-Frame-Options "DENY"
-        X-Content-Type-Options "nosniff"
-        Referrer-Policy "strict-origin-when-cross-origin"
-        Permissions-Policy "geolocation=(), microphone=(), camera=()"
-        Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' wss://vault.poppi; frame-src 'none'; object-src 'none'"
-    }
-
-#     reverse_proxy vaultwarden:80 {
-#         # Active les WebSockets (nécessaire pour Vaultwarden)
-#         transport http {
-#             websocket
-#         }
-#     }
 }
