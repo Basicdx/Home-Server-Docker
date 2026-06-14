@@ -15,18 +15,18 @@ services:
     env_file:
       - .env    
     environment:
-      - TS_ACCEPT_DNS=false # Désactive le DNS de Tailscale (AdGuard gère ça)
       - TS_AUTHKEY=${TS_AUTHKEY:?err}
+      - TS_USERSPACE=false
+      # - TS_EXTRA_ARGS=--accept-routes --dns=100.100.100.100,1.1.1.1# Accept local network routes
+      - TS_ACCEPT_DNS=false # Désactive le DNS de Tailscale (AdGuard gère ça)
+      # - TS_STATE_DIR=/var/lib/tailscale
       # - TS_DEST_IP=${TS_DEST_IP}
-      - TS_EXTRA_ARGS=--accept-routes --dns=100.100.100.100,1.1.1.1 # Accept local network routes
       # - TS_KUBE_SECRET=${TS_KUBE_SECRET}
       # - TS_OUTBOUND_HTTP_PROXY_LISTEN=${TS_OUTBOUND_HTTP_PROXY_LISTEN}
       # - TS_ROUTES=${TS_ROUTES}
       # - TS_SOCKET=${TS_SOCKET}
-      # - TS_SOCKS5_SERVER=${TS_SOCKS5_SERVER} 
-      # - TS_STATE_DIR=/var/lib/tailscale
+      # - TS_SOCKS5_SERVER=${TS_SOCKS5_SERVER}
       # - TS_TAILSCALED_EXTRA_ARGS=${TS_TAILSCALED_EXTRA_ARGS}
-      - TS_USERSPACE=false
     volumes:
       - /dev/net/tun:/dev/net/tun
       - ${DATA:?err}/tailscale/state:/var/lib/tailscale
@@ -47,22 +47,10 @@ services:
 
     # device:
     #   - /dev/net/tun:/dev/net/tun
-    # networks:
-    #   - frontend
-# networks:
-#   frontend:
-#     driver: bridge    
     
     # secrets:
     #   - TS_AUTHKEY
 
-    # networks:
-    #   - frontend
-
 # secrets:
 #   TS_AUTHKEY:
-#     file: ./.secrets
-
-# networks:
-#   frontend:
-#     driver: bridge    
+#     file: ./.secrets 

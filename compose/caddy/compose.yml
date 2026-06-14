@@ -7,21 +7,20 @@ services:
     container_name: caddy
     restart: unless-stopped
     ports:
-      - "80:80" # public http port
-      - "443:443" # Écoute sur toutes les interfaces (mais uniquement accessible via Tailscale)
+      - "80:80"
+      - "443:443" # ✅ Écoute sur toutes les interfaces (mais uniquement accessible via Tailscale)
       - "443:443/udp"  
-      # - "127.0.0.1:443:443"  # Écoute UNIQUEMENT sur localhost
+      # - "127.0.0.1:443:443"  # ✅ Écoute UNIQUEMENT sur localhost
     env_file:
       - .env
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - ${DATA:?err}/caddy/data:/data
       - ${DATA:?err}/caddy/config:/config
-      # - ${DATA:?err}/caddy/site:/srv
-      # - ${DATA:?err}/tailscale/certs:/var/lib/tailscale/certs:ro      
+      - ${DATA:?err}/caddy/site:/srv
+      - ${DATA:?err}/tailscale/certs:/var/lib/tailscale/certs:ro      
     networks:
       - frontend
-      - ai
     security_opt:
       - no-new-privileges:true
     deploy:
@@ -40,6 +39,3 @@ networks:
   frontend:
     driver: bridge
     external: true
-  ai:
-    driver: bridge
-    external: true  
