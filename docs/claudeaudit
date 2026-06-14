@@ -1,0 +1,220 @@
+Bonne analyse à faire. Laisse-moi lire tes fichiers et te proposer quelque chose de propre.---
+
+## Analyse du repo
+
+**Ce qui est bon ✅**
+
+Tailscale est bien configuré (`network_mode: host`, `cap_add`, healthcheck). AdGuard a sa base solide. Les templates sont cohérents. La philosophie one-stack-per-service est respectée partout sauf dans le compose monolithique.
+
+**Ce qui bloque ❌**
+
+Trois Caddyfiles coexistent — seul `Caddyfile` est actif, et il ne contient qu'une entrée. `compose.network.yml` a deux bugs critiques : `drive` au lieu de `driver`, et tous les réseaux portent le nom `frontend`. Il y a deux conflits de port 8080 (Vaultwarden et open-webui se disputent le même port hôte) et de port 3001 (homepage et uptime-kuma aussi). Il n'y a pas de stratégie TLS claire, et AdGuard n'est pas encore configuré comme DNS dans le panel Tailscale admin.
+
+**La décision d'architecture retenue** : domaine `.home` local, résolution par AdGuard, TLS interne généré par Caddy. Tu fais confiance au certificat CA de Caddy une seule fois sur chaque device — tout le reste est automatique. Pas de cert externe, pas de DNS public, rien n'est accessible hors du tunnel Tailscale.
+
+---
+
+## Fichier 1 — `compose/caddy/Caddyfile`
+
+Supprime les trois Caddyfiles existants et remplace par celui-ci :
+
+```caddyfile
+{
+    # Caddy génère sa propre CA interne.
+    # Commande à lancer UNE FOIS après le premier démarrage :
+    #   docker exec caddy cat /data/caddy/pki/authorities/local/root.crt > caddy-root-ca.crt
+    # Puis importer caddy-root-ca.crt comme CA de confiance sur chaque appareil.
+}
+
+# ============================================================
+# INFRASTRUCTURE
+# ============================================================
+
+dockge.home {
+    tls internal
+    reverse_proxy dockge:5001
+}
+
+# ============================================================
+# DASHBOARD
+# ============================================================
+
+home.home {
+    tls internal
+    reverse_proxy homepage:3001
+}
+
+# ============================================================
+# DNS ADMIN
+# ============================================================
+
+dns.home {
+    tls internal
+    reverse_proxy adguardhome:82
+}
+
+# ============================================================
+# MONITORING
+# ============================================================
+
+uptime.home {
+    tls internal
+    reverse_proxy uptime-kuma:3001
+}
+
+netdata.home {
+    tls internal
+    reverse_proxy netdata:19999
+}
+
+# ============================================================
+# VAULTWARDEN — headers de sécurité renforcés
+# ============================================================
+
+vault.home {
+    tls internal
+    header {
+        X-Frame-Options "DENY"
+        X-Content-Type-Options "nosniff"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        Permissions-Policy "geolocation=(), microphone=(), camera=()"
+        Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' wss://vault.home; frame-src 'none'; object-src 'none'"
+    }
+    reverse_proxy vaultwarden:80
+}
+
+# ============================================================
+# MEDIA
+# ============================================================
+
+jellyfin.home {
+    tls internal
+    reverse_proxy jellyfin:8096
+}
+
+immich.home {
+    tls internal
+    reverse_proxy immich-server:2283
+}
+
+# ============================================================
+# AI
+# ============================================================
+
+ai.home {
+    tls internal
+    reverse_proxy open-webui:8080
+}
+```
+
+---
+
+## Fichier 2 — `compose/caddy/compose.yml`
+
+Caddy doit être sur le réseau `ai` en plus de `frontend` pour accéder à open-webui, et ne plus monter les certs Tailscale (inutiles avec `tls internal`) :
+
+```yaml
+services:
+  caddy:
+    image: caddy:2.8.4
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    env_file:
+      - .env
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ${DATA:?err}/caddy/data:/data
+      - ${DATA:?err}/caddy/config:/config
+    networks:
+      - frontend
+      - ai
+    security_opt:
+      - no-new-privileges:true
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.5'
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+networks:
+  frontend:
+    driver: bridge
+    external: true
+  ai:
+    driver: bridge
+    external: true
+```
+
+---
+
+## Fichier 3 — `compose/compose.network.yml`
+
+Deux bugs à corriger (`drive` → `driver`, noms de réseau corrects) :
+
+```yaml
+networks:
+  frontend:
+    name: frontend
+    driver: bridge
+
+  backend:
+    name: backend
+    driver: bridge
+
+  downloads:
+    name: downloads
+    driver: bridge
+
+  ai:
+    name: ai
+    driver: bridge
+```
+
+Crée les réseaux une seule fois sur le serveur :
+
+```bash
+docker network create frontend
+docker network create backend
+docker network create downloads
+docker network create ai
+```
+
+---
+
+## Conflits de ports à corriger
+
+**Vaultwarden** : supprime la ligne `ports:` entièrement dans `compose/vaultwarden/compose.yml` — Caddy le route en interne, plus besoin d'exposer le port hôte.
+
+**Uptime-kuma** : même chose, supprime `ports: - "3001:3001"` — Caddy accède à `uptime-kuma:3001` via Docker réseau.
+
+---
+
+## Plan d'action en 5 étapes
+
+**① Tailscale admin panel** → aller dans `DNS` → activer MagicDNS → ajouter un nameserver personnalisé `100.99.99.99` avec l'option *"Override local DNS"* activée. C'est ce qui va pousser AdGuard vers tous tes clients Tailscale.
+
+**② AdGuard → Filtres → DNS rewrites** → ajouter une entrée wildcard : domaine `*.home`, réponse `100.99.99.99`. Tous les `service.home` résoudront vers ton serveur.
+
+**③ Remplacer** les 3 Caddyfiles par le fichier unique ci-dessus, mettre à jour `compose.yml` de Caddy, corriger `compose.network.yml`, corriger les conflits de ports Vaultwarden et uptime-kuma.
+
+**④ Redémarrer Caddy** : `docker compose -f compose/caddy/compose.yml up -d --force-recreate`. Caddy génère sa CA interne au premier démarrage.
+
+**⑤ Extraire et distribuer le certificat CA** :
+```bash
+docker exec caddy cat /data/caddy/pki/authorities/local/root.crt > caddy-root-ca.crt
+```
+Importer `caddy-root-ca.crt` sur chaque appareil (iPhone, Mac, PC...) comme certificat racine de confiance. C'est une opération unique. Après ça, tous tes `*.home` seront HTTPS sans avertissement.
+
+---
+
+Pour tester : `curl -k https://home.home` depuis un appareil connecté au Tailscale. Si AdGuard résout et Caddy répond, tu verras la homepage. Ensuite tu pourras passer `-k` → sans flag (avec le cert CA installé).
