@@ -30,7 +30,7 @@ home.home {
 # DNS ADMIN
 # ============================================================
 
-dns.home {
+adguard.python-shade.ts.net {
     tls internal
     reverse_proxy adguardhome:82
 }
@@ -41,7 +41,7 @@ dns.home {
 
 uptime.home {
     tls internal
-    reverse_proxy uptime-kuma:3001
+    reverse_proxy uptime-kuma:3002
 }
 
 netdata.home {
