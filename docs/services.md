@@ -34,7 +34,7 @@
 | --- | --- | --- |
 | [`Tailscale`](https://tailscale.com/) | VPN remote access | Wireguard, [OpenVPN](https://openvpn.net/client/) |
 | [`Adguard Home`](https://adguard.com/) | DNS filtering | Pihole |
-| [`Caddy`](https://caddyserver.com/) | reverse proxy + TLS Termination + auto-HTTPS | Traefik, Nginx |
+| [`Caddy`](https://caddyserver.com/) | reverse proxy + TLS Termination | Traefik, Nginx |
 
 ### NO OBLIGATORY (Already covered by Tailscale + Caddy)
 - ?Cloudflare → DNS-only, no proxy (or Duckdns free)
