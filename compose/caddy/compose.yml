@@ -14,7 +14,7 @@ services:
     env_file:
       - .env
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - ${DATA:?err}/caddy/data:/data
       - ${DATA:?err}/caddy/config:/config
       - ${DATA:?err}/caddy/site:/srv
@@ -23,6 +23,9 @@ services:
       - frontend
     security_opt:
       - no-new-privileges:true
+    depends_on:
+      tailscale:
+        condition: service_healthy      
     deploy:
       resources:
         limits:

@@ -55,12 +55,14 @@ mnt/data/
 
 ## 🧱 WORKFLOW
 
+VPN (Tailscale + MagicDNS) + Reverse Proxy (Caddy) + Filtre DNS (AdGuard Home) + Certificats TLS, avec un accès sécurisé uniquement via votre réseau Tailscale (tailnet.ts.net).
+
 ```text
 AdGuard = "Comment trouver une adresse ?"
 Tailscale = "Comment rejoindre cette adresse ?"
 Caddy = "Comment servir le site HTTPS ?"
-
-graph TD
+```
+```graph TD
   A[Internet] -->|HTTPS| B[Tailscale]
   B --> C[AdGuard:53]
   C --> D[Caddy:443]
