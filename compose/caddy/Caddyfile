@@ -13,5 +13,76 @@
 
 dockge.poppi.python-shade.ts.net {
     tls internal
+<<<<<<< HEAD
     reverse_proxy http://poppi.python-shade.ts.net:5001
+=======
+    reverse_proxy dockge:5001
+}
+
+# ============================================================
+# DASHBOARD
+# ============================================================
+
+homepage.python-shade.ts.net {
+    tls internal
+    reverse_proxy http://poppi.python-shade.ts.net:3001
+}
+
+# ============================================================
+# DNS ADMIN celui la est sensé marcher
+# ============================================================
+
+adguard.python-shade.ts.net {
+    tls internal
+    reverse_proxy adguardhome:82
+}
+
+# ============================================================
+# MONITORING
+# ============================================================
+
+uptime.home {
+    tls internal
+    reverse_proxy uptime-kuma:3002
+}
+
+netdata.home {
+    tls internal
+    reverse_proxy netdata:19999
+}
+
+vault.home {
+    tls internal
+    header {
+        X-Frame-Options "DENY"
+        X-Content-Type-Options "nosniff"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        Permissions-Policy "geolocation=(), microphone=(), camera=()"
+        Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' wss://vault.home; frame-src 'none'; object-src 'none'"
+    }
+    reverse_proxy vaultwarden:80
+}
+
+# ============================================================
+# MEDIA
+# ============================================================
+
+jellyfin.home {
+    tls internal
+    reverse_proxy jellyfin:8096
+}
+
+immich.home {
+    tls internal
+    reverse_proxy immich-server:2283
+}
+
+# ============================================================
+# AI
+# ============================================================
+
+ai.home {
+    tls internal
+    reverse_proxy open-webui:8080
+>>>>>>> e76bbbd24e920dbd0a3a6af5514443ed22a229e8
 }
