@@ -11,10 +11,13 @@ services:
       - "443:443" # Écoute sur toutes les interfaces (mais uniquement accessible via Tailscale)
       - "443:443/udp"  
       # - "127.0.0.1:443:443"  # Écoute UNIQUEMENT sur localhost
+      # - "100.99.99.99:80:80"      # bind explicite sur l'IP Tailscale seulement
+      # - "100.99.99.99:443:443"
+      # - "100.99.99.99:443:443/udp"      
     env_file:
       - .env
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - ${DATA:?err}/caddy/data:/data
       - ${DATA:?err}/caddy/config:/config
       # - ${DATA:?err}/caddy/site:/srv
@@ -24,6 +27,9 @@ services:
       - ai
     security_opt:
       - no-new-privileges:true
+    depends_on:
+      tailscale:
+        condition: service_healthy      
     deploy:
       resources:
         limits:

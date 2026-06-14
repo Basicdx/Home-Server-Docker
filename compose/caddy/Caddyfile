@@ -1,3 +1,8 @@
+# {
+#     default_bind 100.99.99.99
+#     # Caddy ne répond que sur l'IP Tailscale — tout le reste est ignoré.
+# }
+
 {
     # Caddy génère sa propre CA interne.
     # Commande à lancer UNE FOIS après le premier démarrage :
@@ -21,13 +26,13 @@ dockge.home {
 # DASHBOARD
 # ============================================================
 
-home.home {
+homepage.python-shade.ts.net {
     tls internal
-    reverse_proxy homepage:3001
+    reverse_proxy http://poppi.python-shade.ts.net:3001
 }
 
 # ============================================================
-# DNS ADMIN
+# DNS ADMIN celui la est sensé marcher
 # ============================================================
 
 adguard.python-shade.ts.net {

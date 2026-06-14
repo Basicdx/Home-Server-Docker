@@ -26,7 +26,7 @@ services:
       # - TS_SOCKS5_SERVER=${TS_SOCKS5_SERVER} 
       # - TS_STATE_DIR=/var/lib/tailscale
       # - TS_TAILSCALED_EXTRA_ARGS=${TS_TAILSCALED_EXTRA_ARGS}
-      - TS_USERSPACE=false
+      - TS_USERSPACE=false # kernel mode, plus stable
     volumes:
       - /dev/net/tun:/dev/net/tun
       - ${DATA:?err}/tailscale/state:/var/lib/tailscale
